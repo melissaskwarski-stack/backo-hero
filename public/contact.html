@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — BACKO</title>
+<link rel="icon" href="backo-icon.png" type="image/png">
+<link rel="apple-touch-icon" href="backo-icon.png">
+<meta property="og:image" content="https://mybacko.com/backo-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#000;color:#e0e0da;font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.75;font-size:15px;min-height:100vh}
+:root{--gold:#E0B84F;--muted:#5A5A54;--border:rgba(224,184,79,0.12);--text:#e0e0da}
+
+.wrap{max-width:640px;margin:0 auto;padding:80px 48px 120px}
+
+.page-label{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#E0B84F;margin-bottom:16px;display:block}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,6vw,64px);letter-spacing:.03em;color:#fff;line-height:1;margin-bottom:12px}
+.page-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:#5a5a54;margin-bottom:56px;padding-bottom:40px;border-bottom:1px solid rgba(224,184,79,0.12)}
+
+/* Form */
+.form-group{margin-bottom:28px}
+label{display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#E0B84F;margin-bottom:10px}
+input[type="text"],
+input[type="email"],
+input[type="date"],
+select,
+textarea{
+  width:100%;
+  background:#0C0C0C;
+  border:1px solid rgba(224,184,79,0.14);
+  color:#e0e0da;
+  font-family:'DM Sans',sans-serif;
+  font-weight:300;
+  font-size:14px;
+  padding:14px 18px;
+  outline:none;
+  transition:border-color .25s,box-shadow .25s;
+  appearance:none;
+  -webkit-appearance:none;
+  border-radius:0;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus{
+  border-color:rgba(224,184,79,0.5);
+  box-shadow:0 0 0 1px rgba(224,184,79,0.12);
+}
+input[type="date"]::-webkit-calendar-picker-indicator{
+  filter:invert(1) sepia(1) saturate(2) hue-rotate(5deg);
+  opacity:.5;
+  cursor:pointer;
+}
+select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A5A54' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 18px center;
+  padding-right:44px;
+  cursor:pointer;
+}
+select option{background:#0C0C0C;color:#e0e0da}
+textarea{resize:vertical;min-height:140px;line-height:1.7}
+::placeholder{color:#5a5a54}
+
+.btn-submit{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:#E0B84F;
+  color:#000;
+  font-family:'DM Sans',sans-serif;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  padding:16px 40px;
+  border:none;
+  cursor:pointer;
+  width:100%;
+  justify-content:center;
+  transition:background .2s,box-shadow .2s,transform .15s;
+  margin-top:8px;
+}
+@media(hover:hover){
+  .btn-submit:hover{background:#f0c955;box-shadow:0 0 32px rgba(224,184,79,.4);transform:translateY(-1px)}
+}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+
+/* State messages */
+.form-notice{font-size:13px;color:#5a5a54;margin-top:20px;text-align:center;min-height:20px;transition:opacity .3s}
+.form-notice.success{color:#7db87d}
+.form-notice.error{color:#c97070}
+
+footer{border-top:1px solid rgba(224,184,79,0.12);padding:28px 48px;font-size:12px;color:#5a5a54}
+footer a{color:#5a5a54;text-decoration:none;transition:color .2s}
+@media(hover:hover){footer a:hover{color:#e0e0da}}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid rgba(224,184,79,0.12);padding:64px 64px 36px;position:relative;z-index:2;background:#000}
+.footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:52px}
+.footer-brand img{height:30px;display:block;margin-bottom:18px}
+.footer-brand-fb{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.1em;color:#E0B84F;display:none;margin-bottom:18px}
+.footer-brand p{font-size:13px;color:#5A5A54;line-height:1.8;max-width:240px}
+.footer-col h5{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#E0B84F;margin-bottom:20px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer-col ul a{font-size:13px;color:#5A5A54;text-decoration:none;transition:color .25s}
+.footer-col ul a:hover{color:#E0E0DA}
+.footer-socials{display:flex;gap:12px;margin-bottom:20px}
+.social-icon{width:36px;height:36px;border:1px solid rgba(224,184,79,0.1);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:border-color .25s,background .25s}
+.social-icon:hover{border-color:#E0B84F;background:rgba(224,184,79,0.12)}
+.social-icon svg{width:15px;height:15px;stroke:#5A5A54;fill:none;transition:stroke .25s;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.social-icon:hover svg{stroke:#E0B84F}
+.footer-bottom{border-top:1px solid rgba(224,184,79,0.1);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-copy{font-size:11px;color:#5A5A54;letter-spacing:.05em}
+@media(max-width:960px){footer{padding:48px 28px 28px}.footer-top{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.footer-top{grid-template-columns:1fr}.footer-bottom{flex-direction:column;align-items:flex-start}}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;padding:18px 48px;background:rgba(0,0,0,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(224,184,79,0.12)}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-logo img{height:36px;display:block}
+.nav-logo-fb{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.1em;color:#E0B84F;display:none}
+.nav-links{display:flex;align-items:center;gap:32px;margin-left:auto;margin-right:32px;list-style:none}
+.nav-links a{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5A5A54;text-decoration:none;transition:color .25s}
+.nav-links a:hover{color:#e0e0da}
+.btn-quiz{display:inline-flex;align-items:center;background:transparent;border:1px solid rgba(224,184,79,.4);color:#E0B84F;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:10px 22px;text-decoration:none;transition:border-color .25s,color .25s}
+.btn-quiz:hover{border-color:#E0B84F}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none;z-index:102;margin-left:auto}
+.nav-hamburger span{display:block;width:22px;height:1.5px;background:#E0B84F;transition:transform .3s,opacity .3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+#mobile-menu{display:none;position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:101;flex-direction:column;align-items:center;justify-content:center;gap:36px}
+#mobile-menu.open{display:flex}
+#mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:.08em;color:#5A5A54;text-decoration:none;transition:color .25s}
+#mobile-menu a:hover{color:#E0B84F}
+#mobile-menu .btn-quiz{font-size:14px;padding:14px 36px;margin-top:8px}
+@media(max-width:960px){
+  nav{padding:18px 28px}
+  .nav-links{display:none}
+  nav>.btn-quiz{display:none!important}
+  .nav-hamburger{display:flex}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="backo-logo-horizontal.png" alt="BACKO" onerror="this.style.display='none';document.getElementById('nfb-contact').style.display='block'">
+    <span class="nav-logo-fb" id="nfb-contact">BACKO</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="ai-agents.html">AI Agents</a></li>
+    <li><a href="human-agents.html">Human Agents</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="blog.html">Blog</a></li>
+  </ul>
+  <a href="backo-match.html" class="btn-quiz">Take the BACKO Assessment →</a>
+  <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div id="mobile-menu">
+  <button onclick="closeMobileMenu()" style="position:absolute;top:28px;right:28px;background:none;border:none;color:#5A5A54;font-size:28px;cursor:pointer;line-height:1;padding:8px;transition:color .2s" aria-label="Close">✕</button>
+  <a href="ai-agents.html" onclick="closeMobileMenu()">AI Agents</a>
+  <a href="human-agents.html" onclick="closeMobileMenu()">Human Agents</a>
+  <a href="about.html" onclick="closeMobileMenu()">About Us</a>
+  <a href="blog.html" onclick="closeMobileMenu()">Blog</a>
+  <a href="backo-match.html" class="btn-quiz" onclick="closeMobileMenu()">Assessment →</a>
+</div>
+
+<div class="wrap">
+  <span class="page-label">Get in Touch</span>
+  <h1>Contact Us</h1>
+  <p class="page-sub">Every message reaches a real person at BACKO.</p>
+
+  <div id="contact-form-wrap">
+    <div class="form-group">
+      <label for="f-name">Full Name</label>
+      <input type="text" id="f-name" name="name" placeholder="Your name" autocomplete="name">
+    </div>
+
+    <div class="form-group">
+      <label for="f-email">Email Address</label>
+      <input type="email" id="f-email" name="email" placeholder="you@company.com" autocomplete="email">
+    </div>
+
+    <div class="form-group">
+      <label for="f-date">Date</label>
+      <input type="date" id="f-date" name="date">
+    </div>
+
+    <div class="form-group">
+      <label for="f-type">What brings you here?</label>
+      <select id="f-type" name="type">
+        <option value="" disabled selected>Select a reason</option>
+        <option value="Idea">Share an Idea</option>
+        <option value="Feedback">Give Feedback</option>
+        <option value="Complaint">File a Complaint</option>
+        <option value="Question">Ask a Question</option>
+        <option value="Partnership">Partnership Inquiry</option>
+        <option value="Invest">Invest in BACKO School</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="f-message">Your Message</label>
+      <textarea id="f-message" name="message" placeholder="Tell us what's on your mind…"></textarea>
+    </div>
+
+    <button class="btn-submit" id="submit-btn" onclick="submitForm()">Send Message →</button>
+    <p class="form-notice" id="form-notice"></p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="backo-logo-horizontal.png" alt="BACKO" onerror="this.style.display='none';document.getElementById('ft-fb').style.display='block'">
+      <div class="footer-brand-fb" id="ft-fb">BACKO</div>
+      <p>Back office solutions for businesses worldwide. AI Agents and bilingual Human Agents, from Colombia.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <ul>
+        <li><a href="index.html#how-it-works">How It Works</a></li>
+        <li><a href="ai-agents.html">AI Agents</a></li>
+        <li><a href="human-agents.html">Human Agents</a></li>
+        <li><a href="backo-match.html">Take the BACKO Assessment</a></li>
+        <li><a href="invest.html" style="color:var(--gold)">Invest in BACKO School</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Connect</h5>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/mybacko/" target="_blank" class="social-icon" title="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2"/></svg>
+        </a>
+        <a href="https://www.facebook.com/GETBACKO" target="_blank" class="social-icon" title="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://linkedin.com/company/getbacko" target="_blank" class="social-icon" title="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Join the Team</h5>
+      <ul>
+        <li><a href="careers.html">Send Your CV</a></li>
+        <li><a href="careers.html">Open Roles</a></li>
+      </ul>
+      <p style="font-size:12px;color:var(--muted);line-height:1.7;margin-top:16px">We're always looking for talented bilingual professionals to join our team.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 BACKO — Back Office Solutions. Colombia. NIT 1115070852-6</p>
+    <div style="display:flex;gap:20px;flex-wrap:wrap">
+      <a href="privacy.html" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.05em;transition:color .25s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">Privacy Policy</a>
+      <a href="terms.html" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.05em;transition:color .25s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">Términos y Condiciones</a>
+      <a href="contact.html" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.05em;transition:color .25s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">Contact Us</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyvGhP6op1FTXjrCNt6u0dA7cY2yZkJBwRzSelinFHbCpQy1zT6pCxy3zzb_hlpcrKf/exec';
+
+// Set today as default date
+(function(){
+  var d = new Date();
+  var yyyy = d.getFullYear();
+  var mm = String(d.getMonth()+1).padStart(2,'0');
+  var dd = String(d.getDate()).padStart(2,'0');
+  document.getElementById('f-date').value = yyyy+'-'+mm+'-'+dd;
+})();
+
+function submitForm(){
+  var name = document.getElementById('f-name').value.trim();
+  var email = document.getElementById('f-email').value.trim();
+  var date = document.getElementById('f-date').value;
+  var type = document.getElementById('f-type').value;
+  var message = document.getElementById('f-message').value.trim();
+  var notice = document.getElementById('form-notice');
+  var btn = document.getElementById('submit-btn');
+
+  notice.className = 'form-notice';
+  notice.textContent = '';
+
+  if(!name){notice.textContent='Please enter your name.';notice.className='form-notice error';return;}
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){notice.textContent='Please enter a valid email address.';notice.className='form-notice error';return;}
+  if(!type){notice.textContent='Please select a reason for contacting us.';notice.className='form-notice error';return;}
+  if(!message){notice.textContent='Please write your message before sending.';notice.className='form-notice error';return;}
+
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  var payload = {
+    source: 'contact-page',
+    name: name,
+    email: email,
+    date: date,
+    type: type,
+    message: message
+  };
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  })
+  .then(function(){
+    notice.textContent = '✓ Message received — thank you! We will review it and get back to you as soon as possible.';
+    notice.className = 'form-notice success';
+    document.getElementById('f-name').value = '';
+    document.getElementById('f-email').value = '';
+    document.getElementById('f-type').value = '';
+    document.getElementById('f-message').value = '';
+    btn.textContent = 'Message Sent ✓';
+    setTimeout(function(){
+      btn.disabled = false;
+      btn.textContent = 'Send Message →';
+    }, 4000);
+  })
+  .catch(function(){
+    notice.textContent = 'Something went wrong. Please try again or reach us at mybacko.office@gmail.com or backo@mybacko.com';
+    notice.className = 'form-notice error';
+    btn.disabled = false;
+    btn.textContent = 'Send Message →';
+  });
+}
+</script>
+<script>
+function toggleMobileMenu(){
+  const menu=document.getElementById('mobile-menu');
+  const btn=document.getElementById('nav-hamburger');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
+}
+function closeMobileMenu(){
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('nav-hamburger').classList.remove('open');
+  document.body.style.overflow='';
+}
+</script>
+</body>
+</html>

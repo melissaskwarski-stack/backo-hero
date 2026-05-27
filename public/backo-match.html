@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BACKO Assessment — Find Your Solution</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #E0B84F;
+  --gold-deep: #C9A43A;
+  --gold-glow: rgba(224,184,79,0.12);
+  --gold-border: rgba(224,184,79,0.22);
+  --black: #000000;
+  --near-black: #0C0C0C;
+  --surface: #131313;
+  --surface2: #1A1A1A;
+  --white: #FFFFFF;
+  --off-white: #E6E6E0;
+  --muted: #666660;
+  --border: #202020;
+  --radius: 5px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{overflow-x:hidden;background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;-webkit-font-smoothing:antialiased;}
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.topbar{height:2px;background:linear-gradient(90deg,transparent 0%,var(--gold) 40%,var(--gold) 60%,transparent 100%);}
+nav{display:flex;align-items:center;justify-content:space-between;padding:22px 48px;border-bottom:1px solid var(--border);position:relative;z-index:10;}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-logo img{height:38px;width:auto;}
+.nav-wordmark{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:5px;color:var(--gold);}
+.nav-back{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;}
+.nav-back:hover{color:var(--gold);}
+.assessment-wrap{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:56px 24px 100px;min-height:calc(100vh - 68px);}
+.prog-track{width:100%;max-width:540px;margin-bottom:52px;}
+.prog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.prog-label{font-size:10px;letter-spacing:3.5px;text-transform:uppercase;color:var(--muted);}
+.prog-num{font-size:10px;letter-spacing:2px;color:var(--gold);}
+.prog-bar{height:1px;background:var(--border);position:relative;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--gold-deep),var(--gold));transition:width .55s cubic-bezier(.4,0,.2,1);position:relative;}
+.prog-fill::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:4px;height:4px;border-radius:50%;background:var(--gold);}
+.q-stage{width:100%;max-width:540px;}
+.q-card{display:none;animation:fadeUp .38s ease forwards;}
+.q-card.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.q-num{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.q-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,5.5vw,44px);letter-spacing:2px;line-height:1.08;color:var(--white);margin-bottom:8px;}
+.q-sub{font-size:13px;color:var(--muted);margin-bottom:34px;line-height:1.6;letter-spacing:.2px;}
+.opts{display:grid;gap:9px;}
+.opt{display:flex;align-items:center;gap:15px;padding:17px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;color:var(--off-white);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;letter-spacing:.2px;transition:all .18s ease;text-align:left;width:100%;position:relative;overflow:hidden;}
+.opt::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold);transform:scaleY(0);transition:transform .18s ease;transform-origin:bottom;}
+@media(hover:hover){.opt:hover{border-color:var(--gold-border);background:var(--surface2);color:var(--white);}.opt:hover::before{transform:scaleY(1);}}
+.opt.sel{border-color:var(--gold);background:var(--gold-glow);color:var(--white);}
+.opt.sel::before{transform:scaleY(1);}
+.opt-badge{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--muted);transition:all .18s;}
+.opt.sel .opt-badge{border-color:var(--gold);background:var(--gold);color:var(--black);}
+.field{width:100%;padding:17px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;outline:none;transition:border-color .2s;letter-spacing:.2px;margin-bottom:10px;appearance:none;-webkit-appearance:none;}
+.field::placeholder{color:var(--muted);}
+.field:focus{border-color:var(--gold-border);}
+.field option{background:var(--near-black);color:var(--white);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:480px){.field-row{grid-template-columns:1fr;}}
+.notice{display:flex;gap:12px;padding:15px 18px;background:var(--gold-glow);border:1px solid var(--gold-border);border-radius:var(--radius);margin-top:10px;align-items:flex-start;}
+.notice-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:7px;}
+.notice-txt{font-size:12px;color:var(--gold);line-height:1.65;letter-spacing:.2px;}
+.btn-row{display:flex;gap:10px;margin-top:32px;align-items:center;}
+.btn-next{display:inline-flex;align-items:center;gap:10px;padding:15px 30px;background:var(--gold);color:var(--black);border:none;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.btn-next:hover{background:var(--white);}
+.btn-next:disabled{opacity:.28;cursor:not-allowed;}
+.btn-back{padding:15px 18px;background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:1.5px;cursor:pointer;transition:all .2s;}
+.btn-back:hover{color:var(--white);border-color:#444;}
+.ico{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.loading{display:none;flex-direction:column;align-items:center;justify-content:center;padding:80px 24px;width:100%;max-width:540px;text-align:center;}
+.spin{width:48px;height:48px;border:1px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:28px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:4px;color:var(--white);margin-bottom:8px;}
+.loading-sub{font-size:11px;color:var(--muted);letter-spacing:2.5px;text-transform:uppercase;}
+.result{display:none;width:100%;max-width:540px;animation:fadeUp .5s ease forwards;overflow:hidden;box-sizing:border-box;}
+.result-pill{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border:1px solid var(--gold-border);border-radius:100px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:26px;}
+.pulse{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:pulse 1.6s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.result-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,6vw,54px);letter-spacing:1px;line-height:1.05;color:var(--white);margin-bottom:18px;overflow-wrap:break-word;word-break:break-word;max-width:100%;}
+.result-h span{color:var(--gold);}
+.result-body{overflow-x:hidden;font-size:15px;color:var(--muted);line-height:1.75;margin-bottom:34px;}
+.rec-cards{display:grid;gap:11px;margin-bottom:32px;}
+.rec{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);display:flex;gap:12px;align-items:flex-start;position:relative;overflow:hidden;}
+.rec::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold);}
+.rec-tag{padding:3px 9px;border-radius:3px;font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;flex-shrink:0;margin-top:3px;}
+.rec-tag.ai{background:rgba(224,184,79,.14);color:var(--gold);}
+.rec-tag.human{background:rgba(255,255,255,.07);color:var(--off-white);}
+.rec-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;color:var(--white);margin-bottom:4px;}
+.rec-desc{font-size:13px;color:var(--muted);line-height:1.55;}
+.tips{padding:22px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:18px;}
+.tips-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.tip{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--off-white);line-height:1.55;}
+.tip:last-child{border-bottom:none;}
+.tip-n{font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--gold);flex-shrink:0;width:16px;}
+.divider{height:1px;background:var(--border);margin:28px 0;}
+.meet-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);font-size:12px;color:var(--off-white);letter-spacing:.3px;margin-bottom:16px;}
+.btn-cta{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:20px 32px;background:var(--gold);color:var(--black);border:none;border-radius:var(--radius);font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:3px;cursor:pointer;text-decoration:none;transition:all .22s;}
+.btn-cta:hover{background:var(--white);transform:translateY(-1px);}
+.cta-sub{display:block;text-align:center;margin-top:11px;font-size:11px;color:var(--muted);letter-spacing:1.5px;}
+/* BOOK SECTION */
+.book-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.book-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 22px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.book-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.book-sub {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: .2px;
+}
+.meet-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--gold-glow);
+  border: 1px solid var(--gold-border);
+  border-radius: 100px;
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: .5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.cal-wrap {
+  width: 100%;
+  min-height: 500px;
+  position: relative;
+}
+#my-cal-inline-discovery-call {
+  min-height: 500px;
+  width: 100%;
+}
+/* hamburger */
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none;z-index:102}
+.nav-hamburger span{display:block;width:22px;height:1.5px;background:#E0B84F;transition:transform .3s,opacity .3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+#mobile-menu{display:none;position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:101;flex-direction:column;align-items:center;justify-content:center;gap:36px}
+#mobile-menu.open{display:flex}
+#mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:.08em;color:#5A5A54;text-decoration:none;transition:color .25s}
+#mobile-menu a:hover{color:#E0B84F}
+#mobile-menu .btn-quiz{display:inline-flex;align-items:center;background:#E0B84F;color:#000;font-size:14px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:14px 36px;text-decoration:none;margin-top:8px}
+@media(max-width:600px){
+  nav{padding:18px 20px;}
+  .nav-hamburger{display:flex}
+  .nav-back{display:none}
+  .assessment-wrap{padding:36px 18px 80px;}
+  .btn-row{flex-direction:column-reverse;}
+  .btn-next,.btn-back{width:100%;justify-content:center;}
+  .book-header{flex-direction:column;gap:10px;}
+  .cal-wrap{min-height:600px;}
+  #my-cal-inline-discovery-call{min-height:600px;}
+}
+</style>
+<!-- Cal.com embed script -->
+<script type="text/javascript">
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+</script>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<div class="topbar"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="backo-logo-horizontal.png" alt="BACKO" height="36" style="height:36px;width:auto;"
+         onerror="this.src='backo-logo-vertical.png';this.onerror=function(){this.style.display='none';this.nextElementSibling.style.display='block'}"/>
+    <span class="nav-wordmark" style="display:none;">BACKO</span>
+  </a>
+  <a href="index.html" class="nav-back">← Back to site</a>
+  <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div id="mobile-menu">
+  <button onclick="closeMobileMenu()" style="position:absolute;top:28px;right:28px;background:none;border:none;color:#5A5A54;font-size:28px;cursor:pointer;line-height:1;padding:8px;transition:color .2s" aria-label="Close">✕</button>
+  <a href="index.html#how-it-works" onclick="closeMobileMenu()">How It Works</a>
+  <a href="ai-agents.html" onclick="closeMobileMenu()">AI Agents</a>
+  <a href="human-agents.html" onclick="closeMobileMenu()">Human Agents</a>
+  <a href="about.html" onclick="closeMobileMenu()">About Us</a>
+  <a href="careers.html" onclick="closeMobileMenu()">Join the Team</a>
+</div>
+
+<div class="assessment-wrap">
+
+  <div class="prog-track" id="prog-track">
+    <div class="prog-top">
+      <span class="prog-label">BACKO Match</span>
+      <span class="prog-num" id="prog-num">Step 1 of 4</span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:25%"></div></div>
+  </div>
+
+  <div class="q-stage" id="q-stage">
+
+    <!-- STEP 1 -->
+    <div class="q-card active" id="q1">
+      <div class="q-num">Step 01</div>
+      <div class="q-title">Tell us about<br>your business</div>
+      <div class="q-sub">We use this to personalize your recommendation before the call.</div>
+      <input class="field" id="q1-biz" type="text" placeholder="Business name" autocomplete="off"/>
+      <select class="field" id="q1-type">
+        <option value="" disabled selected>What type of business?</option>
+        <option value="ecommerce">E-commerce / Online store</option>
+        <option value="restaurant">Restaurant / Café / Food & Beverage</option>
+        <option value="health">Health & Wellness (gym, salon, spa, clinic)</option>
+        <option value="realestate">Real estate / Property management</option>
+        <option value="finance">Finance / Insurance / Accounting</option>
+        <option value="legal">Legal / Professional services</option>
+        <option value="tech">Tech startup / SaaS</option>
+        <option value="agency">Agency / Marketing / Creative</option>
+        <option value="coaching">Coaching / Consulting</option>
+        <option value="education">Education / Training</option>
+        <option value="nonprofit">Non-profit / Community organization</option>
+        <option value="construction">Construction / Trades / Home services</option>
+        <option value="retail">Retail / Brick & mortar store</option>
+        <option value="travel">Travel / Hospitality / Events</option>
+        <option value="other">Other</option>
+      </select>
+      <div class="btn-row">
+        <button class="btn-next" id="btn-q1" onclick="goNext(1)" disabled>
+          Continue <svg class="ico" viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="q-card" id="q2">
+      <div class="q-num">Step 02</div>
+      <div class="q-title">What's your<br>biggest challenge?</div>
+      <div class="q-sub">Pick the one that hits closest to home right now.</div>
+      <div class="opts">
+        <button class="opt" onclick="pick(this,'q2','leads')"><div class="opt-badge">A</div>I'm losing leads — can't respond fast enough</button>
+        <button class="opt" onclick="pick(this,'q2','visibility')"><div class="opt-badge">B</div>I need more visibility on Google and social media</button>
+        <button class="opt" onclick="pick(this,'q2','operations')"><div class="opt-badge">C</div>Day-to-day operations are overwhelming me</button>
+        <button class="opt" onclick="pick(this,'q2','brand')"><div class="opt-badge">D</div>My brand doesn't look professional enough</button>
+        <button class="opt" onclick="pick(this,'q2','sales')"><div class="opt-badge">E</div>I need help with sales and customer follow-ups</button>
+        <button class="opt" onclick="pick(this,'q2','tech')"><div class="opt-badge">F</div>I need tech help — website, CRM, or tools setup</button>
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="goPrev(2)">Back</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="q-card" id="q3">
+      <div class="q-num">Step 03</div>
+      <div class="q-title">Do you have an<br>online presence?</div>
+      <div class="q-sub">Share your link — we'll review it before the call so we come prepared, not just to sell.</div>
+      <div class="opts" style="margin-bottom:14px;">
+        <button class="opt" onclick="pickPresence(this,'website')"><div class="opt-badge">A</div>Yes — I have a website</button>
+        <button class="opt" onclick="pickPresence(this,'social')"><div class="opt-badge">B</div>Social media only</button>
+        <button class="opt" onclick="pickPresence(this,'none')"><div class="opt-badge">C</div>Nothing yet — starting from zero</button>
+      </div>
+      <div id="url-wrap" style="display:none;">
+        <input class="field" id="q3-url" type="text" placeholder="yourwebsite.com or instagram.com/handle" style="margin-bottom:0;"/>
+        <div class="notice">
+          <div class="notice-dot"></div>
+          <div class="notice-txt">We'll review your online presence before the call — so we arrive prepared with real insights for your business.</div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="goPrev(3)">Back</button>
+        <button class="btn-next" id="btn-q3" onclick="goNext(3)" style="display:none;">
+          Continue <svg class="ico" viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="q-card" id="q4">
+      <div class="q-num">Step 04</div>
+      <div class="q-title">Almost done —<br>where do we<br>send your match?</div>
+      <div class="q-sub">We'll send your BACKO recommendation by email and reach out to confirm your discovery call. No spam, ever.</div>
+      <div class="field-row" style="margin-bottom:10px;">
+        <input class="field" id="q4-first" type="text" placeholder="First name" autocomplete="off" style="margin-bottom:0;"/>
+        <input class="field" id="q4-last" type="text" placeholder="Last name" autocomplete="off" style="margin-bottom:0;"/>
+      </div>
+      <input class="field" id="q4-email" type="email" placeholder="Email address (name@company.com)" autocomplete="off" inputmode="email" spellcheck="false"/>
+      <div style="display:flex;gap:0;margin-bottom:10px;">
+        <select class="field" id="q4-country" style="width:130px;margin-bottom:0;border-right:none;border-radius:5px 0 0 5px;flex-shrink:0;cursor:pointer;">
+          <option value="+1">🇺🇸 +1</option>
+          <option value="+1ca">🇨🇦 +1</option>
+          <option value="+57" selected>🇨🇴 +57</option>
+          <option value="+52">🇲🇽 +52</option>
+          <option value="+44">🇬🇧 +44</option>
+          <option value="+34">🇪🇸 +34</option>
+          <option value="+49">🇩🇪 +49</option>
+          <option value="+33">🇫🇷 +33</option>
+          <option value="+39">🇮🇹 +39</option>
+          <option value="+55">🇧🇷 +55</option>
+          <option value="+54">🇦🇷 +54</option>
+          <option value="+56">🇨🇱 +56</option>
+          <option value="+51">🇵🇪 +51</option>
+          <option value="+58">🇻🇪 +58</option>
+          <option value="+593">🇪🇨 +593</option>
+        </select>
+        <input class="field" id="q4-phone" type="tel" placeholder="WhatsApp or phone (optional)"
+          autocomplete="off" inputmode="numeric" pattern="[0-9\s\-]*"
+          oninput="this.value=this.value.replace(/[^0-9]/g,'').substring(0,15)" maxlength="15"
+          style="margin-bottom:0;border-radius:0 5px 5px 0;flex:1;"/>
+      </div>
+      <!-- NOTES FIELD -->
+      <textarea class="field" id="q4-notes" placeholder="Anything specific you&#39;d like to cover on the call? (optional)" rows="3" style="resize:vertical;min-height:80px;margin-bottom:0;"></textarea>
+
+      <div class="notice" style="margin-top:16px;">
+        <div class="notice-dot"></div>
+        <div class="notice-txt">After submitting you'll see your personalized recommendation and an embedded calendar to pick your call time — right here on this page.</div>
+      </div>
+
+      <!-- PRIVACY CONSENT -->
+      <label id="privacy-label" style="display:flex;align-items:flex-start;gap:12px;margin:16px 0 20px;cursor:pointer;padding:14px 16px;border:1px solid rgba(224,184,79,0.15);border-radius:6px;transition:border-color .2s" onmouseover="this.style.borderColor='rgba(224,184,79,0.35)'" onmouseout="this.style.borderColor='rgba(224,184,79,0.15)'">
+        <input type="checkbox" id="privacy-check" onchange="checkQ4()" style="margin-top:3px;width:15px;height:15px;flex-shrink:0;accent-color:#E0B84F;cursor:pointer">
+        <span style="font-size:12px;color:#5a5a54;line-height:1.6">
+          I agree to BACKO's
+          <button type="button" onclick="openPrivacyModal(event)" style="background:none;border:none;padding:0;color:#E0B84F;text-decoration:none;border-bottom:1px solid rgba(224,184,79,0.4);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:300;letter-spacing:.2px">Privacy Policy</button>.
+          My information is collected solely to provide a personalized BACKO recommendation and to arrange a discovery call. It will never be sold, shared with third parties, or used for any other purpose.
+        </span>
+      </label>
+
+      <div class="btn-row">
+        <button class="btn-back" onclick="goPrev(4)">Back</button>
+        <button class="btn-next" id="btn-q4" onclick="submitAssessment()" disabled>
+          Get My Match <svg class="ico" viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LOADING -->
+  <div class="loading" id="loading">
+    <div class="spin"></div>
+    <div class="loading-title">Analyzing your answers</div>
+    <div class="loading-sub">Preparing your BACKO match</div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result" id="result">
+    <div class="result-pill"><div class="pulse"></div>BACKO Match Ready</div>
+    <div class="result-h" id="r-headline"></div>
+    <div class="result-body" id="r-body"></div>
+
+    <div class="tips" id="r-tips" style="display:none;">
+      <div class="tips-label">Before we talk — 3 things every US business needs online</div>
+      <div class="tip"><span class="tip-n">1</span><span>A website — even a simple one. It's your 24/7 storefront. US clients check it before trusting anyone.</span></div>
+      <div class="tip"><span class="tip-n">2</span><span>A Google Business Profile — free and essential. Without it you're invisible in local search results.</span></div>
+      <div class="tip"><span class="tip-n">3</span><span>One active social channel — consistency beats platform. Show up weekly on just one and build from there.</span></div>
+    </div>
+
+    <div class="rec-cards" id="r-cards"></div>
+    <div class="divider"></div>
+
+    <!-- Book Your Call Section -->
+    <div class="book-section">
+      <div class="book-header">
+        <div class="book-header-left">
+          <div class="book-title">Pick your time</div>
+          <div class="book-sub">All times shown in your local timezone · Google Meet link sent instantly</div>
+        </div>
+        <div class="meet-pill">
+          <svg style="width:13px;height:13px;flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="5" width="14" height="14" rx="2"/><path d="M17 9l4-2v10l-4-2"/>
+          </svg>
+          Google Meet · 30 min · Free
+        </div>
+      </div>
+
+      <!-- Cal.com inline embed -->
+      <div class="cal-wrap">
+        <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline-discovery-call"></div>
+      </div>
+    </div>
+
+    <span class="cta-sub" id="r-sub">Mon–Fri · 10am–6pm Colombia time · No commitment</span>
+  </div>
+
+</div>
+
+<script>
+const A={biz:'',type:'',challenge:'',presence:'',url:'',first:'',last:'',email:'',phone:'',notes:''};
+
+function checkQ1(){
+  const ok=document.getElementById('q1-biz').value.trim()&&document.getElementById('q1-type').value;
+  document.getElementById('btn-q1').disabled=!ok;
+}
+['q1-biz','q1-type'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',checkQ1);
+  document.getElementById(id).addEventListener('change',checkQ1);
+});
+
+function checkQ4(){
+  const f=document.getElementById('q4-first').value.trim();
+  const l=document.getElementById('q4-last').value.trim();
+  const e=document.getElementById('q4-email').value.trim();
+  const emailEl=document.getElementById('q4-email');
+  const validEmail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+  const privacy=document.getElementById('privacy-check').checked;
+  // show red border if email typed but invalid
+  if(e.length>3&&!validEmail){
+    emailEl.style.borderColor='rgba(220,60,60,0.5)';
+  } else if(validEmail){
+    emailEl.style.borderColor='rgba(224,184,79,0.3)';
+  } else {
+    emailEl.style.borderColor='';
+  }
+  document.getElementById('btn-q4').disabled=!(f&&l&&validEmail&&privacy);
+}
+['q4-first','q4-last','q4-email'].forEach(id=>document.getElementById(id).addEventListener('input',checkQ4));
+
+function pick(btn,qId,val){
+  btn.closest('.opts').querySelectorAll('.opt').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  A[qId]=val;
+  if(qId==='q2') A.challenge=val;
+  // safely enable button if it exists
+  const nextBtn=document.getElementById('btn-'+qId);
+  if(nextBtn) nextBtn.disabled=false;
+  // auto-advance
+  setTimeout(()=>goNext(parseInt(qId.replace('q',''))),320);
+}
+
+function pickPresence(btn,type){
+  btn.closest('.opts').querySelectorAll('.opt').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  A.presence=type;
+  const showUrl=(type!=='none');
+  document.getElementById('url-wrap').style.display=showUrl?'block':'none';
+  // show continue button only when URL field is visible (they need to type then proceed)
+  const continueBtn = document.getElementById('btn-q3');
+  continueBtn.style.display = showUrl ? 'inline-flex' : 'none';
+  continueBtn.disabled = false;
+  // only auto-advance if no url needed
+  if(!showUrl) setTimeout(()=>goNext(3),320);
+}
+document.getElementById('q3-url').addEventListener('input',function(){A.url=this.value.trim();});
+
+function goNext(q){
+  if(q===1){A.biz=document.getElementById('q1-biz').value.trim();A.type=document.getElementById('q1-type').value;}
+  const cur=document.getElementById('q'+q);
+  const nxt=document.getElementById('q'+(q+1));
+  if(!cur||!nxt) return; // safety check
+  cur.classList.remove('active');
+  nxt.classList.add('active');
+  nxt.style.animation='none';nxt.offsetHeight;nxt.style.animation='';
+  prog(q+1);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goPrev(q){
+  document.getElementById('q'+q).classList.remove('active');
+  document.getElementById('q'+(q-1)).classList.add('active');
+  prog(q-1);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function prog(q){
+  document.getElementById('prog-num').textContent='Step '+q+' of 4';
+  document.getElementById('prog-fill').style.width=(q/4*100)+'%';
+}
+
+function submitAssessment(){
+  A.first=document.getElementById('q4-first').value.trim();
+  A.last=document.getElementById('q4-last').value.trim();
+  A.email=document.getElementById('q4-email').value.trim();
+  const cc=document.getElementById('q4-country');const ph=document.getElementById('q4-phone').value.trim();A.phone=ph?(cc?cc.value:'')+' '+ph:'';
+  A.notes=document.getElementById('q4-notes').value.trim();
+  document.getElementById('q-stage').style.display='none';
+  document.getElementById('prog-track').style.display='none';
+  document.getElementById('loading').style.display='flex';
+  sendToSheet();
+  setTimeout(()=>{document.getElementById('loading').style.display='none';showResult();},2400);
+}
+
+// ── CHALLENGE LINES (dynamic per business type) ──
+const CHALLENGE_LINES={
+  leads:{
+    default:"losing leads is costing you more than you think",
+    restaurant:"losing leads after hours is costing your restaurant real revenue",
+    realestate:"slow response times are costing you listings before the first call",
+    ecommerce:"abandoned carts and slow replies are killing your conversion rate",
+    health:"missed calls are sending patients to your competitors",
+    agency:"slow lead response is costing you clients before the pitch starts",
+    coaching:"losing leads overnight is preventing you from filling your practice",
+    retail:"slow replies are sending shoppers to your competitors",
+    tech:"slow qualification is letting warm leads go cold"
+  },
+  visibility:{
+    default:"being invisible online is costing you more than you realize",
+    ecommerce:"your competitors are ranking on Google while you miss sales",
+    restaurant:"customers choose restaurants they can find online — not yours",
+    realestate:"buyers search online first — if you are not there they find someone else",
+    retail:"local shoppers are finding your competitors on Google, not you",
+    coaching:"your ideal clients are searching for what you offer and not finding you",
+    default2:"not showing up online means losing customers to competitors who do"
+  },
+  operations:{
+    default:"doing everything yourself is slowing your business down",
+    ecommerce:"managing orders, emails, and admin yourself is costing you growth",
+    restaurant:"running everything manually takes you away from your customers",
+    realestate:"admin work is stealing time you should spend closing deals",
+    coaching:"handling your own admin prevents you from focusing on clients",
+    agency:"managing operations is slowing your client delivery"
+  },
+  brand:{
+    default:"inconsistent branding is costing you trust before they even contact you",
+    realestate:"inconsistent branding is losing you listings before the first call",
+    restaurant:"a weak brand means customers choose the more established-looking place",
+    retail:"poor brand presentation sends customers to competitors who look more professional",
+    coaching:"an unprofessional brand prevents qualified clients from taking you seriously",
+    agency:"inconsistent branding undermines your client pitch before it starts"
+  },
+  sales:{
+    default:"slow follow-ups and missed leads are costing you closed deals",
+    realestate:"every hour without follow-up is a deal your competitor is closing",
+    ecommerce:"abandoned cart follow-ups you are not sending are revenue left on the table",
+    coaching:"not following up consistently is leaving your pipeline empty",
+    agency:"slow proposal follow-up lets prospects choose your competitors"
+  },
+  tech:{
+    default:"disconnected tools and tech debt are slowing your entire operation",
+    ecommerce:"a slow or broken website is costing you sales every single day",
+    realestate:"an outdated web presence signals to clients that you are behind",
+    agency:"the wrong tech stack is holding back your team's performance",
+    restaurant:"not having online tools means missing customers who search first"
+  }
+};
+
+// ── BASE RECS per challenge ──
+const BASE_RECS={
+  leads:{
+    ai:{n:"BACKO Chat",d:"AI agent on your website — qualifies visitors, captures contact info, AND books appointments automatically 24/7."},
+    human:{n:"Sales Rep",d:"Bilingual sales professional handling outreach, pipeline management, and consistent follow-ups."}
+  },
+  visibility:{
+    ai:{n:"BACKO Leads",d:"Daily SEO articles published to your site automatically — built to rank on Google and appear in AI search."},
+    human:{n:"Web Admin",d:"Bilingual web admin managing your online presence, Google Business profile, and content updates consistently."}
+  },
+  operations:{
+    ai:{n:"BACKO Assistant",d:"Your personal AI on WhatsApp — sends reminders, manages your schedule, and accepts voice notes from you."},
+    human:{n:"Virtual Assistant",d:"Bilingual VA handling your inbox, scheduling, admin tasks, and daily operations remotely."}
+  },
+  brand:{
+    ai:{n:"BACKO Chat",d:"A professional AI chatbot on your website instantly elevates how visitors perceive your brand — polished, responsive, credible."},
+    human:{n:"Brand Studio",d:"Full Canva brand kit plus 15 custom templates — social, sales, and ops materials built in your exact look and voice."}
+  },
+  sales:{
+    ai:{n:"BACKO Leads",d:"Daily SEO content that brings qualified prospects to you — organic traffic working around the clock."},
+    human:{n:"Sales Rep",d:"Bilingual sales professional closing more deals through consistent, personal follow-up."}
+  },
+  tech:{
+    ai:{n:"BACKO Chat",d:"AI agent on your website — handles inquiries 24/7 and books calls automatically, no staff required."},
+    human:{n:"Web & App Builder",d:"Builds and maintains your website, landing pages, or web app — bilingual, remote, fully managed."}
+  }
+};
+
+function getBizLabel(t){
+  return {ecommerce:"e-commerce business",restaurant:"restaurant",health:"health & wellness business",
+    realestate:"real estate business",finance:"finance business",legal:"professional services firm",
+    tech:"tech company",agency:"agency",coaching:"coaching practice",education:"education business",
+    nonprofit:"organization",construction:"trades business",retail:"retail store",
+    travel:"hospitality business",other:"business"}[t]||"business";
+}
+
+function getChallengeLine(c,t){
+  const lines=CHALLENGE_LINES[c]||CHALLENGE_LINES.leads;
+  return lines[t]||lines.default;
+}
+
+function getPresenceNote(p){
+  if(p==="none") return "Since you are starting from scratch, we will also help you map out your first essential online step — no guesswork.";
+  if(p==="social") return "You have a social presence — we will show you how to turn followers into real bookings and paying customers.";
+  if(p==="website") return "You have a website — we will focus on converting the traffic you already have into actual leads and revenue.";
+  return "";
+}
+
+function escapeHtml(str){
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function showResult(){
+  const challenge=A.challenge||"leads";
+  const bizType=A.type||"other";
+  const bizLabel=getBizLabel(bizType);
+  const challengeLine=getChallengeLine(challenge,bizType);
+  const presenceNote=getPresenceNote(A.presence);
+  const base=BASE_RECS[challenge]||BASE_RECS.leads;
+  const firstName=escapeHtml(A.first||A.biz||"there");
+
+  const bullets=[
+    "Why <strong>"+challengeLine+"</strong>",
+    "The exact BACKO solution built for your "+bizLabel+" — and what results to expect",
+    "Your biggest question answered — whatever is holding you back from deciding",
+    "What getting started actually looks like — timeline, process, and next steps"
+  ];
+  if(presenceNote) bullets.push(presenceNote);
+
+  document.getElementById("r-headline").innerHTML="Your match is<br><span>ready, "+firstName+"</span>";
+
+  document.getElementById("r-body").innerHTML=
+    "<div style=\"font-size:13px;color:var(--muted);margin-bottom:20px;letter-spacing:.3px;line-height:1.6;\">"
+    +"Based on your assessment, here is what we will cover on your discovery call:"
+    +"</div>"
+    +"<div style=\"display:grid;gap:12px;margin-bottom:24px;\">"
+    +bullets.map(function(b){return "<div style=\"display:flex;gap:12px;align-items:flex-start;\">"
+      +"<div style=\"width:18px;height:18px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;\">"
+      +"<svg width=\"10\" height=\"8\" viewBox=\"0 0 10 8\" fill=\"none\"><path d=\"M1 4L3.5 6.5L9 1\" stroke=\"#000\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>"
+      +"</div>"
+      +"<div style=\"font-size:14px;color:var(--off-white);line-height:1.55;\">"+b+"</div>"
+      +"</div>";}).join("")
+    +"</div>"
+    +"<div style=\"padding:16px 20px;background:var(--surface2);border:1px solid var(--border);border-radius:5px;font-size:12px;color:var(--muted);line-height:1.6;\">"
+    +"We will review your online presence before the call — arriving with real insights for your "+bizLabel+", not just a sales pitch."
+    +"</div>";
+
+  document.getElementById("r-cards").innerHTML=
+    "<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;\">"
+    +"<div class=\"rec\" style=\"flex-direction:column;gap:8px;\">"
+    +"<div class=\"rec-tag ai\">AI Agent</div>"
+    +"<div><div class=\"rec-name\">"+base.ai.n+"</div><div class=\"rec-desc\">"+base.ai.d+"</div></div>"
+    +"</div>"
+    +"<div class=\"rec\" style=\"flex-direction:column;gap:8px;\">"
+    +"<div class=\"rec-tag human\">Human</div>"
+    +"<div><div class=\"rec-name\">"+base.human.n+"</div><div class=\"rec-desc\">"+base.human.d+"</div></div>"
+    +"</div>"
+    +"</div>"
+    +"<div style=\"font-size:11px;color:var(--muted);letter-spacing:1px;text-align:center;\">"
+    +"We will confirm the best fit for your "+bizLabel+" on the call"
+    +"</div>";
+
+  document.getElementById("r-tips").style.display="none";
+
+  const name=A.first||A.biz;
+  if(name) document.getElementById("r-sub").textContent="Booked for "+name+" · Google Meet · 30 min · We review your assessment beforehand";
+  document.getElementById("result").style.display="block";
+  window.scrollTo({top:0,behavior:"smooth"});
+
+  setTimeout(function(){
+    if(window.Cal){
+      Cal("init","discovery-call",{origin:"https://app.cal.com"});
+      Cal.ns["discovery-call"]("inline",{
+        elementOrSelector:"#my-cal-inline-discovery-call",
+        config:{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"},
+        calLink:"my-backo-iyjxxl/discovery-call"
+      });
+      Cal.ns["discovery-call"]("ui",{
+        "theme":"dark",
+        "cssVarsPerTheme":{"light":{"cal-brand":"#E0B84F"},"dark":{"cal-brand":"#E0B84F"}},
+        "hideEventTypeDetails":true,
+        "layout":"month_view"
+      });
+    }
+  },300);
+}
+
+function sendToSheet(){
+  const SCRIPT_URL='https://script.google.com/macros/s/AKfycbzaF2Vd7Zq4FZcQzmRLBMhpPzsNPv5OIRRF9ChnySkEDGHViHSQY7kr7qh0TfjlvXRd/exec';
+  if(SCRIPT_URL.includes('YOUR_'))return;
+  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({timestamp:new Date().toISOString(),business:A.biz,type:A.type,challenge:A.challenge,presence:A.presence,url:A.url,firstName:A.first,lastName:A.last,email:A.email,phone:A.phone,notes:A.notes,recommendation:(BASE_RECS[A.challenge]||BASE_RECS.leads).ai.n+' + '+(BASE_RECS[A.challenge]||BASE_RECS.leads).human.n})
+  }).catch(()=>{});
+}
+</script>
+
+<script>
+// ── PARTICLE SYSTEM ──
+(function(){
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+  const COUNT = 55;
+  const GOLD = [224, 184, 79];
+
+  function resize(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function rand(a, b){ return Math.random()*(b-a)+a; }
+
+  function createParticle(){
+    return {
+      x: rand(0, W),
+      y: rand(0, H),
+      r: rand(0.4, 1.6),
+      vx: rand(-0.12, 0.12),
+      vy: rand(-0.18, -0.04),
+      alpha: rand(0.04, 0.22),
+      pulse: rand(0, Math.PI*2),
+      pulseSpeed: rand(0.003, 0.009)
+    };
+  }
+
+  function init(){
+    resize();
+    particles = Array.from({length: COUNT}, createParticle);
+  }
+
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      p.pulse += p.pulseSpeed;
+      const a = p.alpha * (0.7 + 0.3 * Math.sin(p.pulse));
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(${GOLD[0]},${GOLD[1]},${GOLD[2]},${a})`;
+      ctx.fill();
+
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if(p.y < -10) { p.y = H + 10; p.x = rand(0, W); }
+      if(p.x < -10) p.x = W + 10;
+      if(p.x > W + 10) p.x = -10;
+    });
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  init();
+  draw();
+})();
+</script>
+
+<!-- PRIVACY MODAL -->
+<div id="privacy-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.88);backdrop-filter:blur(6px);overflow-y:auto;padding:40px 20px;">
+  <div style="max-width:560px;margin:0 auto;background:#0C0C0C;border:1px solid rgba(224,184,79,0.2);border-radius:8px;padding:40px 36px;position:relative;">
+    <button onclick="closePrivacyModal()" style="position:absolute;top:18px;right:20px;background:none;border:none;color:#5a5a54;font-size:22px;cursor:pointer;line-height:1;padding:4px 8px;transition:color .2s" onmouseover="this.style.color='#E0B84F'" onmouseout="this.style.color='#5a5a54'">✕</button>
+    <div style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#E0B84F;margin-bottom:12px;">Legal</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.03em;color:#fff;line-height:1;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid rgba(224,184,79,0.12);">Privacy Policy</div>
+    <div style="font-size:13px;color:#9a9a94;line-height:1.8;max-height:55vh;overflow-y:auto;padding-right:8px;">
+      <p style="margin-bottom:14px;">MYBACKO (NIT: 1115070852-6), operating as <strong style="color:#e0e0da;">BACKO</strong>, provides high-end AI and Human Agent solutions for businesses worldwide.</p>
+      <p style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#E0B84F;margin:20px 0 8px;">Information We Collect</p>
+      <p style="margin-bottom:14px;">We collect business contact data (name, email, phone), operational data from your assessment, and your website URL if provided. We do not collect sensitive personal information such as social security numbers, health data, or precise geolocation.</p>
+      <p style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#E0B84F;margin:20px 0 8px;">How We Use It</p>
+      <p style="margin-bottom:14px;">Your data is used solely to provide a personalized BACKO recommendation and to arrange your discovery call. It will never be sold, rented, or shared with third parties for marketing purposes.</p>
+      <p style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#E0B84F;margin:20px 0 8px;">Your Rights</p>
+      <p style="margin-bottom:14px;">You may request access to, correction of, or deletion of your data at any time by contacting us at <span style="color:#E0B84F;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbb9bab8b0b49bb6a2b9bab8b0b4f5b8b4b6">[email&#160;protected]</a></span>. US residents have additional rights under CCPA/CPRA.</p>
+      <p style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#E0B84F;margin:20px 0 8px;">Data Security</p>
+      <p style="margin-bottom:14px;">All information is hosted on Google Cloud Platform using industry-standard encryption. Our human agents sign comprehensive NDAs before accessing any client information.</p>
+      <p style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#E0B84F;margin:20px 0 8px;">Contact</p>
+      <p>Entity: MYBACKO &nbsp;·&nbsp; NIT: 1115070852-6 &nbsp;·&nbsp; <span style="color:#E0B84F;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a2c0c3c1c9cde2cfdbc0c3c1c9cd8cc1cdcf">[email&#160;protected]</a></span></p>
+    </div>
+    <button onclick="acceptPrivacyAndClose()" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:28px;padding:15px 24px;background:#E0B84F;color:#000;border:none;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .2s" onmouseover="this.style.background='#f0c955'" onmouseout="this.style.background='#E0B84F'">
+      I Agree — Close ✓
+    </button>
+    <button onclick="closePrivacyModal()" style="display:block;width:100%;margin-top:10px;padding:12px;background:none;color:#5a5a54;border:1px solid #1e1e1e;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .2s" onmouseover="this.style.color='#e0e0da';this.style.borderColor='#444'" onmouseout="this.style.color='#5a5a54';this.style.borderColor='#1e1e1e'">
+      Close without accepting
+    </button>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+function openPrivacyModal(e){
+  if(e) e.preventDefault();
+  document.getElementById('privacy-modal').style.display='block';
+  document.body.style.overflow='hidden';
+}
+function closePrivacyModal(){
+  document.getElementById('privacy-modal').style.display='none';
+  document.body.style.overflow='';
+}
+function acceptPrivacyAndClose(){
+  var cb=document.getElementById('privacy-check');
+  cb.checked=true;
+  checkQ4();
+  closePrivacyModal();
+}
+document.getElementById('privacy-modal').addEventListener('click',function(e){
+  if(e.target===this) closePrivacyModal();
+});
+function toggleMobileMenu(){
+  const menu=document.getElementById('mobile-menu');
+  const btn=document.getElementById('nav-hamburger');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
+}
+function closeMobileMenu(){
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('nav-hamburger').classList.remove('open');
+  document.body.style.overflow='';
+}
+</script>
+</body>
+</html>

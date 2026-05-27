@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human Agents — BACKO</title>
+<meta name="description" content="Bilingual human professionals from Colombia, managed by BACKO. VAs, Sales Reps, Customer Service, and more.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mybacko.com">
+<meta property="og:title" content="BACKO — Back Office Solutions">
+<meta property="og:description" content="AI Agents and bilingual Human Agents for small businesses. Operate Smarter. Scale Faster.">
+<meta property="og:image" content="https://mybacko.com/backo-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="BACKO">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mybacko.com/backo-og.png">
+<link rel="icon" href="backo-icon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#E0B84F;--gold-dim:rgba(224,184,79,0.12);
+  --bg:#000;--surface:#0C0C0C;--surface2:#141414;
+  --muted:#5A5A54;--text:#E0E0DA;
+  --border:rgba(224,184,79,0.1);--border-h:rgba(224,184,79,0.3);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;line-height:1.6}
+#particle-canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:22px 64px;background:rgba(0,0,0,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-logo img{height:34px;display:block}
+.nav-logo-fb{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.1em;color:var(--gold);display:none}
+.nav-links{display:flex;align-items:center;gap:40px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:11px;letter-spacing:.14em;text-transform:uppercase;transition:color .25s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.btn-quiz{display:inline-flex;align-items:center;background:var(--gold);color:#000;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:11px 24px;text-decoration:none;transition:background .2s}
+.btn-quiz:hover{background:#f0c955}
+section{position:relative;z-index:2}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}.reveal-d5{transition-delay:.5s}.reveal-d6{transition-delay:.6s}.reveal-d7{transition-delay:.7s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* PAGE HERO */
+.page-hero{padding:160px 64px 100px;position:relative;z-index:2}
+.page-hero::after{content:'';position:absolute;bottom:0;left:64px;right:64px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.page-eyebrow{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:block;opacity:0;animation:fadeUp .6s .3s forwards}
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,9vw,110px);line-height:.92;letter-spacing:.02em;color:#fff;margin-bottom:28px;opacity:0;animation:fadeUp .6s .5s forwards}
+.page-title span{color:var(--gold)}
+.page-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,2.2vw,24px);color:var(--muted);max-width:600px;line-height:1.6;opacity:0;animation:fadeUp .6s .7s forwards}
+.section-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:block}
+
+/* WHY SECTION */
+#why{padding:100px 64px;background:var(--surface)}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;max-width:1000px;margin:0 auto;background:var(--border)}
+.why-card{background:var(--surface);padding:48px 40px}
+.why-num{font-family:'Bebas Neue',sans-serif;font-size:52px;color:rgba(224,184,79,.15);line-height:1;margin-bottom:12px}
+.why-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;color:#fff;margin-bottom:10px}
+.why-desc{font-size:14px;color:var(--muted);line-height:1.75}
+
+/* ROLES SECTION */
+#roles{padding:100px 64px}
+.roles-intro{max-width:680px;margin:0 auto 64px;text-align:center}
+.roles-intro-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,5vw,60px);color:#fff;letter-spacing:.04em;margin-bottom:16px}
+.roles-intro-sub{font-size:15px;color:var(--muted);line-height:1.75}
+.pricing-note{display:inline-block;background:var(--gold-dim);border:1px solid var(--border);padding:12px 24px;font-size:13px;color:var(--text);margin-top:20px;line-height:1.5}
+.pricing-note strong{color:var(--gold)}
+
+/* ROLE CARDS */
+.role-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;max-width:1200px;margin:0 auto;background:var(--border)}
+.role-card{background:var(--bg);padding:44px 36px;position:relative;overflow:hidden;transition:background .3s,border-color .3s}
+.role-card:hover{background:var(--surface)}
+.role-card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.role-card:hover::after{transform:scaleX(1)}
+.role-icon{width:36px;height:36px;margin-bottom:20px}
+.role-icon svg{width:36px;height:36px;stroke:var(--gold);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.role-tag{display:inline-block;background:var(--gold-dim);color:var(--gold);font-size:9px;letter-spacing:.16em;text-transform:uppercase;padding:4px 12px;margin-bottom:16px}
+.role-name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.04em;color:#fff;margin-bottom:12px}
+.role-desc{font-size:13px;color:var(--muted);line-height:1.75;margin-bottom:20px}
+.role-tasks{display:flex;flex-direction:column;gap:7px;margin-bottom:24px}
+.role-task{display:flex;gap:10px;font-size:12px;color:var(--muted);align-items:flex-start;line-height:1.4}
+.task-dot{width:4px;height:4px;border-radius:50%;background:rgba(224,184,79,.4);flex-shrink:0;margin-top:5px}
+.role-price{font-size:12px;color:var(--gold);letter-spacing:.08em}
+
+/* PROCESS SECTION */
+#process{padding:100px 64px;background:var(--surface)}
+.process-inner{max-width:900px;margin:0 auto}
+.process-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,5vw,60px);color:#fff;letter-spacing:.04em;margin-bottom:16px}
+.process-sub{font-size:15px;color:var(--muted);line-height:1.75;margin-bottom:56px;max-width:520px}
+.process-steps{display:flex;flex-direction:column;gap:0}
+.process-step{display:grid;grid-template-columns:80px 1fr;gap:28px;align-items:start;padding:32px 0;border-bottom:1px solid var(--border)}
+.process-step:last-child{border-bottom:none}
+.process-step-num{font-family:'Bebas Neue',sans-serif;font-size:52px;color:rgba(224,184,79,.15);line-height:1;padding-top:4px}
+.process-step-content{}
+.process-step-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em;color:#fff;margin-bottom:8px}
+.process-step-desc{font-size:14px;color:var(--muted);line-height:1.75}
+
+/* PRICING SECTION */
+#pricing-section{padding:100px 64px}
+.pricing-inner{max-width:900px;margin:0 auto}
+.pricing-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,5vw,60px);color:#fff;letter-spacing:.04em;margin-bottom:16px}
+.pricing-intro{font-size:15px;color:var(--muted);line-height:1.75;margin-bottom:48px;max-width:580px}
+.pricing-table{width:100%;border-collapse:collapse}
+.pricing-table th{padding:14px 20px;text-align:left;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--border);font-weight:400}
+.pricing-table td{padding:18px 20px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--border);vertical-align:top;line-height:1.6}
+.pricing-table td:first-child{color:var(--text)}
+.pricing-table tr:hover td{background:var(--surface)}
+.price-from{color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.04em}
+.pricing-footer{margin-top:28px;padding:20px 24px;background:var(--surface);border:1px solid var(--border);font-size:13px;color:var(--muted);line-height:1.7}
+.pricing-footer strong{color:var(--text)}
+
+/* TRUST SECTION */
+#trust{padding:80px 64px;background:var(--surface)}
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;max-width:900px;margin:0 auto;background:var(--border)}
+.trust-item{background:var(--surface);padding:36px 32px;text-align:center}
+.trust-icon{width:32px;height:32px;margin:0 auto 16px;stroke:var(--gold);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.trust-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.06em;color:#fff;margin-bottom:8px}
+.trust-desc{font-size:13px;color:var(--muted);line-height:1.65}
+
+/* CTA */
+#page-cta{padding:140px 64px;text-align:center;position:relative;overflow:hidden}
+#page-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(224,184,79,.05) 0%,transparent 60%);pointer-events:none}
+#page-cta h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,6vw,80px);color:#fff;letter-spacing:.03em;margin-bottom:16px;position:relative}
+#page-cta h2 span{color:var(--gold)}
+#page-cta p{font-size:16px;color:var(--muted);margin-bottom:44px;position:relative}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#000;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:14px 36px;text-decoration:none;transition:background .2s,box-shadow .2s,transform .15s}
+.btn-primary:hover{background:#f0c955;box-shadow:0 0 28px rgba(224,184,79,.4);transform:translateY(-1px)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text);font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:14px 32px;border:1px solid var(--border);text-decoration:none;transition:border-color .2s,color .2s}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:64px 64px 36px;position:relative;z-index:2;background:var(--bg)}
+.footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:52px}
+.footer-brand img{height:30px;display:block;margin-bottom:18px}
+.footer-brand-fb{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.1em;color:var(--gold);display:none;margin-bottom:18px}
+.footer-brand p{font-size:13px;color:var(--muted);line-height:1.8;max-width:240px}
+.footer-col h5{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer-col ul a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .25s}
+.footer-col ul a:hover{color:var(--text)}
+.footer-socials{display:flex;gap:12px}
+.social-icon{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:border-color .25s,background .25s}
+.social-icon:hover{border-color:var(--gold);background:var(--gold-dim)}
+.social-icon svg{width:15px;height:15px;stroke:var(--muted);fill:none;transition:stroke .25s}
+.social-icon:hover svg{stroke:var(--gold)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:28px}
+.footer-copy{font-size:11px;color:var(--muted);letter-spacing:.05em}
+
+/* CHAT */
+#chat-bubble{position:fixed;bottom:28px;right:28px;z-index:200;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;padding:0;background:transparent;transition:transform .2s}
+#chat-bubble:hover{transform:scale(1.08)}
+#orb-canvas{border-radius:50%;display:block;box-shadow:0 0 0 1.5px rgba(224,184,79,.35),0 0 22px rgba(200,160,60,.45),0 0 44px rgba(160,120,40,.25);animation:orb-pulse 3.5s ease-in-out infinite}
+@keyframes orb-pulse{0%,100%{box-shadow:0 0 0 1.5px rgba(224,184,79,.35),0 0 22px rgba(200,160,60,.45),0 0 44px rgba(160,120,40,.25)}50%{box-shadow:0 0 0 2px rgba(224,184,79,.55),0 0 34px rgba(224,184,79,.65),0 0 60px rgba(180,140,50,.35)}}
+#chat-panel{position:fixed;bottom:94px;right:28px;z-index:200;width:340px;background:#050505;border:1px solid var(--border);display:flex;flex-direction:column;box-shadow:0 20px 64px rgba(0,0,0,.9);transform:translateY(12px) scale(.96);opacity:0;pointer-events:none;transition:transform .3s,opacity .3s;max-height:480px;overflow:hidden}
+#chat-panel.open{transform:none;opacity:1;pointer-events:all}
+.chat-header{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border)}
+.chat-header img{width:26px;height:26px;object-fit:contain}
+.chat-header-info h4{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.06em;color:var(--gold);line-height:1}
+.chat-header-info span{font-size:11px;color:var(--muted)}
+.chat-close{margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:4px;transition:color .2s}
+.chat-close:hover{color:var(--text)}
+.chat-msgs{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;position:relative;z-index:1}
+.msg{max-width:90%;font-size:13px;line-height:1.6}
+.msg.bot{align-self:flex-start;background:#1c1c1c;color:#E0E0DA;padding:12px 15px;border-left:2px solid var(--gold)}
+.faq-chips{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.faq-chip{background:none;border:1px solid var(--border);color:#9a9a94;font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:.04em;padding:9px 14px;text-align:left;cursor:pointer;transition:border-color .2s,color .2s}
+.faq-chip:hover{border-color:var(--gold);color:var(--text)}
+.faq-link{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#000;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:10px 18px;text-decoration:none;margin-top:6px}
+
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none;z-index:102}
+.nav-hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);transition:transform .3s,opacity .3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+#mobile-menu{display:none;position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:101;flex-direction:column;align-items:center;justify-content:center;gap:36px}
+#mobile-menu.open{display:flex}
+#mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:.08em;color:var(--muted);text-decoration:none;transition:color .25s}
+#mobile-menu a:hover{color:var(--gold)}
+#mobile-menu .btn-quiz{font-size:14px;padding:14px 36px;margin-top:8px}
+@media(max-width:960px){
+  nav{padding:18px 28px}.nav-links{display:none}
+  .nav-hamburger{display:flex}
+  nav>.btn-quiz{display:none!important}
+  .page-hero{padding:110px 28px 72px}
+  #why,#roles,#process,#pricing-section,#trust,#page-cta{padding:72px 28px}
+  .why-grid{grid-template-columns:1fr}
+  .role-grid{grid-template-columns:1fr 1fr}
+  .trust-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+  footer{padding:48px 28px 28px}
+}
+@media(max-width:600px){
+  .role-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}
+}
+/* hamburger */
+</style>
+</head>
+<body>
+<canvas id="particle-canvas"></canvas>
+
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">
+    <img src="backo-logo-horizontal.png" alt="BACKO" onerror="this.style.display='none';document.getElementById('nav-fb').style.display='block'">
+    <span class="nav-logo-fb" id="nav-fb">BACKO</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#how-it-works">How It Works</a></li>
+    <li><a href="ai-agents.html">AI Agents</a></li>
+    <li><a href="human-agents.html" class="active">Human Agents</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="blog.html">Blog</a></li>
+  </ul>
+  <a href="backo-match.html" class="btn-quiz">Take the BACKO Assessment →</a>
+  <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div id="mobile-menu">
+  <button onclick="closeMobileMenu()" style="position:absolute;top:28px;right:28px;background:none;border:none;color:#5A5A54;font-size:28px;cursor:pointer;line-height:1;padding:8px;transition:color .2s" aria-label="Close">✕</button>
+  <a href="index.html#how-it-works" onclick="closeMobileMenu()">How It Works</a>
+  <a href="ai-agents.html" onclick="closeMobileMenu()">AI Agents</a>
+  <a href="human-agents.html" onclick="closeMobileMenu()">Human Agents</a>
+  <a href="about.html" onclick="closeMobileMenu()">About Us</a>
+  <a href="blog.html" onclick="closeMobileMenu()">Blog</a>
+  <a href="backo-match.html" class="btn-quiz" onclick="closeMobileMenu()">Assessment →</a>
+</div>
+
+<div class="page-hero" style="text-align:center;">
+  <span class="page-eyebrow">Real People, Remote</span>
+  <h1 class="page-title">BACKO<br><span>Human Agents</span></h1>
+  <p class="page-sub" style="margin:0 auto;">Bilingual professionals from Colombia, working in your clients' timezone. Recruited, trained, and managed by BACKO — so you get real output without the overhead of traditional hiring.</p>
+</div>
+
+<!-- WHY COLOMBIA -->
+<section id="why">
+  <div style="max-width:1000px;margin:0 auto;">
+    <div class="reveal" style="text-align:center;margin-bottom:56px;">
+      <span class="section-label">Why it works</span>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,5vw,56px);color:#fff;letter-spacing:.04em;">The BACKO talent advantage</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal reveal-d1">
+        <div class="why-num">01</div>
+        <div class="why-title">Truly Bilingual</div>
+        <p class="why-desc">Our professionals speak English and Spanish fluently — not just conversationally. They can handle international clients, write professional emails, and represent your brand with confidence.</p>
+      </div>
+      <div class="why-card reveal reveal-d2">
+        <div class="why-num">02</div>
+        <div class="why-title">Your Timezone</div>
+        <p class="why-desc">Colombia aligns with multiple international time zones year-round. Your agent works the same hours as your customers — wherever they are, no scheduling headaches, no overnight delays.</p>
+      </div>
+      <div class="why-card reveal reveal-d3">
+        <div class="why-num">03</div>
+        <div class="why-title">BACKO Managed</div>
+        <p class="why-desc">You don't hire — we recruit. You don't train — we onboard. You don't manage HR — we handle it. You just work with your agent and get results.</p>
+      </div>
+      <div class="why-card reveal reveal-d4">
+        <div class="why-num">04</div>
+        <div class="why-title">No Hidden Costs</div>
+        <p class="why-desc">No payroll taxes. No benefits packages. No equipment costs. No onboarding overhead. One flat monthly rate — you know exactly what you're paying for.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROLES -->
+<section id="roles">
+  <div class="roles-intro reveal">
+    <span class="section-label">Available Roles</span>
+    <div class="roles-intro-title">Eight roles. One partner.</div>
+    <p class="roles-intro-sub">Every role is recruited on demand — we find the right person for your specific needs. BACKO handles everything: recruiting, onboarding, training, payroll, HR, and ongoing supervision.</p>
+  </div>
+
+  <div class="role-grid">
+
+    <!-- VA -->
+    <div class="role-card reveal reveal-d1">
+      <div class="role-icon"><svg viewBox="0 0 36 36"><rect x="4" y="6" width="28" height="22" rx="2"/><path d="M12 6V4M24 6V4M4 14h28"/><circle cx="12" cy="20" r="2"/><circle cx="18" cy="20" r="2"/><circle cx="24" cy="20" r="2"/></svg></div>
+      <span class="role-tag">Admin</span>
+      <div class="role-name">Virtual Assistant</div>
+      <p class="role-desc">The backbone of your daily operations. Your VA handles the tasks that eat your time so you can focus on growth.</p>
+      <div class="role-tasks">
+        <div class="role-task"><div class="task-dot"></div>Email inbox management and responses</div>
+        <div class="role-task"><div class="task-dot"></div>Calendar scheduling and coordination</div>
+        <div class="role-task"><div class="task-dot"></div>Data entry and document management</div>
+        <div class="role-task"><div class="task-dot"></div>Research, reporting, and admin support</div>
+      </div>
+      <div class="role-price">Starts from $500/mo · depends on scope</div>
+    </div>
+
+    <!-- SALES REP -->
+    <div class="role-card reveal reveal-d2">
+      <div class="role-icon"><svg viewBox="0 0 36 36"><path d="M6 30s2-8 12-8 12 8 12 8"/><circle cx="18" cy="14" r="6"/><path d="M26 12a4 4 0 010 6M30 10a8 8 0 010 10"/></svg></div>
+      <span class="role-tag">Revenue</span>
+      <div class="role-name">Sales Rep</div>
+      <p class="role-desc">A bilingual closer who works your pipeline, follows up relentlessly, and represents your business professionally to US prospects.</p>
+      <div class="role-tasks">
+        <div class="role-task"><div class="task-dot"></div>Outbound prospecting and cold outreach</div>
+        <div class="role-task"><div class="task-dot"></div>CRM updates and pipeline management</div>
+        <div class="role-task"><div class="task-dot"></div>Follow-up calls and emails</div>
+        <div class="role-task"><div class="task-dot"></div>Proposal support and deal tracking</div>
+      </div>
+      <div class="role-price">Starts from $650/mo · depends on scope</div>
+    </div>
+
+    <!-- CUSTOMER SERVICE -->
+    <div class="role-card reveal reveal-d3">
+      <div class="role-icon"><svg viewBox="0 0 36 36"><path d="M6 12a12 12 0 1024 0"/><path d="M18 4v8M6 20s0 8 12 8 12-8 12-8"/></svg></div>
+      <span class="role-tag">Support</span>
+      <div class="role-name">Customer Service</div>
+      <p class="role-desc">Your always-on support representative. Handles inquiries, resolves issues, and keeps your customers satisfied and coming back.</p>
+      <div class="role-tasks">
+        <div class="role-task"><div class="task-dot"></div>Live chat, email, and phone support</div>
+        <div class="role-task"><div class="task-dot"></div>Ticket management and issue resolution</div>
+        <div class="role-task"><div class="task-dot"></div>Customer onboarding assistance</div>
+        <div class="role-task"><div class="task-dot"></div>Satisfaction follow-ups and retention</div>
+      </div>
+      <div class="role-price">Starts from $600/mo · depends on scope</div>
+    </div>
+
+    <!-- TELEMARKETING -->
+    <div class="role-card reveal reveal-d4">
+      <div class="role-icon"><svg viewBox="0 0 36 36"><path d="M10 4s-6 4-4 10c4 12 16 18 22 18 4 0 6-4 6-4l-6-6s-2 2-4 0c-4-4-8-8-4-12l-10-6z"/></svg></div>
+      <span class="role-tag">Outreach</span>
+      <div class="role-name">Telemarketing Rep</div>
+      <p class="role-desc">A confident bilingual caller who sets appointments, qualifies prospects, and opens doors for your sales team.</p>
+      <div class="role-tasks">
+        <div class="role-task"><div class="task-dot"></div>Outbound calling and appointment setting</div>
+        <div class="role-task"><div class="task-dot"></div>Lead qualification from contact lists</div>
+        <div class="role-task"><div class="task-dot"></div>Call script execution and reporting</div>
+        <div class="role-task"><div class="task-dot"></div>Follow-up scheduling and CRM updates</div>
+      </div>
+      <div class="role-price">Starts from $650/mo · depends on scope</div>
+    </div>
+
+    <!-- WEB BUILDER -->
+    <div class="role-card reveal reveal-d5">
+      <div class="role-icon"><svg viewBox="0 0 36 36"><rect x="4" y="6" width="28" height="24" rx="2"/><line x1="4" y1="13" x2="32" y2="13"/><circle cx="9" cy="9.5" r="1.2" fill="#E0B84F"/><circle cx="14" cy="9.5" r="1.2" fill="#E0B84F"/><path d="M12 20l-4 4 4 4M24 20l4 4-4 4M17 19l2 10"/></svg></div>
+      <span class="role-tag">Technical</span>
+      <div class="role-name">Web & App Builder</div>
+      <p class="role-desc">A skilled developer who builds and maintains your digital presence — from landing pages to full web applications.</p>
+      <div class="role-tasks">
+        <div class="role-task"><div class="task-dot"></div>Website and landing page development</div>
+        <div class="role-task"><div class="task-dot"></div>WordPress, Shopify, and no-code builds</div>
+        <div class="role-task"><div class="task-dot"></div>Web app development (HTML, CSS, JS)</div>
+        <div class="role-task"><div class="task-dot"></div>Integrations, forms, and automation connections</div>
+      </div>
+      <div class="role-price">Starts from $800/mo · depends on scope</div>
+    </div>
+
+    <!-- WEB ADMIN -->
+    <div class="role-card reveal reveal-d6">
+      <div class="role-icon"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="14"/><path d="M18 4a14 14 0 010 28M4 18h28"/><path d="M10 7c0 8 4 16 8 18 4-2 8-10 8-18"/></svg></div>
+      <span class="role-tag">Maintenance</span>
+      <div class="role-name">Web Admin</div>
+      <p class="role-desc">Keeps your digital presence up to date, secure, and running smoothly — without you ever touching the backend.</p>
+      <div class="role-tasks">
+        <div class="role-task"><div class="task-dot"></div>Content updates, blog posts, product changes</div>
+        <div class="role-task"><div class="task-dot"></div>Plugin updates, security patches, backups</div>
+        <div class="role-task"><div class="task-dot"></div>SEO meta updates and image optimization</div>
+        <div class="role-task"><div class="task-dot"></div>Performance monitoring and uptime checks</div>
+      </div>
+      <div class="role-price">Starts from $500/mo · depends on scope</div>
+    </div>
+
+    <!-- CRM ADMIN -->
+    <div class="role-card reveal reveal-d7">
+      <div class="role-icon"><svg viewBox="0 0 36 36"><rect x="4" y="4" width="12" height="12" rx="1"/><rect x="20" y="4" width="12" height="12" rx="1"/><rect x="4" y="20" width="12" height="12" rx="1"/><rect x="20" y="20" width="12" height="12" rx="1"/></svg></div>
+      <span class="role-tag">Operations</span>
+      <div class="role-name">CRM Admin</div>
+      <p class="role-desc">Keeps your pipeline clean, your data accurate, and your sales team focused on closing — not on data entry.</p>
+      <div class="role-tasks">
+        <div class="role-task"><div class="task-dot"></div>CRM setup and configuration</div>
+        <div class="role-task"><div class="task-dot"></div>Daily data entry and lead management</div>
+        <div class="role-task"><div class="task-dot"></div>Pipeline hygiene and deal tracking</div>
+        <div class="role-task"><div class="task-dot"></div>Reports, dashboards, and automation setup</div>
+      </div>
+      <div class="role-price">Starts from $550/mo · depends on scope</div>
+    </div>
+
+    <!-- BACKO STUDIO — 8th role -->
+    <div class="role-card reveal" style="position:relative;overflow:hidden;">
+      <div class="role-icon"><svg viewBox="0 0 36 36" fill="none"><rect x="4" y="8" width="28" height="22" rx="2" stroke="#E0B84F" stroke-width="1.5"/><path d="M4 16h28" stroke="#E0B84F" stroke-width="1.5"/><path d="M12 22h8M12 26h5" stroke="#E0B84F" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <span class="role-tag" style="background:rgba(224,184,79,.15);color:var(--gold);">Branding</span>
+      <div class="role-name">Brand Studio</div>
+      <p class="role-desc">Your full brand identity set up in Canva — logo, colors, fonts, and 15 custom templates. Design everything yourself forever, always on-brand.</p>
+      <div class="role-tasks">
+        <div class="role-task"><div class="task-dot"></div>Logo uploaded, brand colors and fonts configured</div>
+        <div class="role-task"><div class="task-dot"></div>15 custom Canva templates — social, ads, banners, flyers</div>
+        <div class="role-task"><div class="task-dot"></div>Optional monthly refresh — new templates each month</div>
+      </div>
+      <div class="role-price">$297 one-time setup · $97/mo optional refresh</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="process-inner">
+    <div class="reveal">
+      <span class="section-label">How Hiring Works</span>
+      <div class="process-title">From assessment to working<br>with your agent</div>
+      <p class="process-sub">We handle everything between "I need help" and "they're working for me." No job posts, no interviews, no HR paperwork.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step reveal reveal-d1">
+        <div class="process-step-num">01</div>
+        <div class="process-step-content">
+          <div class="process-step-title">Take the BACKO Assessment</div>
+          <p class="process-step-desc">Tell us what your business needs, what your biggest challenges are, and what kind of person you're looking for. Takes 2 minutes — free.</p>
+        </div>
+      </div>
+      <div class="process-step reveal reveal-d2">
+        <div class="process-step-num">02</div>
+        <div class="process-step-content">
+          <div class="process-step-title">Discovery call with BACKO</div>
+          <p class="process-step-desc">We review your assessment results and dig deeper into what you actually need — tasks, hours, tools, communication style. We scope the role precisely.</p>
+        </div>
+      </div>
+      <div class="process-step reveal reveal-d3">
+        <div class="process-step-num">03</div>
+        <div class="process-step-content">
+          <div class="process-step-title">We recruit your agent</div>
+          <p class="process-step-desc">We search our network and external sources for the right person. We screen, interview, and vet candidates so you don't have to.</p>
+        </div>
+      </div>
+      <div class="process-step reveal reveal-d4">
+        <div class="process-step-num">04</div>
+        <div class="process-step-content">
+          <div class="process-step-title">BACKO onboards them</div>
+          <p class="process-step-desc">We handle onboarding, tool access, and initial training. We brief them on your business before they ever speak to you.</p>
+        </div>
+      </div>
+      <div class="process-step reveal reveal-d5">
+        <div class="process-step-num">05</div>
+        <div class="process-step-content">
+          <div class="process-step-title">You start working together</div>
+          <p class="process-step-desc">Your agent is ready. BACKO stays in the background — available if issues arise, monitoring performance, and adjusting if needed.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section id="trust">
+  <div style="max-width:900px;margin:0 auto;">
+    <div class="reveal" style="text-align:center;margin-bottom:48px;">
+      <span class="section-label">Our Commitment</span>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4.5vw,52px);color:#fff;letter-spacing:.04em;">What BACKO guarantees</h2>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-item reveal reveal-d1">
+        <svg class="trust-icon" viewBox="0 0 32 32"><path d="M16 2l3.8 7.6L28 11l-6 5.8 1.4 8.2L16 21l-7.4 4 1.4-8.2L4 11l8.2-1.4z"/></svg>
+        <div class="trust-title">Qualified Candidates</div>
+        <p class="trust-desc">Every candidate is vetted for English proficiency, relevant experience, and reliability before we present them to you.</p>
+      </div>
+      <div class="trust-item reveal reveal-d2">
+        <svg class="trust-icon" viewBox="0 0 32 32"><path d="M16 2C8.3 2 2 8.3 2 16s6.3 14 14 14 14-6.3 14-14S23.7 2 16 2z"/><path d="M10 16l4 4 8-8"/></svg>
+        <div class="trust-title">Replacement Policy</div>
+        <p class="trust-desc">If an agent isn't working out, we find a replacement. You're never stuck — and you don't start the process from scratch.</p>
+      </div>
+      <div class="trust-item reveal reveal-d3">
+        <svg class="trust-icon" viewBox="0 0 32 32"><path d="M4 16s4-8 12-8 12 8 12 8-4 8-12 8-12-8-12-8z"/><circle cx="16" cy="16" r="4"/></svg>
+        <div class="trust-title">BACKO Oversight</div>
+        <p class="trust-desc">We stay involved. If you have a concern or need to adjust the role, BACKO handles it — you're never managing HR alone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding:80px 64px;background:var(--surface);position:relative;z-index:2;text-align:center;">
+  <div style="max-width:700px;margin:0 auto;">
+    <span style="font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:14px;">Custom Roles</span>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4.5vw,52px);color:#fff;letter-spacing:.04em;margin-bottom:16px;">Need something specific?</h2>
+    <p style="font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:32px;">Don't see exactly what you need? Tell us. We recruit for custom roles all the time — and if we can build it, we will.</p>
+    <a href="backo-match.html" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:14px 32px;border:1px solid var(--border);text-decoration:none;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">Tell us what you need →</a>
+  </div>
+</section>
+
+<section id="page-cta">
+  <h2 class="reveal">Ready to build<br><span>your team?</span></h2>
+  <p class="reveal">Tell us what you need. We'll find the right person and have them working for your business within a week.</p>
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;" class="reveal reveal-d2">
+    <a href="backo-match.html" class="btn-primary">Take the BACKO Assessment →</a>
+    <a href="careers.html" class="btn-outline">Join the Team →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="backo-logo-horizontal.png" alt="BACKO" onerror="this.style.display='none';document.getElementById('ft-fb').style.display='block'">
+      <div class="footer-brand-fb" id="ft-fb">BACKO</div>
+      <p>Back office solutions for businesses worldwide. AI Agents and bilingual Human Agents, from Colombia.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <ul>
+        <li><a href="index.html#how-it-works">How It Works</a></li>
+        <li><a href="ai-agents.html">AI Agents</a></li>
+        <li><a href="human-agents.html">Human Agents</a></li>
+        <li><a href="backo-match.html">Take the BACKO Assessment</a></li>
+        <li><a href="invest.html" style="color:var(--gold)">Invest in BACKO School</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Connect</h5>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/mybacko/" target="_blank" class="social-icon" title="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2"/></svg>
+        </a>
+        <a href="https://www.facebook.com/GETBACKO" target="_blank" class="social-icon" title="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://linkedin.com/company/getbacko" target="_blank" class="social-icon" title="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Join the Team</h5>
+      <ul>
+        <li><a href="careers.html">Send Your CV</a></li>
+        <li><a href="careers.html">Open Roles</a></li>
+      </ul>
+      <p style="font-size:12px;color:var(--muted);line-height:1.7;margin-top:16px">We're always looking for talented bilingual professionals to join our team.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 BACKO — Back Office Solutions. Colombia. NIT 1115070852-6</p>
+    <div style="display:flex;gap:20px;flex-wrap:wrap">
+      <a href="privacy.html" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.05em;transition:color .25s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">Privacy Policy</a>
+      <a href="terms.html" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.05em;transition:color .25s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">Términos y Condiciones</a>
+      <a href="contact.html" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.05em;transition:color .25s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">Contact Us</a>
+    </div>
+  </div>
+</footer>
+
+<div id="chat-bubble" onclick="toggleChat()" title="Ask BACKO"><canvas id="orb-canvas" width="54" height="54"></canvas></div>
+<div id="chat-panel">
+  <canvas id="fluid-canvas" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none"></canvas>
+  <div class="chat-header" style="position:relative;z-index:1">
+    <canvas id="hdr-orb-canvas" width="26" height="26" style="border-radius:50%;flex-shrink:0"></canvas>
+    <div class="chat-header-info"><h4>BACKO Assistant</h4><span>Ask me anything</span></div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-msgs" id="chat-msgs"><div class="msg bot">Hi! Ask me anything about our Human Agents — roles, pricing, or how the hiring process works.</div><div id="faq-container"></div></div>
+</div>
+
+<script>
+(function(){const c=document.getElementById('particle-canvas');const ctx=c.getContext('2d');let W,H;const P=[];const N=65;function resize(){W=c.width=innerWidth;H=c.height=innerHeight;}resize();window.addEventListener('resize',resize);for(let i=0;i<N;i++)P.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.6+.25,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22,a:Math.random()*.55+.08,f:Math.random()*Math.PI*2,fs:Math.random()*.018+.004});function tick(){ctx.clearRect(0,0,W,H);for(const p of P){p.x+=p.vx;p.y+=p.vy;p.f+=p.fs;if(p.x<-8)p.x=W+8;if(p.x>W+8)p.x=-8;if(p.y<-8)p.y=H+8;if(p.y>H+8)p.y=-8;const a=p.a*(.55+.45*Math.sin(p.f));ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(224,184,79,${a})`;ctx.fill();}requestAnimationFrame(tick);}tick();})();
+(function(){const els=document.querySelectorAll('.reveal');const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.08});els.forEach(el=>obs.observe(el));})();
+const FAQ=[{q:"What's the minimum commitment?",a:"No contracts. Month-to-month only. Adjust or cancel anytime with reasonable notice.",cta:null},{q:"How quickly can an agent start?",a:"Typically 5–10 business days from your discovery call. Right person over fastest person.",cta:null},{q:"Can I hire more than one agent?",a:"Yes. Start with one role and add more as you grow. Each agent is fully managed by BACKO.",cta:null},{q:"What if the agent doesn't work out?",a:"BACKO replaces them. We handle the transition — you're never left without support.",cta:null},{q:"I'm ready — what's next?",a:"Take the BACKO Assessment — 2 minutes and we'll know exactly what role fits.",cta:{label:"Take the BACKO Assessment →",href:"backo-match.html"}}];
+let chatOpen=false;
+function renderChips(){const c=document.getElementById('faq-container');c.innerHTML='';const w=document.createElement('div');w.className='faq-chips';FAQ.forEach((item,i)=>{const b=document.createElement('button');b.className='faq-chip';b.textContent=item.q;b.onclick=()=>showAnswer(i);w.appendChild(b);});c.appendChild(w);}
+function showAnswer(i){const msgs=document.getElementById('chat-msgs');const container=document.getElementById('faq-container');const item=FAQ[i];const u=document.createElement('div');u.className='msg';u.style.cssText='align-self:flex-end;background:var(--gold-dim);color:var(--text);padding:10px 14px;border-right:2px solid var(--gold);max-width:90%;font-size:13px;line-height:1.6';u.textContent=item.q;msgs.insertBefore(u,container);const b=document.createElement('div');b.className='msg bot';b.textContent=item.a;msgs.insertBefore(b,container);if(item.cta){const l=document.createElement('a');l.className='faq-link';l.href=item.cta.href;l.textContent=item.cta.label;msgs.insertBefore(l,container);}setTimeout(function(){u.scrollIntoView({behavior:"smooth",block:"start"});},50);renderChips();}
+
+// ── BACKO FLUID ENGINE ──
+const BACKO_PALETTE=[
+  {r:224,g:184,b:79},{r:180,g:140,b:50},{r:140,g:105,b:30},
+  {r:255,g:215,b:120},{r:100,g:75,b:20}
+];
+function createFluidBlobs(count,w,h){
+  return Array.from({length:count},(_,i)=>({
+    speedX:0.00018+i*0.000055,speedY:0.00022+i*0.000048,
+    phaseX:(i/count)*Math.PI*2,phaseY:(i/count)*Math.PI*2+1.2,
+    ampX:w*(0.28+(i%3)*0.08),ampY:h*(0.28+(i%3)*0.07),
+    radius:Math.min(w,h)*(0.38+(i%3)*0.12),
+    color:BACKO_PALETTE[i%BACKO_PALETTE.length],
+    wobbleA:0.00035+i*0.00012,wobbleP:i*0.7
+  }));
+}
+function drawFluid(canvas,blobs,t,alpha){
+  const ctx=canvas.getContext('2d');
+  const w=canvas.width,h=canvas.height;
+  ctx.fillStyle='rgba(4,3,1,1)';ctx.fillRect(0,0,w,h);
+  ctx.save();ctx.globalCompositeOperation='lighter';
+  blobs.forEach(b=>{
+    const wobble=Math.sin(t*b.wobbleA+b.wobbleP)*0.15;
+    const px=w*0.5+Math.sin(t*b.speedX+b.phaseX+wobble)*b.ampX;
+    const py=h*0.5+Math.cos(t*b.speedY+b.phaseY+wobble)*b.ampY;
+    const r=b.radius*(0.9+0.1*Math.sin(t*0.00028+b.phaseX));
+    const gr=ctx.createRadialGradient(px,py,0,px,py,r);
+    const {r:cr,g:cg,b:cb}=b.color;
+    gr.addColorStop(0,`rgba(${cr},${cg},${cb},${alpha*0.72})`);
+    gr.addColorStop(0.3,`rgba(${cr},${cg},${cb},${alpha*0.42})`);
+    gr.addColorStop(0.65,`rgba(${cr},${cg},${cb},${alpha*0.15})`);
+    gr.addColorStop(1,`rgba(${cr},${cg},${cb},0)`);
+    ctx.beginPath();ctx.arc(px,py,r,0,Math.PI*2);ctx.fillStyle=gr;ctx.fill();
+  });
+  ctx.restore();
+}
+// Trigger orb
+(function(){
+  const canvas=document.getElementById('orb-canvas');
+  canvas.width=54;canvas.height=54;
+  const blobs=createFluidBlobs(5,54,54);
+  const ctx=canvas.getContext('2d');
+  function tick(now){
+    ctx.save();ctx.beginPath();ctx.arc(27,27,27,0,Math.PI*2);ctx.clip();
+    drawFluid(canvas,blobs,now,1.0);
+    const shine=ctx.createRadialGradient(17,14,0,17,14,18);
+    shine.addColorStop(0,'rgba(255,240,180,0.3)');shine.addColorStop(1,'rgba(255,240,180,0)');
+    ctx.globalCompositeOperation='source-over';ctx.fillStyle=shine;
+    ctx.beginPath();ctx.arc(27,27,27,0,Math.PI*2);ctx.fill();
+    ctx.restore();requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+// Header orb
+(function(){
+  const canvas=document.getElementById('hdr-orb-canvas');
+  canvas.width=26;canvas.height=26;
+  const blobs=createFluidBlobs(4,26,26);
+  const ctx=canvas.getContext('2d');
+  function tick(now){
+    ctx.save();ctx.beginPath();ctx.arc(13,13,13,0,Math.PI*2);ctx.clip();
+    drawFluid(canvas,blobs,now,1.0);ctx.restore();requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+// Widget fluid bg
+var widgetBlobs=null,fluidAnimId=null;
+function startFluid(){
+  const canvas=document.getElementById('fluid-canvas');
+  const panel=document.getElementById('chat-panel');
+  const rect=panel.getBoundingClientRect();
+  canvas.width=rect.width||340;canvas.height=rect.height||480;
+  if(!widgetBlobs)widgetBlobs=createFluidBlobs(6,canvas.width,canvas.height);
+  if(fluidAnimId)cancelAnimationFrame(fluidAnimId);
+  function tick(now){drawFluid(canvas,widgetBlobs,now,0.45);fluidAnimId=requestAnimationFrame(tick);}
+  fluidAnimId=requestAnimationFrame(tick);
+}
+function stopFluid(){if(fluidAnimId){cancelAnimationFrame(fluidAnimId);fluidAnimId=null;}}
+
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chat-panel').classList.toggle('open',chatOpen);
+  if(chatOpen){setTimeout(startFluid,50);}else{stopFluid();}
+}
+renderChips();
+function toggleMobileMenu(){
+  const menu=document.getElementById('mobile-menu');
+  const btn=document.getElementById('nav-hamburger');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
+}
+function closeMobileMenu(){
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('nav-hamburger').classList.remove('open');
+  document.body.style.overflow='';
+}
+</script>
+</body>
+</html>

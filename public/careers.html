@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work with BACKO — Careers & Open Roles</title>
+<meta name="description" content="Join the BACKO team. Bilingual Colombian professionals wanted for remote roles serving businesses worldwide. Send your CV today.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mybacko.com">
+<meta property="og:title" content="BACKO — Back Office Solutions">
+<meta property="og:description" content="AI Agents and bilingual Human Agents for small businesses. Operate Smarter. Scale Faster.">
+<meta property="og:image" content="https://mybacko.com/backo-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="BACKO">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mybacko.com/backo-og.png">
+<link rel="icon" href="backo-icon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#E0B84F;--gold-dim:rgba(224,184,79,0.12);--bg:#000;--surface:#0C0C0C;--surface2:#141414;--muted:#5A5A54;--text:#E0E0DA;--border:rgba(224,184,79,0.1);--border-h:rgba(224,184,79,0.3);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;line-height:1.6}
+#particle-canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:22px 64px;background:rgba(0,0,0,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-logo img{height:34px;display:block}
+.nav-logo-fb{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.1em;color:var(--gold);display:none}
+.nav-links{display:flex;align-items:center;gap:40px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:11px;letter-spacing:.14em;text-transform:uppercase;transition:color .25s}
+.nav-links a:hover{color:var(--text)}
+.btn-quiz{display:inline-flex;align-items:center;background:var(--gold);color:#000;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:11px 24px;text-decoration:none;transition:background .2s}
+.btn-quiz:hover{background:#f0c955}
+section{position:relative;z-index:2}
+.section-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:block}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}.reveal-d5{transition-delay:.5s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* PAGE HERO */
+.page-hero{padding:160px 64px 100px;position:relative;z-index:2;overflow:hidden}
+.page-hero::after{content:'';position:absolute;bottom:0;left:64px;right:64px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.page-eyebrow{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:block;opacity:0;animation:fadeUp .6s .3s forwards}
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,9vw,110px);line-height:.92;letter-spacing:.02em;color:#fff;margin-bottom:28px;opacity:0;animation:fadeUp .6s .5s forwards}
+.page-title span{color:var(--gold)}
+.page-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,2.2vw,24px);color:var(--muted);max-width:600px;line-height:1.65;opacity:0;animation:fadeUp .6s .7s forwards}
+
+/* WHY WORK */
+#why-work{padding:100px 64px;background:var(--surface)}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;max-width:1100px;margin:0 auto;background:var(--border)}
+.why-card{background:var(--surface);padding:44px 36px;transition:background .3s}
+.why-card:hover{background:var(--surface2)}
+.why-icon{width:32px;height:32px;margin-bottom:18px}
+.why-icon svg{width:32px;height:32px;stroke:var(--gold);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.why-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;color:#fff;margin-bottom:10px}
+.why-desc{font-size:13px;color:var(--muted);line-height:1.75}
+
+/* OPEN ROLES */
+#roles{padding:100px 64px}
+.roles-header{max-width:700px;margin:0 auto 60px;text-align:center}
+.roles-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,3.2vw,44px);color:#fff;letter-spacing:.04em;margin-bottom:12px}
+.roles-sub{font-size:15px;color:var(--muted);line-height:1.75}
+.role-listings{display:flex;flex-direction:column;gap:1px;max-width:900px;margin:0 auto;background:var(--border)}
+.role-listing{background:var(--bg);padding:32px 36px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;transition:background .25s,border-color .25s;position:relative;overflow:hidden;cursor:default}
+.role-listing::after{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold);transform:scaleY(0);transform-origin:top;transition:transform .3s}
+.role-listing:hover{background:var(--surface)}
+.role-listing:hover::after{transform:scaleY(1)}
+.rl-left{}
+.rl-tag{display:inline-block;background:var(--gold-dim);color:var(--gold);font-size:9px;letter-spacing:.16em;text-transform:uppercase;padding:3px 10px;margin-bottom:10px}
+.rl-name{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.04em;color:#fff;margin-bottom:6px}
+.rl-desc{font-size:13px;color:var(--muted);line-height:1.6}
+.rl-right{display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex-shrink:0}
+.rl-type{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.rl-apply{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--gold);font-size:11px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--border);padding:9px 20px;text-decoration:none;transition:border-color .2s,background .2s,color .2s;white-space:nowrap}
+.rl-apply:hover{border-color:var(--gold);background:var(--gold-dim)}
+
+/* REQUIREMENTS */
+#requirements{padding:100px 64px;background:var(--surface)}
+.req-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px}
+.req-block{}
+.req-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,4vw,44px);color:#fff;letter-spacing:.04em;margin-bottom:28px}
+.req-list{display:flex;flex-direction:column;gap:14px}
+.req-item{display:flex;gap:14px;align-items:flex-start;font-size:14px;color:var(--text);line-height:1.6}
+.req-icon{width:20px;height:20px;flex-shrink:0;margin-top:2px}
+.req-icon svg{width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.req-item.nice .req-icon svg{stroke:var(--muted)}
+.req-item.nice{color:var(--muted)}
+
+/* CV FORM */
+#apply{padding:100px 64px}
+.apply-inner{max-width:720px;margin:0 auto}
+.apply-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,5vw,60px);color:#fff;letter-spacing:.04em;margin-bottom:12px}
+.apply-title span{color:var(--gold)}
+.apply-sub{font-size:15px;color:var(--muted);line-height:1.75;margin-bottom:48px}
+.form-group{margin-bottom:20px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.form-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px}
+.form-input,.form-select,.form-textarea{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;padding:14px 16px;outline:none;transition:border-color .25s;-webkit-appearance:none;appearance:none}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold)}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--muted)}
+.form-select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A5A54' stroke-width='1.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+.form-select option{background:#0C0C0C}
+.form-textarea{resize:vertical;min-height:120px}
+.form-note{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5}
+#cv-upload-btn:hover{border-color:var(--gold);color:var(--text)}
+.btn-submit{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:#000;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:16px 40px;border:none;cursor:pointer;transition:background .2s,box-shadow .2s,transform .15s;margin-top:8px}
+.btn-submit:hover{background:#f0c955;box-shadow:0 0 28px rgba(224,184,79,.4);transform:translateY(-1px)}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.form-success{display:none;padding:24px;background:var(--surface);border:1px solid rgba(224,184,79,.3);margin-top:24px}
+.form-success-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;color:var(--gold);margin-bottom:8px}
+.form-success-text{font-size:14px;color:var(--muted);line-height:1.65}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:64px 64px 36px;position:relative;z-index:2;background:var(--bg)}
+.footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:52px}
+.footer-brand img{height:30px;display:block;margin-bottom:18px}
+.footer-brand-fb{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.1em;color:var(--gold);display:none;margin-bottom:18px}
+.footer-brand p{font-size:13px;color:var(--muted);line-height:1.8;max-width:240px}
+.footer-col h5{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer-col ul a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .25s}
+.footer-col ul a:hover{color:var(--text)}
+.footer-socials{display:flex;gap:12px}
+.social-icon{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:border-color .25s,background .25s}
+.social-icon:hover{border-color:var(--gold);background:var(--gold-dim)}
+.social-icon svg{width:15px;height:15px;stroke:var(--muted);fill:none;transition:stroke .25s}
+.social-icon:hover svg{stroke:var(--gold)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:28px}
+.footer-copy{font-size:11px;color:var(--muted);letter-spacing:.05em}
+#chat-bubble{position:fixed;bottom:28px;right:28px;z-index:200;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;padding:0;background:transparent;transition:transform .2s}
+#chat-bubble:hover{transform:scale(1.08)}
+#orb-canvas{border-radius:50%;display:block;box-shadow:0 0 0 1.5px rgba(224,184,79,.35),0 0 22px rgba(200,160,60,.45),0 0 44px rgba(160,120,40,.25);animation:orb-pulse 3.5s ease-in-out infinite}
+@keyframes orb-pulse{0%,100%{box-shadow:0 0 0 1.5px rgba(224,184,79,.35),0 0 22px rgba(200,160,60,.45),0 0 44px rgba(160,120,40,.25)}50%{box-shadow:0 0 0 2px rgba(224,184,79,.55),0 0 34px rgba(224,184,79,.65),0 0 60px rgba(180,140,50,.35)}}
+#chat-panel{position:fixed;bottom:94px;right:28px;z-index:200;width:340px;background:#050505;border:1px solid var(--border);display:flex;flex-direction:column;box-shadow:0 20px 64px rgba(0,0,0,.9);transform:translateY(12px) scale(.96);opacity:0;pointer-events:none;transition:transform .3s,opacity .3s;max-height:440px;overflow:hidden}
+#chat-panel.open{transform:none;opacity:1;pointer-events:all}
+.chat-header{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border)}
+.chat-header img{width:26px;height:26px;object-fit:contain}
+.chat-header-info h4{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.06em;color:var(--gold);line-height:1}
+.chat-header-info span{font-size:11px;color:var(--muted)}
+.chat-close{margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:4px}
+.chat-msgs{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;position:relative;z-index:1}
+.msg{max-width:90%;font-size:13px;line-height:1.6}
+.msg.bot{align-self:flex-start;background:#1c1c1c;color:#E0E0DA;padding:12px 15px;border-left:2px solid var(--gold)}
+.faq-chips{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.faq-chip{background:none;border:1px solid var(--border);color:#9a9a94;font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:.04em;padding:10px 14px;text-align:left;cursor:pointer;transition:border-color .2s,color .2s,background .2s;line-height:1.4}
+.faq-chip:hover{border-color:var(--gold);color:var(--text);background:var(--gold-dim)}
+.faq-link{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#000;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:10px 18px;text-decoration:none;margin-top:6px}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none;z-index:102}
+.nav-hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);transition:transform .3s,opacity .3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+#mobile-menu{display:none;position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:101;flex-direction:column;align-items:center;justify-content:center;gap:36px}
+#mobile-menu.open{display:flex}
+#mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:.08em;color:var(--muted);text-decoration:none;transition:color .25s}
+#mobile-menu a:hover{color:var(--gold)}
+#mobile-menu .btn-quiz{font-size:14px;padding:14px 36px;margin-top:8px}
+@media(max-width:960px){
+  nav{padding:18px 28px}.nav-links{display:none}
+  .nav-hamburger{display:flex}
+  nav>.btn-quiz{display:none!important}
+  .page-hero{padding:110px 28px 72px}
+  #why-work,#roles,#requirements,#apply{padding:72px 28px}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .req-inner{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .role-listing{grid-template-columns:1fr;gap:16px}
+  .rl-right{align-items:flex-start}
+  .footer-top{grid-template-columns:1fr 1fr}
+  footer{padding:48px 28px 28px}
+}
+@media(max-width:600px){.why-grid,.footer-top{grid-template-columns:1fr}}
+/* hamburger */
+</style>
+</head>
+<body>
+<canvas id="particle-canvas"></canvas>
+
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">
+    <img src="backo-logo-horizontal.png" alt="BACKO" onerror="this.style.display='none';document.getElementById('nav-fb').style.display='block'">
+    <span class="nav-logo-fb" id="nav-fb">BACKO</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#how-it-works">How It Works</a></li>
+    <li><a href="ai-agents.html">AI Agents</a></li>
+    <li><a href="human-agents.html">Human Agents</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="blog.html">Blog</a></li>
+  </ul>
+  <a href="#apply" class="btn-quiz">Send Your CV →</a>
+  <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div id="mobile-menu">
+  <button onclick="closeMobileMenu()" style="position:absolute;top:28px;right:28px;background:none;border:none;color:#5A5A54;font-size:28px;cursor:pointer;line-height:1;padding:8px;transition:color .2s" aria-label="Close">✕</button>
+  <a href="index.html#how-it-works" onclick="closeMobileMenu()">How It Works</a>
+  <a href="ai-agents.html" onclick="closeMobileMenu()">AI Agents</a>
+  <a href="human-agents.html" onclick="closeMobileMenu()">Human Agents</a>
+  <a href="about.html" onclick="closeMobileMenu()">About Us</a>
+  <a href="blog.html" onclick="closeMobileMenu()">Blog</a>
+  <a href="#apply" class="btn-quiz" onclick="closeMobileMenu()">Send Your CV →</a>
+</div>
+
+<div class="page-hero" style="text-align:center;">
+  <span class="page-eyebrow">Join the Team</span>
+  <h1 class="page-title">Work with<br><span>BACKO</span></h1>
+  <p class="page-sub" style="margin:0 auto;">We're looking for talented bilingual professionals from Colombia who want to build real careers working remotely for businesses worldwide. If you're motivated, reliable, and fluent in English — we want to hear from you.</p>
+</div>
+
+
+<!-- AMBASSADOR SECTION — HIGHLIGHTED -->
+<section id="ambassador" style="padding:100px 64px;background:linear-gradient(180deg,#000 0%,#0a0800 60%,#000 100%);border-bottom:1px solid rgba(224,184,79,0.2);position:relative;z-index:2;overflow:hidden;text-align:center;">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(224,184,79,.07) 0%,transparent 65%);pointer-events:none;"></div>
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--gold),#f0c955,var(--gold),transparent);"></div>
+  <div style="max-width:820px;margin:0 auto;position:relative;">
+    <span style="font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:16px;">Featured Opportunity</span>
+    <h2 class="reveal" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,7vw,92px);color:#fff;letter-spacing:.03em;line-height:.92;margin-bottom:16px;">Become a<br><span style="color:var(--gold);">BACKO Ambassador</span></h2>
+    <p class="reveal" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,2.2vw,24px);color:rgba(224,184,79,.75);margin-bottom:28px;">Sell BACKO worldwide and build your residual income.</p>
+    <p class="reveal" style="font-size:15px;color:var(--muted);line-height:1.85;max-width:640px;margin:0 auto 36px;">BACKO Ambassadors introduce our services to businesses in their network — <strong style="color:var(--text)">anywhere in the world</strong>. Every client you bring generates monthly recurring income for as long as they stay. No cap. No ceiling. The more you build, the more you earn — every single month.</p>
+    <div class="reveal" style="display:inline-block;padding:24px 40px;border:1px solid rgba(224,184,79,.45);background:rgba(224,184,79,.07);margin-bottom:36px;text-align:center;">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:8px;letter-spacing:.08em;text-transform:uppercase;">Ambassadors who truly commit are building</p>
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,6vw,72px);color:var(--gold);letter-spacing:.04em;line-height:1;margin-bottom:6px;">$5,000+</p>
+      <p style="font-size:15px;color:var(--text);">in monthly residual income.</p>
+      <p style="font-size:13px;color:var(--muted);margin-top:6px;font-style:italic;">How dedicated are you?</p>
+    </div>
+    <p class="reveal" style="font-size:13px;color:var(--muted);margin-bottom:28px;max-width:500px;margin-left:auto;margin-right:auto;">This is not for everyone. We're looking for driven, bilingual professionals who believe in what BACKO does and want to build something real. Send us a request and we'll share everything about how it works.</p>
+    <div class="reveal reveal-d2">
+      <a href="#apply-ambassador" class="btn-primary" style="font-size:13px;padding:16px 44px;display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:#000;font-weight:500;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:background .2s;">
+        Request Ambassador Information →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY WORK WITH BACKO -->
+<section id="why-work">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="reveal" style="text-align:center;margin-bottom:52px;">
+      <span class="section-label">Why BACKO</span>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,5vw,56px);color:#fff;letter-spacing:.04em;">What working here looks like</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal reveal-d1">
+        <div class="why-icon"><svg viewBox="0 0 32 32"><path d="M16 4C9.4 4 4 9.4 4 16s5.4 12 12 12 12-5.4 12-12S22.6 4 16 4z"/><path d="M16 10v6l4 4"/></svg></div>
+        <div class="why-title">Remote & Flexible</div>
+        <p class="why-desc">All roles are fully remote. Work from anywhere in Colombia, on a schedule aligned with your clients' business hours.</p>
+      </div>
+      <div class="why-card reveal reveal-d2">
+        <div class="why-icon"><svg viewBox="0 0 32 32"><path d="M16 2l3 9h9l-7.5 5.5 3 9L16 21l-7.5 4.5 3-9L4 11h9z"/></svg></div>
+        <div class="why-title">Real US Experience</div>
+        <p class="why-desc">You'll work directly with real businesses worldwide — building your resume, your skills, and your professional network simultaneously.</p>
+      </div>
+      <div class="why-card reveal reveal-d3">
+        <div class="why-icon"><svg viewBox="0 0 32 32"><rect x="3" y="8" width="26" height="18" rx="2"/><path d="M10 8V6a2 2 0 014 0v2M18 8V6a2 2 0 014 0v2"/></svg></div>
+        <div class="why-title">BACKO Supports You</div>
+        <p class="why-desc">You're never alone. BACKO provides onboarding, tools, client briefing, and support throughout your engagement. You focus on the work.</p>
+      </div>
+      <div class="why-card reveal reveal-d4">
+        <div class="why-icon"><svg viewBox="0 0 32 32"><path d="M6 28l6-6 4 4 6-8 8 10M4 4v24a2 2 0 002 2h24"/></svg></div>
+        <div class="why-title">Grow Your Career</div>
+        <p class="why-desc">Start with one client. Prove yourself. Build your reputation in the international market. BACKO helps ambitious professionals grow fast.</p>
+      </div>
+      <div class="why-card reveal reveal-d5">
+        <div class="why-icon"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="12"/><path d="M10 16l4 4 8-8"/></svg></div>
+        <div class="why-title">No Salary Delays</div>
+        <p class="why-desc">BACKO manages client billing. You get paid consistently and on time — no chasing invoices, no payment uncertainty.</p>
+      </div>
+      <div class="why-card reveal reveal-d1">
+        <div class="why-icon"><svg viewBox="0 0 32 32"><circle cx="12" cy="12" r="8"/><path d="M28 28l-8-8"/></svg></div>
+        <div class="why-title">Speak English Daily</div>
+        <p class="why-desc">Every role requires strong English. Working with BACKO is the best way to sharpen your professional English through real-world use.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPEN ROLES -->
+<section id="roles">
+  <div class="roles-header reveal">
+    <span class="section-label">Open Positions</span>
+    <div class="roles-title">Roles we're always recruiting for</div>
+    <p class="roles-sub">We recruit on demand based on client needs. Even if a role isn't active right now, we keep strong candidates on file for the next opportunity.</p>
+  </div>
+  <div class="role-listings">
+    <div class="role-listing reveal reveal-d1">
+      <div class="rl-left">
+        <span class="rl-tag">Admin</span>
+        <div class="rl-name">Virtual Assistant</div>
+        <p class="rl-desc">Email management, scheduling, data entry, research, and general operations support for businesses worldwide.</p>
+      </div>
+      <div class="rl-right">
+        <span class="rl-type">Remote · Full-time</span>
+        <a href="#apply" class="rl-apply">Apply Now →</a>
+      </div>
+    </div>
+    <div class="role-listing reveal reveal-d2">
+      <div class="rl-left">
+        <span class="rl-tag">Revenue</span>
+        <div class="rl-name">Sales Representative</div>
+        <p class="rl-desc">Outbound prospecting, pipeline follow-up, CRM management, and closing support for US sales teams.</p>
+      </div>
+      <div class="rl-right">
+        <span class="rl-type">Remote · Full-time</span>
+        <a href="#apply" class="rl-apply">Apply Now →</a>
+      </div>
+    </div>
+    <div class="role-listing reveal reveal-d3">
+      <div class="rl-left">
+        <span class="rl-tag">Support</span>
+        <div class="rl-name">Customer Service Representative</div>
+        <p class="rl-desc">Live chat, email support, ticket resolution, and customer onboarding for US-based businesses.</p>
+      </div>
+      <div class="rl-right">
+        <span class="rl-type">Remote · Full-time</span>
+        <a href="#apply" class="rl-apply">Apply Now →</a>
+      </div>
+    </div>
+    <div class="role-listing reveal reveal-d4">
+      <div class="rl-left">
+        <span class="rl-tag">Outreach</span>
+        <div class="rl-name">Telemarketing Representative</div>
+        <p class="rl-desc">Outbound calling, appointment setting, and lead qualification for businesses worldwide across multiple industries.</p>
+      </div>
+      <div class="rl-right">
+        <span class="rl-type">Remote · Full-time</span>
+        <a href="#apply" class="rl-apply">Apply Now →</a>
+      </div>
+    </div>
+    <div class="role-listing reveal reveal-d5">
+      <div class="rl-left">
+        <span class="rl-tag">Technical</span>
+        <div class="rl-name">Web & App Builder</div>
+        <p class="rl-desc">Website development, landing pages, no-code builds, and web application development for international clients.</p>
+      </div>
+      <div class="rl-right">
+        <span class="rl-type">Remote · Full-time</span>
+        <a href="#apply" class="rl-apply">Apply Now →</a>
+      </div>
+    </div>
+    <div class="role-listing reveal">
+      <div class="rl-left">
+        <span class="rl-tag">Operations</span>
+        <div class="rl-name">CRM Administrator</div>
+        <p class="rl-desc">CRM setup, data entry, pipeline management, and reporting for US sales and marketing teams.</p>
+      </div>
+      <div class="rl-right">
+        <span class="rl-type">Remote · Full-time</span>
+        <a href="#apply" class="rl-apply">Apply Now →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REQUIREMENTS -->
+<section id="requirements">
+  <div class="req-inner">
+    <div class="reveal">
+      <span class="section-label">What we look for</span>
+      <div class="req-title">Requirements for all roles</div>
+      <div class="req-list">
+        <div class="req-item">
+          <div class="req-icon"><svg viewBox="0 0 20 20"><path d="M3 10l5 5 9-9"/></svg></div>
+          <div><strong>Fluent English</strong> — written and spoken. You'll communicate directly with international clients every day.</div>
+        </div>
+        <div class="req-item">
+          <div class="req-icon"><svg viewBox="0 0 20 20"><path d="M3 10l5 5 9-9"/></svg></div>
+          <div><strong>Reliable internet connection</strong> — stable, fast, and consistent. This is non-negotiable for remote work.</div>
+        </div>
+        <div class="req-item">
+          <div class="req-icon"><svg viewBox="0 0 20 20"><path d="M3 10l5 5 9-9"/></svg></div>
+          <div><strong>Availability during client hours</strong> — aligned to your client's timezone, wherever they are.</div>
+        </div>
+        <div class="req-item">
+          <div class="req-icon"><svg viewBox="0 0 20 20"><path d="M3 10l5 5 9-9"/></svg></div>
+          <div><strong>Professional communication</strong> — email etiquette, clear writing, and a polished presence on video calls.</div>
+        </div>
+        <div class="req-item">
+          <div class="req-icon"><svg viewBox="0 0 20 20"><path d="M3 10l5 5 9-9"/></svg></div>
+          <div><strong>Based anywhere in Colombia</strong> — we currently recruit Colombia-based professionals for all BACKO roles.</div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal reveal-d2">
+      <span class="section-label">Bonus qualifications</span>
+      <div class="req-title" style="color:var(--muted);font-size:clamp(26px,3.5vw,38px);">Nice to have</div>
+      <div class="req-list">
+        <div class="req-item nice">
+          <div class="req-icon"><svg viewBox="0 0 20 20"><path d="M3 10l5 5 9-9"/></svg></div>
+          <div>Previous experience working with international clients or companies</div>
+        </div>
+        <div class="req-item nice">
+          <div class="req-icon"><svg viewBox="0 0 20 20"><path d="M3 10l5 5 9-9"/></svg></div>
+          <div>Familiarity with tools like Google Workspace, Slack, Notion, HubSpot, or similar</div>
+        </div>
+        <div class="req-item nice">
+          <div class="req-icon"><svg viewBox="0 0 20 20"><path d="M3 10l5 5 9-9"/></svg></div>
+          <div>University degree or technical certification in a relevant field</div>
+        </div>
+        <div class="req-item nice">
+          <div class="req-icon"><svg viewBox="0 0 20 20"><path d="M3 10l5 5 9-9"/></svg></div>
+          <div>Experience with CRM platforms (Salesforce, HubSpot, Zoho, Pipedrive, Bitrix24)</div>
+        </div>
+        <div class="req-item nice">
+          <div class="req-icon"><svg viewBox="0 0 20 20"><path d="M3 10l5 5 9-9"/></svg></div>
+          <div>Portfolio, LinkedIn profile, or references you can share</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLICATION FORM -->
+<section id="apply">
+  <div class="apply-inner">
+    <div class="reveal">
+      <span class="section-label">Apply Now</span>
+      <div class="apply-title">Send your <span>CV</span></div>
+      <p class="apply-sub">Tell us your name and the role you're applying for, then hit the button — your email will open with everything pre-filled. Just attach your CV and send.</p>
+    </div>
+    <form id="cv-form" class="reveal reveal-d1" onsubmit="submitCV(event)">
+      <div class="form-row">
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">First Name *</label>
+          <input type="text" class="form-input" id="fname" placeholder="María" required>
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">Last Name *</label>
+          <input type="text" class="form-input" id="lname" placeholder="González" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Role You're Applying For *</label>
+        <select class="form-select form-input" id="role" required>
+          <option value="" disabled selected>Select a role</option>
+          <option>Virtual Assistant</option>
+          <option>Sales Representative</option>
+          <option>Customer Service Representative</option>
+          <option>Telemarketing Representative</option>
+          <option>Web &amp; App Builder</option>
+          <option>Web Administrator</option>
+          <option>CRM Administrator</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Your CV *</label>
+        <div id="drop-zone" onclick="document.getElementById('cv-file').click()" style="border:1px dashed rgba(224,184,79,0.3);padding:40px 24px;text-align:center;cursor:pointer;transition:border-color .25s,background .25s;position:relative;">
+          <input type="file" id="cv-file" accept=".pdf,.doc,.docx" style="display:none" onchange="handleFileSelect(this)">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(224,184,79,0.5)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 12px;display:block"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <p id="drop-text" style="font-size:13px;color:var(--muted);line-height:1.6">Drop your CV here or <span style="color:var(--gold)">click to browse</span><br><span style="font-size:11px;opacity:.7">PDF, DOC or DOCX · Max 5MB</span></p>
+        </div>
+        <div id="file-chosen" style="display:none;margin-top:10px;padding:12px 16px;background:var(--surface);border:1px solid rgba(224,184,79,0.3);font-size:13px;color:var(--gold);display:none;align-items:center;gap:10px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span id="file-name"></span>
+        </div>
+      </div>
+      <button type="submit" class="btn-submit" id="submit-btn">
+        Send Application →
+      </button>
+      <div id="cv-error" style="display:none;margin-top:12px;font-size:13px;color:#e05a4f;"></div>
+    </form>
+
+    <div id="cv-success" style="display:none;padding:32px;background:var(--surface);border:1px solid rgba(224,184,79,.3);">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;color:var(--gold);margin-bottom:10px;">Application Sent ✓</div>
+      <p style="font-size:14px;color:var(--muted);line-height:1.7;">Thank you for applying to BACKO. We'll review your CV and get back to you as soon as we can.</p>
+    </div>
+
+    <!-- AMBASSADOR REQUEST FORM -->
+    <div id="apply-ambassador" style="margin-top:80px;padding-top:64px;border-top:1px solid var(--border);">
+      <span class="section-label">Ambassador Programme</span>
+      <div class="apply-title">Become an <span>Ambassador</span></div>
+      <p class="apply-sub">Not applying for a role — but want to build residual income by selling BACKO worldwide? Send us a request. We'll review it and reach out with everything you need to know.</p>
+      <form id="ambassador-form" onsubmit="submitAmbassador(event)">
+        <div class="form-row">
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label">First Name *</label>
+            <input type="text" class="form-input" id="a-fname" placeholder="Your first name" required>
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label">Last Name *</label>
+            <input type="text" class="form-input" id="a-lname" placeholder="Your last name" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email *</label>
+          <input type="email" class="form-input" id="a-email" placeholder="your@email.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">WhatsApp / Phone</label>
+          <input type="tel" class="form-input" id="a-phone" placeholder="+57 300 000 0000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Where are you based?</label>
+          <input type="text" class="form-input" id="a-location" placeholder="City, Country">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Why do you want to become a BACKO Ambassador? *</label>
+          <textarea class="form-textarea" id="a-why" placeholder="Tell us about yourself, your network, and why you think you'd be a great ambassador for BACKO." required></textarea>
+        </div>
+        <button type="submit" class="btn-submit" id="a-submit-btn">Send Ambassador Request →</button>
+        <div class="form-success" id="ambassador-success" style="display:none;margin-top:24px;">
+          <div class="form-success-title">Request Received ✓</div>
+          <p class="form-success-text">Thank you for your interest in the BACKO Ambassador Programme. We review each request personally and will be in touch within 3 business days with full details on how it works.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="backo-logo-horizontal.png" alt="BACKO" onerror="this.style.display='none';document.getElementById('ft-fb').style.display='block'">
+      <div class="footer-brand-fb" id="ft-fb">BACKO</div>
+      <p>Back office solutions for businesses worldwide. AI Agents and bilingual Human Agents, from Colombia.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <ul>
+        <li><a href="index.html#how-it-works">How It Works</a></li>
+        <li><a href="ai-agents.html">AI Agents</a></li>
+        <li><a href="human-agents.html">Human Agents</a></li>
+        <li><a href="backo-match.html">Take the BACKO Assessment</a></li>
+        <li><a href="invest.html" style="color:var(--gold)">Invest in BACKO School</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Connect</h5>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/mybacko/" target="_blank" class="social-icon" title="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2"/></svg>
+        </a>
+        <a href="https://www.facebook.com/GETBACKO" target="_blank" class="social-icon" title="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://linkedin.com/company/getbacko" target="_blank" class="social-icon" title="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Join the Team</h5>
+      <ul>
+        <li><a href="careers.html">Send Your CV</a></li>
+        <li><a href="careers.html">Open Roles</a></li>
+      </ul>
+      <p style="font-size:12px;color:var(--muted);line-height:1.7;margin-top:16px">We're always looking for talented bilingual professionals to join our team.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 BACKO — Back Office Solutions. Colombia. NIT 1115070852-6</p>
+    <div style="display:flex;gap:20px;flex-wrap:wrap">
+      <a href="privacy.html" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.05em;transition:color .25s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">Privacy Policy</a>
+      <a href="terms.html" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.05em;transition:color .25s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">Términos y Condiciones</a>
+      <a href="contact.html" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.05em;transition:color .25s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">Contact Us</a>
+    </div>
+  </div>
+</footer>
+
+<div id="chat-bubble" onclick="toggleChat()" title="Ask BACKO"><canvas id="orb-canvas" width="54" height="54"></canvas></div>
+<div id="chat-panel">
+  <canvas id="fluid-canvas" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none"></canvas>
+  <div class="chat-header" style="position:relative;z-index:1">
+    <canvas id="hdr-orb-canvas" width="26" height="26" style="border-radius:50%;flex-shrink:0"></canvas>
+    <div class="chat-header-info"><h4>BACKO Assistant</h4><span>Ask me anything</span></div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-msgs" id="chat-msgs">
+    <div class="msg bot">Hi! Have questions about working with BACKO? I'm happy to help.</div>
+    <div id="faq-container"></div>
+  </div>
+</div>
+
+<script>
+(function(){const c=document.getElementById('particle-canvas');const ctx=c.getContext('2d');let W,H;const P=[];const N=65;function resize(){W=c.width=innerWidth;H=c.height=innerHeight;}resize();window.addEventListener('resize',resize);for(let i=0;i<N;i++)P.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.6+.25,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22,a:Math.random()*.55+.08,f:Math.random()*Math.PI*2,fs:Math.random()*.018+.004});function tick(){ctx.clearRect(0,0,W,H);for(const p of P){p.x+=p.vx;p.y+=p.vy;p.f+=p.fs;if(p.x<-8)p.x=W+8;if(p.x>W+8)p.x=-8;if(p.y<-8)p.y=H+8;if(p.y>H+8)p.y=-8;const a=p.a*(.55+.45*Math.sin(p.f));ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(224,184,79,${a})`;ctx.fill();}requestAnimationFrame(tick);}tick();})();
+(function(){const els=document.querySelectorAll('.reveal');const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.08});els.forEach(el=>obs.observe(el));})();
+
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbxwmsp9YDoUOLmTNtlgUDw9_f0NAmpnMuxP2pXAeiNjP3dwRaiz7CYcIYNU0TxEg9Y8/exec';
+
+// ── Drag & drop ──
+const dropZone = document.getElementById('drop-zone');
+dropZone.addEventListener('dragover', e=>{ e.preventDefault(); dropZone.style.borderColor='var(--gold)'; dropZone.style.background='rgba(224,184,79,0.04)'; });
+dropZone.addEventListener('dragleave', ()=>{ dropZone.style.borderColor='rgba(224,184,79,0.3)'; dropZone.style.background=''; });
+dropZone.addEventListener('drop', e=>{
+  e.preventDefault();
+  dropZone.style.borderColor='rgba(224,184,79,0.3)'; dropZone.style.background='';
+  const file = e.dataTransfer.files[0];
+  if(file){ setFile(file); }
+});
+function handleFileSelect(input){
+  if(input.files[0]) setFile(input.files[0]);
+}
+let selectedFile = null;
+function setFile(file){
+  selectedFile = file;
+  document.getElementById('file-name').textContent = file.name + ' (' + (file.size/1024).toFixed(0) + 'KB)';
+  const fc = document.getElementById('file-chosen');
+  fc.style.display = 'flex';
+  document.getElementById('drop-text').innerHTML = 'File selected — <span style="color:var(--gold)">click to change</span>';
+}
+function submitCV(e){
+  e.preventDefault();
+  const btn   = document.getElementById('submit-btn');
+  const first = document.getElementById('fname').value.trim();
+  const last  = document.getElementById('lname').value.trim();
+  const role  = document.getElementById('role').value;
+  const errEl = document.getElementById('cv-error');
+  errEl.style.display = 'none';
+  if(!selectedFile){
+    errEl.textContent = 'Please attach your CV before submitting.';
+    errEl.style.display = 'block';
+    return;
+  }
+  if(selectedFile.size > 5 * 1024 * 1024){
+    errEl.textContent = 'File is too large. Please keep your CV under 5MB.';
+    errEl.style.display = 'block';
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  const reader = new FileReader();
+  reader.onload = function(ev){
+    const data = {
+      timestamp: new Date().toISOString(),
+      type: 'CV Application',
+      firstName: first,
+      lastName: last,
+      role: role,
+      cvFile: ev.target.result,
+      cvFileName: selectedFile.name,
+      cvMimeType: selectedFile.type || 'application/octet-stream'
+    };
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(data)
+    }).catch(()=>{});
+    setTimeout(()=>{
+      document.getElementById('cv-form').style.display = 'none';
+      document.getElementById('cv-success').style.display = 'block';
+    }, 1000);
+  };
+  reader.onerror = function(){
+    errEl.textContent = 'Could not read file. Please try again.';
+    errEl.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Send Application →';
+  };
+  reader.readAsDataURL(selectedFile);
+}
+
+let chatOpen=false;
+
+// ── BACKO FLUID ENGINE ──
+const BACKO_PALETTE=[
+  {r:224,g:184,b:79},{r:180,g:140,b:50},{r:140,g:105,b:30},
+  {r:255,g:215,b:120},{r:100,g:75,b:20}
+];
+function createFluidBlobs(count,w,h){
+  return Array.from({length:count},(_,i)=>({
+    speedX:0.00018+i*0.000055,speedY:0.00022+i*0.000048,
+    phaseX:(i/count)*Math.PI*2,phaseY:(i/count)*Math.PI*2+1.2,
+    ampX:w*(0.28+(i%3)*0.08),ampY:h*(0.28+(i%3)*0.07),
+    radius:Math.min(w,h)*(0.38+(i%3)*0.12),
+    color:BACKO_PALETTE[i%BACKO_PALETTE.length],
+    wobbleA:0.00035+i*0.00012,wobbleP:i*0.7
+  }));
+}
+function drawFluid(canvas,blobs,t,alpha){
+  const ctx=canvas.getContext('2d');
+  const w=canvas.width,h=canvas.height;
+  ctx.fillStyle='rgba(4,3,1,1)';ctx.fillRect(0,0,w,h);
+  ctx.save();ctx.globalCompositeOperation='lighter';
+  blobs.forEach(b=>{
+    const wobble=Math.sin(t*b.wobbleA+b.wobbleP)*0.15;
+    const px=w*0.5+Math.sin(t*b.speedX+b.phaseX+wobble)*b.ampX;
+    const py=h*0.5+Math.cos(t*b.speedY+b.phaseY+wobble)*b.ampY;
+    const r=b.radius*(0.9+0.1*Math.sin(t*0.00028+b.phaseX));
+    const gr=ctx.createRadialGradient(px,py,0,px,py,r);
+    const {r:cr,g:cg,b:cb}=b.color;
+    gr.addColorStop(0,`rgba(${cr},${cg},${cb},${alpha*0.72})`);
+    gr.addColorStop(0.3,`rgba(${cr},${cg},${cb},${alpha*0.42})`);
+    gr.addColorStop(0.65,`rgba(${cr},${cg},${cb},${alpha*0.15})`);
+    gr.addColorStop(1,`rgba(${cr},${cg},${cb},0)`);
+    ctx.beginPath();ctx.arc(px,py,r,0,Math.PI*2);ctx.fillStyle=gr;ctx.fill();
+  });
+  ctx.restore();
+}
+// Trigger orb
+(function(){
+  const canvas=document.getElementById('orb-canvas');
+  canvas.width=54;canvas.height=54;
+  const blobs=createFluidBlobs(5,54,54);
+  const ctx=canvas.getContext('2d');
+  function tick(now){
+    ctx.save();ctx.beginPath();ctx.arc(27,27,27,0,Math.PI*2);ctx.clip();
+    drawFluid(canvas,blobs,now,1.0);
+    const shine=ctx.createRadialGradient(17,14,0,17,14,18);
+    shine.addColorStop(0,'rgba(255,240,180,0.3)');shine.addColorStop(1,'rgba(255,240,180,0)');
+    ctx.globalCompositeOperation='source-over';ctx.fillStyle=shine;
+    ctx.beginPath();ctx.arc(27,27,27,0,Math.PI*2);ctx.fill();
+    ctx.restore();requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+// Header orb
+(function(){
+  const canvas=document.getElementById('hdr-orb-canvas');
+  canvas.width=26;canvas.height=26;
+  const blobs=createFluidBlobs(4,26,26);
+  const ctx=canvas.getContext('2d');
+  function tick(now){
+    ctx.save();ctx.beginPath();ctx.arc(13,13,13,0,Math.PI*2);ctx.clip();
+    drawFluid(canvas,blobs,now,1.0);ctx.restore();requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+// Widget fluid bg
+var widgetBlobs=null,fluidAnimId=null;
+function startFluid(){
+  const canvas=document.getElementById('fluid-canvas');
+  const panel=document.getElementById('chat-panel');
+  const rect=panel.getBoundingClientRect();
+  canvas.width=rect.width||340;canvas.height=rect.height||480;
+  if(!widgetBlobs)widgetBlobs=createFluidBlobs(6,canvas.width,canvas.height);
+  if(fluidAnimId)cancelAnimationFrame(fluidAnimId);
+  function tick(now){drawFluid(canvas,widgetBlobs,now,0.45);fluidAnimId=requestAnimationFrame(tick);}
+  fluidAnimId=requestAnimationFrame(tick);
+}
+function stopFluid(){if(fluidAnimId){cancelAnimationFrame(fluidAnimId);fluidAnimId=null;}}
+
+// ── CAREERS FAQ ──
+const FAQ=[
+  {
+    q:"What roles is BACKO hiring for?",
+    a:"8 roles: VA, Sales Rep, Customer Service, Telemarketing, Web Builder, Web Admin, CRM Admin, Brand Studio. All fully remote.",
+    cta:null
+  },
+  {
+    q:"Do I need to speak English?",
+    a:"Yes — B2 minimum, C1–C2 preferred for client-facing roles. Most clients are US and Canada-based.",
+    cta:null
+  },
+  {
+    q:"Is the work fully remote?",
+    a:"100% remote from Colombia, aligned to your client's timezone — wherever they are in the world.",
+    cta:null
+  },
+  {
+    q:"How does the hiring process work?",
+    a:"Send your CV, we review it and reach out if there's a match. We recruit on demand and keep strong candidates on file.",
+    cta:null
+  },
+  {
+    q:"What is the BACKO Ambassador programme?",
+    a:"Refer businesses to BACKO, earn monthly recurring income per client. No cap — the more you refer, the more you earn.",
+    cta:null
+  },
+  {
+    q:"I'm ready — how do I apply?",
+    a:"Scroll to Send Your CV, fill it in, and submit. We'll be in touch.",
+    cta:{label:"Apply Now →", href:"#apply"}
+  }
+];
+
+function renderChips(){
+  const container=document.getElementById('faq-container');
+  if(!container) return;
+  container.innerHTML='';
+  const wrap=document.createElement('div');
+  wrap.className='faq-chips';
+  FAQ.forEach((item,i)=>{
+    const btn=document.createElement('button');
+    btn.className='faq-chip';
+    btn.textContent=item.q;
+    btn.onclick=()=>showAnswer(i);
+    wrap.appendChild(btn);
+  });
+  container.appendChild(wrap);
+}
+
+function showAnswer(i){
+  const msgs=document.getElementById('chat-msgs');
+  const container=document.getElementById('faq-container');
+  const item=FAQ[i];
+  const u=document.createElement('div');
+  u.className='msg';
+  u.style.cssText='align-self:flex-end;background:var(--gold-dim);color:var(--text);padding:10px 14px;border-right:2px solid var(--gold);max-width:90%;font-size:13px;line-height:1.6';
+  u.textContent=item.q;
+  msgs.insertBefore(u,container);
+  const b=document.createElement('div');
+  b.className='msg bot';
+  b.textContent=item.a;
+  msgs.insertBefore(b,container);
+  if(item.cta){
+    const l=document.createElement('a');
+    l.className='faq-link';
+    l.href=item.cta.href;
+    l.textContent=item.cta.label;
+    msgs.insertBefore(l,container);
+  }
+  setTimeout(function(){u.scrollIntoView({behavior:"smooth",block:"start"});},50);
+  renderChips();
+}
+
+renderChips();
+
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chat-panel').classList.toggle('open',chatOpen);
+  if(chatOpen){setTimeout(startFluid,50);}else{stopFluid();}
+}
+
+function submitAmbassador(e){
+  e.preventDefault();
+  const btn=document.getElementById('a-submit-btn');
+  btn.disabled=true;btn.textContent='Sending...';
+  const data={
+    timestamp:new Date().toISOString(),
+    type:'Ambassador Request',
+    firstName:document.getElementById('a-fname').value,
+    lastName:document.getElementById('a-lname').value,
+    email:document.getElementById('a-email').value,
+    phone:document.getElementById('a-phone').value||'',
+    location:document.getElementById('a-location').value||'',
+    about:document.getElementById('a-why').value
+  };
+  const SCRIPT_URL_AMB=SCRIPT_URL;
+  fetch(SCRIPT_URL_AMB,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).catch(()=>{});
+  setTimeout(()=>{
+    document.getElementById('ambassador-form').style.opacity='.4';
+    document.getElementById('ambassador-success').style.display='block';
+    btn.style.display='none';
+  },800);
+}
+function toggleMobileMenu(){
+  const menu=document.getElementById('mobile-menu');
+  const btn=document.getElementById('nav-hamburger');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
+}
+function closeMobileMenu(){
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('nav-hamburger').classList.remove('open');
+  document.body.style.overflow='';
+}
+</script>
+</body>
+</html>

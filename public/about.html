@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About BACKO — Back Office Solutions</title>
+<meta name="description" content="BACKO is a back office solutions company based in Colombia. AI Agents and bilingual human professionals for US small businesses.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mybacko.com">
+<meta property="og:title" content="BACKO — Back Office Solutions">
+<meta property="og:description" content="AI Agents and bilingual Human Agents for small businesses. Operate Smarter. Scale Faster.">
+<meta property="og:image" content="https://mybacko.com/backo-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="BACKO">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mybacko.com/backo-og.png">
+<link rel="icon" href="backo-icon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#E0B84F;--gold-dim:rgba(224,184,79,0.12);--bg:#000;--surface:#0C0C0C;--surface2:#141414;--muted:#5A5A54;--text:#E0E0DA;--border:rgba(224,184,79,0.1);--border-h:rgba(224,184,79,0.3);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;line-height:1.6}
+#particle-canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:22px 64px;background:rgba(0,0,0,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-logo img{height:34px;display:block}
+.nav-logo-fb{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.1em;color:var(--gold);display:none}
+.nav-links{display:flex;align-items:center;gap:40px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:11px;letter-spacing:.14em;text-transform:uppercase;transition:color .25s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.btn-quiz{display:inline-flex;align-items:center;background:var(--gold);color:#000;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:11px 24px;text-decoration:none;transition:background .2s}
+.btn-quiz:hover{background:#f0c955}
+section{position:relative;z-index:2}
+.section-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:block}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* PAGE HERO */
+.page-hero{padding:200px 64px 100px;position:relative;z-index:2;max-width:1100px;margin:0 auto;}
+.page-hero::after{content:'';position:absolute;bottom:0;left:64px;right:64px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.page-eyebrow{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:block;opacity:0;animation:fadeUp .6s .3s forwards}
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,9vw,110px);line-height:.92;letter-spacing:.02em;color:#fff;margin-bottom:28px;opacity:0;animation:fadeUp .6s .5s forwards}
+.page-title span{color:var(--gold)}
+.page-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,2.2vw,26px);color:var(--muted);max-width:640px;line-height:1.65;opacity:0;animation:fadeUp .6s .7s forwards}
+
+/* STORY */
+#story{padding:100px 64px}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px;max-width:1100px;margin:0 auto;align-items:start}
+.story-text p{font-size:16px;color:var(--text);line-height:1.9;margin-bottom:24px}
+.story-text p:last-child{margin-bottom:0}
+.story-text p em{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:var(--gold)}
+.story-aside{display:flex;flex-direction:column;gap:2px;background:var(--border)}
+.aside-block{background:var(--surface);padding:36px 32px}
+.aside-num{font-family:'Bebas Neue',sans-serif;font-size:56px;color:var(--gold);letter-spacing:.04em;line-height:1;margin-bottom:4px;display:block}
+.aside-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* MISSION */
+#mission{padding:100px 64px;background:var(--surface)}
+.mission-inner{max-width:900px;margin:0 auto;text-align:center}
+.mission-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,5.5vw,68px);color:#fff;letter-spacing:.04em;margin-bottom:32px;line-height:1}
+.mission-title span{color:var(--gold)}
+.mission-statement{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(22px,2.8vw,34px);color:var(--text);line-height:1.6;margin-bottom:40px;max-width:760px;margin-left:auto;margin-right:auto}
+.mission-body{font-size:15px;color:var(--muted);line-height:1.85;max-width:680px;margin:0 auto}
+
+/* VALUES */
+#values{padding:100px 64px}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;max-width:1100px;margin:0 auto;background:var(--border)}
+.value-card{background:var(--bg);padding:48px 36px;transition:background .3s}
+.value-card:hover{background:var(--surface)}
+.value-icon{width:36px;height:36px;margin-bottom:20px}
+.value-icon svg{width:36px;height:36px;stroke:var(--gold);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.value-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.06em;color:#fff;margin-bottom:10px}
+.value-desc{font-size:14px;color:var(--muted);line-height:1.75}
+
+/* COLOMBIA */
+#colombia{padding:100px 64px;background:var(--surface)}
+.colombia-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;max-width:1100px;margin:0 auto;align-items:center}
+.colombia-text{}
+.colombia-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,5vw,58px);color:#fff;letter-spacing:.04em;line-height:1;margin-bottom:24px}
+.colombia-title span{color:var(--gold)}
+.colombia-body{font-size:15px;color:var(--muted);line-height:1.85;margin-bottom:20px}
+.colombia-facts{display:flex;flex-direction:column;gap:1px;background:var(--border)}
+.colombia-fact{background:var(--surface2);padding:20px 24px;display:flex;gap:16px;align-items:flex-start}
+.fact-icon{width:20px;height:20px;flex-shrink:0;margin-top:2px}
+.fact-icon svg{width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round}
+.fact-text{font-size:13px;color:var(--text);line-height:1.6}
+
+/* WHAT BACKO IS NOT */
+#not{padding:100px 64px}
+.not-inner{max-width:900px;margin:0 auto}
+.not-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,5vw,58px);color:#fff;letter-spacing:.04em;margin-bottom:48px}
+.not-title span{color:var(--gold)}
+.not-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border)}
+.not-card{background:var(--bg);padding:36px 32px}
+.not-card.contrast{background:var(--surface2)}
+.not-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px;display:block}
+.not-label.red{color:#c0392b}
+.not-label.green{color:var(--gold)}
+.not-items{display:flex;flex-direction:column;gap:10px}
+.not-item{display:flex;gap:12px;font-size:13px;color:var(--muted);align-items:flex-start;line-height:1.5}
+.not-mark{font-size:14px;flex-shrink:0;margin-top:1px}
+
+/* CTA */
+#page-cta{padding:140px 64px;text-align:center;position:relative;overflow:hidden}
+#page-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(224,184,79,.05) 0%,transparent 60%);pointer-events:none}
+#page-cta h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,6vw,80px);color:#fff;letter-spacing:.03em;margin-bottom:16px;position:relative}
+#page-cta h2 span{color:var(--gold)}
+#page-cta p{font-size:16px;color:var(--muted);margin-bottom:44px;position:relative}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#000;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:14px 36px;text-decoration:none;transition:background .2s,box-shadow .2s,transform .15s}
+.btn-primary:hover{background:#f0c955;box-shadow:0 0 28px rgba(224,184,79,.4);transform:translateY(-1px)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text);font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:14px 32px;border:1px solid var(--border);text-decoration:none;transition:border-color .2s,color .2s}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:64px 64px 36px;position:relative;z-index:2;background:var(--bg)}
+.footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:52px}
+.footer-brand img{height:30px;display:block;margin-bottom:18px}
+.footer-brand-fb{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.1em;color:var(--gold);display:none;margin-bottom:18px}
+.footer-brand p{font-size:13px;color:var(--muted);line-height:1.8;max-width:240px}
+.footer-col h5{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer-col ul a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .25s}
+.footer-col ul a:hover{color:var(--text)}
+.footer-socials{display:flex;gap:12px}
+.social-icon{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:border-color .25s,background .25s}
+.social-icon:hover{border-color:var(--gold);background:var(--gold-dim)}
+.social-icon svg{width:15px;height:15px;stroke:var(--muted);fill:none;transition:stroke .25s}
+.social-icon:hover svg{stroke:var(--gold)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:28px}
+.footer-copy{font-size:11px;color:var(--muted);letter-spacing:.05em}
+#chat-bubble{position:fixed;bottom:28px;right:28px;z-index:200;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;padding:0;background:transparent;transition:transform .2s}
+#chat-bubble:hover{transform:scale(1.08)}
+#orb-canvas{border-radius:50%;display:block;box-shadow:0 0 0 1.5px rgba(224,184,79,.35),0 0 22px rgba(200,160,60,.45),0 0 44px rgba(160,120,40,.25);animation:orb-pulse 3.5s ease-in-out infinite}
+@keyframes orb-pulse{0%,100%{box-shadow:0 0 0 1.5px rgba(224,184,79,.35),0 0 22px rgba(200,160,60,.45),0 0 44px rgba(160,120,40,.25)}50%{box-shadow:0 0 0 2px rgba(224,184,79,.55),0 0 34px rgba(224,184,79,.65),0 0 60px rgba(180,140,50,.35)}}
+#chat-panel{position:fixed;bottom:94px;right:28px;z-index:200;width:340px;background:#050505;border:1px solid var(--border);display:flex;flex-direction:column;box-shadow:0 20px 64px rgba(0,0,0,.9);transform:translateY(12px) scale(.96);opacity:0;pointer-events:none;transition:transform .3s,opacity .3s;max-height:440px;overflow:hidden}
+#chat-panel.open{transform:none;opacity:1;pointer-events:all}
+.chat-header{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border)}
+.chat-header img{width:26px;height:26px;object-fit:contain}
+.chat-header-info h4{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.06em;color:var(--gold);line-height:1}
+.chat-header-info span{font-size:11px;color:var(--muted)}
+.chat-close{margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:4px}
+.chat-msgs{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;position:relative;z-index:1}
+.msg{max-width:90%;font-size:13px;line-height:1.6}
+.msg.bot{align-self:flex-start;background:var(--surface2);color:var(--text);padding:12px 15px;border-left:2px solid var(--gold)}
+.faq-chips{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.faq-chip{background:none;border:1px solid var(--border);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:.04em;padding:9px 14px;text-align:left;cursor:pointer;transition:border-color .2s,color .2s}
+.faq-chip:hover{border-color:var(--gold);color:var(--text)}
+.faq-link{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#000;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:10px 18px;text-decoration:none;margin-top:6px}
+/* hamburger */
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none;z-index:102}
+.nav-hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);transition:transform .3s,opacity .3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+#mobile-menu{display:none;position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:101;flex-direction:column;align-items:center;justify-content:center;gap:36px}
+#mobile-menu.open{display:flex}
+#mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:.08em;color:var(--muted);text-decoration:none;transition:color .25s}
+#mobile-menu a:hover{color:var(--gold)}
+#mobile-menu .btn-quiz{font-size:14px;padding:14px 36px;margin-top:8px}
+@media(max-width:960px){
+  nav{padding:18px 28px}.nav-links{display:none}
+  .nav-hamburger{display:flex}
+  nav>.btn-quiz{display:none!important}
+  .page-hero,#story,#mission,#values,#colombia,#not,#page-cta{padding:72px 28px}
+  .story-grid,.colombia-inner,.not-grid{grid-template-columns:1fr}
+  .values-grid{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+  footer{padding:48px 28px 28px}
+}
+@media(max-width:600px){.values-grid,.footer-top{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<canvas id="particle-canvas"></canvas>
+
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">
+    <img src="backo-logo-horizontal.png" alt="BACKO" onerror="this.style.display='none';document.getElementById('nav-fb').style.display='block'">
+    <span class="nav-logo-fb" id="nav-fb">BACKO</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#how-it-works">How It Works</a></li>
+    <li><a href="ai-agents.html">AI Agents</a></li>
+    <li><a href="human-agents.html">Human Agents</a></li>
+    <li><a href="about.html" class="active">About Us</a></li>
+  </ul>
+  <a href="backo-match.html" class="btn-quiz">Take the BACKO Assessment →</a>
+  <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div id="mobile-menu">
+  <button onclick="closeMobileMenu()" style="position:absolute;top:28px;right:28px;background:none;border:none;color:#5A5A54;font-size:28px;cursor:pointer;line-height:1;padding:8px;transition:color .2s" aria-label="Close">✕</button>
+  <a href="index.html#how-it-works" onclick="closeMobileMenu()">How It Works</a>
+  <a href="ai-agents.html" onclick="closeMobileMenu()">AI Agents</a>
+  <a href="human-agents.html" onclick="closeMobileMenu()">Human Agents</a>
+  <a href="about.html" onclick="closeMobileMenu()">About Us</a>
+  <a href="backo-match.html" class="btn-quiz" onclick="closeMobileMenu()">Assessment →</a>
+</div>
+
+<div class="page-hero" style="text-align:center;margin:0 auto;max-width:100%;">
+  <span class="page-eyebrow">Who we are</span>
+  <h1 class="page-title">About<br><span>BACKO</span></h1>
+  <p class="page-sub" style="margin:0 auto;">A back office solutions company built in Colombia, focused on small businesses and growing companies worldwide that deserve better operations without the corporate overhead.</p>
+</div>
+
+<!-- STORY -->
+<section id="story">
+  <div class="story-grid">
+    <div class="story-text reveal" style="text-align:left;">
+      <span class="section-label">Our Story</span>
+      <p>BACKO started with a simple observation: businesses worldwide are drowning in back office work that has nothing to do with why they started their business. Answering emails, scheduling calls, chasing leads, managing their website — hours every week stolen from what actually matters.</p>
+      <p>At the same time, Colombia has an enormous pool of educated, bilingual, motivated professionals who want to build serious careers in the digital economy.</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--gold);">Build the bridge.</p>
+      <p>BACKO connects businesses worldwide with two things they actually need: AI systems that handle the repetitive work automatically, and real Colombian professionals who handle everything else. Not a staffing agency. Not a software product. Both — under one roof, managed by one team.</p>
+      <p>We're based in Colombia. We work for businesses around the world. And we believe that where you're from has nothing to do with the quality of work you can deliver.</p>
+    </div>
+    <div class="story-aside reveal reveal-d2">
+      <div class="aside-block">
+        <span class="aside-num">2</span>
+        <span class="aside-label">Ways to work with BACKO</span>
+      </div>
+      <div class="aside-block">
+        <span class="aside-num">4</span>
+        <span class="aside-label">AI Agents available</span>
+      </div>
+      <div class="aside-block">
+        <span class="aside-num">8</span>
+        <span class="aside-label">Human agent roles</span>
+      </div>
+      <div class="aside-block">
+        <span class="aside-num" style="font-size:36px;">WORLD</span>
+        <span class="aside-label">Who we serve</span>
+      </div>
+      <div class="aside-block">
+        <span class="aside-num">CO</span>
+        <span class="aside-label">Where our talent is from</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section id="mission">
+  <div class="mission-inner">
+    <div class="reveal">
+      <span class="section-label">Our Mission</span>
+      <div class="mission-title">What drives <span>everything</span> we do</div>
+    </div>
+    <div class="mission-statement reveal reveal-d1">
+      "Help businesses worldwide operate at a level they never thought was accessible — without the cost, complexity, or commitment of traditional hiring."
+    </div>
+    <p class="mission-body reveal reveal-d2">We believe every small business — wherever they operate in the world — deserves the same operational infrastructure as a company ten times their size. BACKO makes that possible through AI automation and world-class bilingual talent, at a price that actually makes sense.</p>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section id="values">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="reveal" style="text-align:center;margin-bottom:56px;">
+      <span class="section-label">What we believe</span>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,5vw,56px);color:#fff;letter-spacing:.04em;">How we operate</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal reveal-d1">
+        <div class="value-icon"><svg viewBox="0 0 36 36"><path d="M18 3L21.5 12H31L23.5 17.5L26.5 26.5L18 21L9.5 26.5L12.5 17.5L5 12H14.5L18 3z"/></svg></div>
+        <div class="value-title">Honest First</div>
+        <p class="value-desc">We don't promise things we can't deliver. Pricing is clear. Timelines are realistic. If something isn't working, we say so and fix it.</p>
+      </div>
+      <div class="value-card reveal reveal-d2">
+        <div class="value-icon"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="14"/><path d="M12 18l4 4 8-8"/></svg></div>
+        <div class="value-title">Results Over Reports</div>
+        <p class="value-desc">We care about whether your business is actually better, not whether our reports look impressive. Outcomes first, always.</p>
+      </div>
+      <div class="value-card reveal reveal-d3">
+        <div class="value-icon"><svg viewBox="0 0 36 36"><path d="M18 4v28M4 18h28"/><circle cx="18" cy="18" r="6"/></svg></div>
+        <div class="value-title">One Partner</div>
+        <p class="value-desc">You shouldn't need five vendors for your back office. BACKO brings AI and human talent together — you manage one relationship, not many.</p>
+      </div>
+      <div class="value-card reveal reveal-d4">
+        <div class="value-icon"><svg viewBox="0 0 36 36"><path d="M6 18s6-10 12-10 12 10 12 10-6 10-12 10S6 18 6 18z"/><circle cx="18" cy="18" r="4"/></svg></div>
+        <div class="value-title">Transparent Operations</div>
+        <p class="value-desc">You always know what your agent is doing, what the AI is handling, and what you're paying for. No black boxes.</p>
+      </div>
+      <div class="value-card reveal reveal-d5">
+        <div class="value-icon"><svg viewBox="0 0 36 36"><path d="M6 28l6-6 4 4 6-8 8 10"/><path d="M4 4v24a2 2 0 002 2h26"/></svg></div>
+        <div class="value-title">Built to Scale</div>
+        <p class="value-desc">Start with one agent or one automation. Add more when you're ready. BACKO grows with your business — nothing is over-engineered for where you are today.</p>
+      </div>
+      <div class="value-card reveal reveal-d6">
+        <div class="value-icon">
+          <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+            <circle cx="18" cy="6" r="4" fill="#E0B84F"/>
+            <circle cx="6" cy="28" r="4" fill="#E0B84F"/>
+            <circle cx="30" cy="28" r="4" fill="#E0B84F"/>
+            <circle cx="18" cy="18" r="5" fill="#E0B84F"/>
+            <circle cx="18" cy="18" r="2" fill="#000"/>
+            <line x1="18" y1="10" x2="18" y2="13" stroke="#E0B84F" stroke-width="2" stroke-linecap="round"/>
+            <line x1="10" y1="25" x2="14" y2="21" stroke="#E0B84F" stroke-width="2" stroke-linecap="round"/>
+            <line x1="26" y1="25" x2="22" y2="21" stroke="#E0B84F" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="value-title">Colombia Proud</div>
+        <p class="value-desc">We're proud to be building careers and economic opportunity in Colombia. Our talent is world-class — and we prove it every day through the work we deliver.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT BACKO IS NOT -->
+<section id="not">
+  <div class="not-inner">
+    <div class="reveal">
+      <span class="section-label">Clarity</span>
+      <div class="not-title">What BACKO <span>is</span> — and what it isn't</div>
+    </div>
+    <div class="not-grid reveal reveal-d1">
+      <div class="not-card">
+        <span class="not-label red">✕ BACKO is NOT</span>
+        <div class="not-items">
+          <div class="not-item"><div class="not-mark" style="color:#c0392b">✕</div>A staffing agency that throws candidates at you</div>
+          <div class="not-item"><div class="not-mark" style="color:#c0392b">✕</div>A freelance marketplace where you manage everything</div>
+          <div class="not-item"><div class="not-mark" style="color:#c0392b">✕</div>A software company with a self-serve dashboard</div>
+          <div class="not-item"><div class="not-mark" style="color:#c0392b">✕</div>A company that requires long-term contracts</div>
+          <div class="not-item"><div class="not-mark" style="color:#c0392b">✕</div>A service that disappears after setup</div>
+        </div>
+      </div>
+      <div class="not-card contrast">
+        <span class="not-label green">✓ BACKO IS</span>
+        <div class="not-items">
+          <div class="not-item"><div class="not-mark" style="color:var(--gold)">✓</div>A managed partner that handles recruitment, setup, and ongoing management</div>
+          <div class="not-item"><div class="not-mark" style="color:var(--gold)">✓</div>One relationship that covers both AI automation and human talent</div>
+          <div class="not-item"><div class="not-mark" style="color:var(--gold)">✓</div>A team that stays involved — not just at the start</div>
+          <div class="not-item"><div class="not-mark" style="color:var(--gold)">✓</div>Month-to-month with no lock-in or penalties</div>
+          <div class="not-item"><div class="not-mark" style="color:var(--gold)">✓</div>Built to grow with your business as you scale</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding:80px 64px;background:var(--surface);position:relative;z-index:2;text-align:center;">
+  <div style="max-width:700px;margin:0 auto;">
+    <span style="font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:14px;">Anything Else</span>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4.5vw,52px);color:#fff;letter-spacing:.04em;margin-bottom:16px;">Have a specific idea?</h2>
+    <p style="font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:32px;">Not everything fits a template — AI agent, human role, or something else entirely. Tell us what you need. If we can build it or find it, we will.</p>
+    <a href="backo-match.html" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:14px 32px;border:1px solid var(--border);text-decoration:none;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">Tell us your idea →</a>
+  </div>
+</section>
+
+<section id="page-cta">
+  <h2 class="reveal">Ready to meet<br><span>your BACKO?</span></h2>
+  <p class="reveal">Take the BACKO Assessment. Two minutes and we'll know exactly what your business needs.</p>
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;" class="reveal reveal-d2">
+    <a href="backo-match.html" class="btn-primary">Take the BACKO Assessment →</a>
+    <a href="careers.html" class="btn-outline">Work with BACKO →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="backo-logo-horizontal.png" alt="BACKO" onerror="this.style.display='none';document.getElementById('ft-fb').style.display='block'">
+      <div class="footer-brand-fb" id="ft-fb">BACKO</div>
+      <p>Back office solutions for businesses worldwide. AI Agents and bilingual Human Agents, from Colombia.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <ul>
+        <li><a href="index.html#how-it-works">How It Works</a></li>
+        <li><a href="ai-agents.html">AI Agents</a></li>
+        <li><a href="human-agents.html">Human Agents</a></li>
+        <li><a href="backo-match.html">Take the BACKO Assessment</a></li>
+        <li><a href="invest.html" style="color:var(--gold)">Invest in BACKO School</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Connect</h5>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/mybacko/" target="_blank" class="social-icon" title="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2"/></svg>
+        </a>
+        <a href="https://www.facebook.com/GETBACKO" target="_blank" class="social-icon" title="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://linkedin.com/company/getbacko" target="_blank" class="social-icon" title="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Join the Team</h5>
+      <ul>
+        <li><a href="careers.html">Send Your CV</a></li>
+        <li><a href="careers.html">Open Roles</a></li>
+      </ul>
+      <p style="font-size:12px;color:var(--muted);line-height:1.7;margin-top:16px">We're always looking for talented bilingual professionals to join our team.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 BACKO — Back Office Solutions. Colombia. NIT 1115070852-6</p>
+    <div style="display:flex;gap:20px;flex-wrap:wrap">
+      <a href="privacy.html" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.05em;transition:color .25s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">Privacy Policy</a>
+      <a href="terms.html" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.05em;transition:color .25s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">Términos y Condiciones</a>
+      <a href="contact.html" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.05em;transition:color .25s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">Contact Us</a>
+    </div>
+  </div>
+</footer>
+
+<div id="chat-bubble" onclick="toggleChat()" title="Ask BACKO"><canvas id="orb-canvas" width="54" height="54"></canvas></div>
+<div id="chat-panel">
+  <canvas id="fluid-canvas" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none"></canvas>
+  <div class="chat-header" style="position:relative;z-index:1">
+    <canvas id="hdr-orb-canvas" width="26" height="26" style="border-radius:50%;flex-shrink:0"></canvas>
+    <div class="chat-header-info"><h4>BACKO Assistant</h4><span>Ask me anything</span></div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-msgs" id="chat-msgs"><div class="msg bot">Hi! I can tell you more about BACKO, how we work, or help you figure out if we're the right fit for your business.</div><div id="faq-container"></div></div>
+</div>
+
+<script>
+(function(){const c=document.getElementById('particle-canvas');const ctx=c.getContext('2d');let W,H;const P=[];const N=65;function resize(){W=c.width=innerWidth;H=c.height=innerHeight;}resize();window.addEventListener('resize',resize);for(let i=0;i<N;i++)P.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.6+.25,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22,a:Math.random()*.55+.08,f:Math.random()*Math.PI*2,fs:Math.random()*.018+.004});function tick(){ctx.clearRect(0,0,W,H);for(const p of P){p.x+=p.vx;p.y+=p.vy;p.f+=p.fs;if(p.x<-8)p.x=W+8;if(p.x>W+8)p.x=-8;if(p.y<-8)p.y=H+8;if(p.y>H+8)p.y=-8;const a=p.a*(.55+.45*Math.sin(p.f));ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(224,184,79,${a})`;ctx.fill();}requestAnimationFrame(tick);}tick();})();
+(function(){const els=document.querySelectorAll('.reveal');const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.08});els.forEach(el=>obs.observe(el));})();
+const FAQ=[{q:"Where is BACKO based?",a:"Colombia. We recruit talent from across the country — Bogotá, Medellín, Cali, and beyond.",cta:null},{q:"Do you only serve businesses worldwide?",a:"Currently yes. Our entire model — timezone alignment, bilingual professionals, AI tools — is optimized for businesses worldwide.",cta:null},{q:"Are your professionals employees or contractors?",a:"That depends on the arrangement. BACKO handles the employment structure — you don't have to think about it. You pay one flat rate to BACKO.",cta:null},{q:"Can I speak to someone before committing?",a:"Yes — that's exactly what the discovery call is for. Take the BACKO Assessment first so we come prepared.",cta:{label:"Take the BACKO Assessment →",href:"backo-match.html"}}];
+let chatOpen=false;
+function renderChips(){const c=document.getElementById('faq-container');c.innerHTML='';const w=document.createElement('div');w.className='faq-chips';FAQ.forEach((item,i)=>{const b=document.createElement('button');b.className='faq-chip';b.textContent=item.q;b.onclick=()=>showAnswer(i);w.appendChild(b);});c.appendChild(w);}
+function showAnswer(i){const msgs=document.getElementById('chat-msgs');const container=document.getElementById('faq-container');const item=FAQ[i];const u=document.createElement('div');u.className='msg';u.style.cssText='align-self:flex-end;background:var(--gold-dim);color:var(--text);padding:10px 14px;border-right:2px solid var(--gold);max-width:90%;font-size:13px;line-height:1.6';u.textContent=item.q;msgs.insertBefore(u,container);const b=document.createElement('div');b.className='msg bot';b.textContent=item.a;msgs.insertBefore(b,container);if(item.cta){const l=document.createElement('a');l.className='faq-link';l.href=item.cta.href;l.textContent=item.cta.label;msgs.insertBefore(l,container);}msgs.scrollTop=msgs.scrollHeight;renderChips();}
+
+// ── BACKO FLUID ENGINE ──
+const BACKO_PALETTE=[
+  {r:224,g:184,b:79},{r:180,g:140,b:50},{r:140,g:105,b:30},
+  {r:255,g:215,b:120},{r:100,g:75,b:20}
+];
+function createFluidBlobs(count,w,h){
+  return Array.from({length:count},(_,i)=>({
+    speedX:0.00018+i*0.000055,speedY:0.00022+i*0.000048,
+    phaseX:(i/count)*Math.PI*2,phaseY:(i/count)*Math.PI*2+1.2,
+    ampX:w*(0.28+(i%3)*0.08),ampY:h*(0.28+(i%3)*0.07),
+    radius:Math.min(w,h)*(0.38+(i%3)*0.12),
+    color:BACKO_PALETTE[i%BACKO_PALETTE.length],
+    wobbleA:0.00035+i*0.00012,wobbleP:i*0.7
+  }));
+}
+function drawFluid(canvas,blobs,t,alpha){
+  const ctx=canvas.getContext('2d');
+  const w=canvas.width,h=canvas.height;
+  ctx.fillStyle='rgba(4,3,1,1)';ctx.fillRect(0,0,w,h);
+  ctx.save();ctx.globalCompositeOperation='lighter';
+  blobs.forEach(b=>{
+    const wobble=Math.sin(t*b.wobbleA+b.wobbleP)*0.15;
+    const px=w*0.5+Math.sin(t*b.speedX+b.phaseX+wobble)*b.ampX;
+    const py=h*0.5+Math.cos(t*b.speedY+b.phaseY+wobble)*b.ampY;
+    const r=b.radius*(0.9+0.1*Math.sin(t*0.00028+b.phaseX));
+    const gr=ctx.createRadialGradient(px,py,0,px,py,r);
+    const {r:cr,g:cg,b:cb}=b.color;
+    gr.addColorStop(0,`rgba(${cr},${cg},${cb},${alpha*0.72})`);
+    gr.addColorStop(0.3,`rgba(${cr},${cg},${cb},${alpha*0.42})`);
+    gr.addColorStop(0.65,`rgba(${cr},${cg},${cb},${alpha*0.15})`);
+    gr.addColorStop(1,`rgba(${cr},${cg},${cb},0)`);
+    ctx.beginPath();ctx.arc(px,py,r,0,Math.PI*2);ctx.fillStyle=gr;ctx.fill();
+  });
+  ctx.restore();
+}
+// Trigger orb
+(function(){
+  const canvas=document.getElementById('orb-canvas');
+  canvas.width=54;canvas.height=54;
+  const blobs=createFluidBlobs(5,54,54);
+  const ctx=canvas.getContext('2d');
+  function tick(now){
+    ctx.save();ctx.beginPath();ctx.arc(27,27,27,0,Math.PI*2);ctx.clip();
+    drawFluid(canvas,blobs,now,1.0);
+    const shine=ctx.createRadialGradient(17,14,0,17,14,18);
+    shine.addColorStop(0,'rgba(255,240,180,0.3)');shine.addColorStop(1,'rgba(255,240,180,0)');
+    ctx.globalCompositeOperation='source-over';ctx.fillStyle=shine;
+    ctx.beginPath();ctx.arc(27,27,27,0,Math.PI*2);ctx.fill();
+    ctx.restore();requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+// Header orb
+(function(){
+  const canvas=document.getElementById('hdr-orb-canvas');
+  canvas.width=26;canvas.height=26;
+  const blobs=createFluidBlobs(4,26,26);
+  const ctx=canvas.getContext('2d');
+  function tick(now){
+    ctx.save();ctx.beginPath();ctx.arc(13,13,13,0,Math.PI*2);ctx.clip();
+    drawFluid(canvas,blobs,now,1.0);ctx.restore();requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+// Widget fluid bg
+var widgetBlobs=null,fluidAnimId=null;
+function startFluid(){
+  const canvas=document.getElementById('fluid-canvas');
+  const panel=document.getElementById('chat-panel');
+  const rect=panel.getBoundingClientRect();
+  canvas.width=rect.width||340;canvas.height=rect.height||480;
+  if(!widgetBlobs)widgetBlobs=createFluidBlobs(6,canvas.width,canvas.height);
+  if(fluidAnimId)cancelAnimationFrame(fluidAnimId);
+  function tick(now){drawFluid(canvas,widgetBlobs,now,0.45);fluidAnimId=requestAnimationFrame(tick);}
+  fluidAnimId=requestAnimationFrame(tick);
+}
+function stopFluid(){if(fluidAnimId){cancelAnimationFrame(fluidAnimId);fluidAnimId=null;}}
+
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chat-panel').classList.toggle('open',chatOpen);
+  if(chatOpen){setTimeout(startFluid,50);}else{stopFluid();}
+}
+renderChips();
+function toggleMobileMenu(){
+  const menu=document.getElementById('mobile-menu');
+  const btn=document.getElementById('nav-hamburger');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
+}
+function closeMobileMenu(){
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('nav-hamburger').classList.remove('open');
+  document.body.style.overflow='';
+}
+</script>
+</body>
+</html>
