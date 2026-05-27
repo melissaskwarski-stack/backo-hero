@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BACKO — Back Office Solutions</title>
+<meta name="description" content="AI Agents and Bilingual Human Agents for businesses worldwide. Operate Smarter. Scale Faster.">
+<!-- Open Graph / WhatsApp / Social -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mybacko.com">
+<meta property="og:title" content="BACKO — Back Office Solutions">
+<meta property="og:description" content="AI Agents and bilingual Human Agents for small businesses. Operate Smarter. Scale Faster.">
+<meta property="og:image" content="https://mybacko.com/backo-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="BACKO">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mybacko.com/backo-og.png">
+<link rel="icon" href="backo-icon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #E0B84F;
+  --gold-dim: rgba(224,184,79,0.12);
+  --bg: #000000;
+  --surface: #0C0C0C;
+  --surface2: #141414;
+  --muted: #5A5A54;
+  --text: #E0E0DA;
+  --border: rgba(224,184,79,0.1);
+  --border-h: rgba(224,184,79,0.3);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;line-height:1.6}
+
+/* ── LOADER ── */
+#loader{position:fixed;inset:0;background:#000;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;transition:opacity .8s ease,visibility .8s ease}
+#loader.out{opacity:0;visibility:hidden;pointer-events:none}
+.licon{width:100px;height:100px;position:relative}
+@keyframes logoIn{from{opacity:0;transform:scale(0.85)}to{opacity:1;transform:scale(1)}}
+@keyframes logoPulse{0%,100%{filter:drop-shadow(0 0 10px rgba(224,184,79,.5));transform:scale(1)}50%{filter:drop-shadow(0 0 24px rgba(224,184,79,.9));transform:scale(1.06)}}
+@keyframes lfill{0%{width:0}50%{width:65%}85%{width:90%}100%{width:100%}}
+
+/* ── CANVASES ── */
+#particle-canvas{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.45}
+#scroll-canvas{position:fixed;inset:0;pointer-events:none;z-index:5}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:22px 64px;transition:background .4s,border-color .4s,backdrop-filter .4s;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(0,0,0,.9);backdrop-filter:blur(20px);border-bottom-color:var(--border)}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-logo img{height:44px;display:block}
+.nav-logo-fb{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.1em;color:var(--gold);display:none}
+.nav-links{display:flex;align-items:center;gap:40px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:11px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;transition:color .25s}
+.nav-links a:hover{color:var(--text)}
+.btn-quiz{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#000;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:11px 24px;border:none;cursor:pointer;text-decoration:none;transition:background .2s,box-shadow .2s,transform .15s}
+.btn-quiz:hover{background:#f0c955;box-shadow:0 0 28px rgba(224,184,79,.45);transform:translateY(-1px)}
+/* hamburger */
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none;z-index:102}
+.nav-hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);transition:transform .3s,opacity .3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+/* mobile menu overlay */
+#mobile-menu{display:none;position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:101;flex-direction:column;align-items:center;justify-content:center;gap:36px}
+#mobile-menu.open{display:flex}
+#mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:.08em;color:var(--muted);text-decoration:none;transition:color .25s}
+#mobile-menu a:hover{color:var(--gold)}
+#mobile-menu .btn-quiz{font-size:14px;padding:14px 36px;margin-top:8px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#000;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:14px 32px;border:none;cursor:pointer;text-decoration:none;transition:background .2s,box-shadow .2s,transform .15s}
+.btn-primary:hover{background:#f0c955;box-shadow:0 0 32px rgba(224,184,79,.5);transform:translateY(-2px)}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 60px 80px;position:relative;overflow:hidden}
+#hero-canvas{position:absolute;inset:0;pointer-events:none;z-index:1}
+.hero-content{position:relative;z-index:3}
+.hero-eyebrow{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:32px;opacity:0;animation:fadeUp .7s 1.4s forwards}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,10vw,130px);line-height:.92;letter-spacing:.02em;color:#fff;margin-bottom:36px}
+.hero-line{display:block;opacity:0;transform:translateY(28px) scaleY(1.08);transform-origin:bottom;text-shadow:0 0 80px rgba(0,0,0,1),0 0 40px rgba(0,0,0,.9),0 2px 16px rgba(0,0,0,.8)}
+.hero-line:nth-child(1){animation:lineIn .6s cubic-bezier(.22,1,.36,1) 1.6s forwards}
+.hero-line:nth-child(2){animation:lineIn .6s cubic-bezier(.22,1,.36,1) 1.85s forwards}
+.hero-line:nth-child(3){animation:lineIn .6s cubic-bezier(.22,1,.36,1) 2.1s forwards}
+.hero-line.gold{color:var(--gold);text-shadow:0 0 60px rgba(0,0,0,.9),0 0 30px rgba(0,0,0,.8)}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,2.2vw,26px);color:var(--muted);margin-top:28px;margin-bottom:52px;opacity:0;animation:fadeUp .8s 2.4s forwards}
+.hero-cta{opacity:0;animation:fadeUp .8s 2.7s forwards}
+@keyframes lineIn{from{opacity:0;transform:translateY(28px) scaleY(1.08)}to{opacity:1;transform:translateY(0) scaleY(1)}}
+
+/* ── SECTIONS ── */
+section{position:relative;z-index:2}
+.section-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:block}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,5.5vw,68px);color:#fff;letter-spacing:.04em;line-height:1}
+.section-head{text-align:center;margin-bottom:72px}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .75s ease,transform .75s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}
+.reveal-d4{transition-delay:.4s}.reveal-d5{transition-delay:.5s}.reveal-d6{transition-delay:.6s}.reveal-d7{transition-delay:.7s}.reveal-d8{transition-delay:.8s}
+.line-anchor{position:absolute;left:0;top:50%;width:1px;height:1px;pointer-events:none}
+
+/* ── PITCH ── */
+#pitch{padding:140px 60px;max-width:860px;margin:0 auto;text-align:center}
+.pitch-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(24px,3.2vw,40px);line-height:1.55;color:var(--text)}
+.pitch-text strong{color:var(--gold);font-style:normal;font-weight:500}
+
+/* ── TWO PATHS ── */
+#two-paths{padding:100px 64px}
+.paths-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;max-width:1120px;margin:0 auto}
+.path-card{background:var(--surface);border:1px solid var(--border);padding:60px 52px;position:relative;overflow:hidden;transition:border-color .35s,transform .35s}
+.path-card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .5s ease}
+.path-card:hover::after{transform:scaleX(1)}
+.path-card:hover{border-color:var(--border-h);transform:translateY(-5px)}
+.path-icon-svg{width:40px;height:40px;margin-bottom:28px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.path-card h3{font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:.04em;color:var(--gold);margin-bottom:18px}
+.path-card p{font-size:15px;color:var(--muted);line-height:1.8}
+
+/* ── AI AGENTS ── */
+#ai-agents{padding:100px 64px;background:var(--surface)}
+.agents-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;max-width:1200px;margin:0 auto}
+.agent-card{background:var(--bg);border:1px solid var(--border);padding:44px 36px;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s,transform .3s}
+.agent-card:hover{border-color:var(--border-h);box-shadow:0 12px 48px rgba(224,184,79,.07);transform:translateY(-6px);z-index:1}
+.agent-tag{display:inline-block;background:var(--gold-dim);color:var(--gold);font-size:9px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding:5px 12px;margin-bottom:24px}
+.agent-card h3{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.04em;color:#fff;margin-bottom:14px}
+.agent-card p{font-size:13px;color:var(--muted);line-height:1.75;margin-bottom:28px}
+.agent-link{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:opacity .2s;display:inline-flex;align-items:center;gap:6px}
+.agent-link:hover{opacity:.7}
+
+/* ── HUMAN AGENTS ── */
+#human-agents{padding:100px 64px}
+/* 4-column grid so 8 cards (7 roles + studio) fill evenly */
+.roles-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;max-width:1200px;margin:0 auto}
+.role-card{border:1px solid var(--border);padding:32px 30px;background:var(--bg);display:flex;flex-direction:column;gap:10px;transition:border-color .3s,background .3s,transform .3s}
+.role-card:hover{border-color:var(--border-h);background:var(--surface);transform:translateY(-3px)}
+.role-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.05em;color:#fff}
+.role-desc{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* ── HOW IT WORKS ── */
+#how-it-works{padding:100px 64px;background:var(--surface)}
+.steps-wrap{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:20px;max-width:1060px;margin:0 auto}
+.step{border:1px solid var(--border);background:var(--bg);padding:48px 36px;text-align:center;transition:border-color .3s;display:flex;flex-direction:column;align-items:center}
+.step:hover{border-color:var(--border-h)}
+.step-num{font-family:'Bebas Neue',sans-serif;font-size:72px;color:rgba(224,184,79,.18);line-height:1;margin-bottom:20px;display:block}
+.step h4{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;color:#fff;margin-bottom:14px}
+.step p{font-size:13px;color:var(--muted);line-height:1.75}
+.step-arrow{font-size:20px;color:var(--gold);display:flex;align-items:center;justify-content:center;padding-top:0}
+
+/* ── SOCIAL PROOF ── */
+#social-proof{padding:100px 64px}
+.stats-row{display:flex;justify-content:center;gap:80px;margin-bottom:80px;flex-wrap:wrap}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:64px;color:var(--gold);line-height:1;display:block}
+.stat-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:block;margin-top:8px}
+.testimonials{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:940px;margin:0 auto 60px}
+.testimonial{border:1px solid var(--border);padding:40px 36px;background:var(--surface)}
+.t-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;line-height:1.75;color:var(--text);margin-bottom:24px}
+.t-author{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.industry-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.pill{border:1px solid var(--border);padding:7px 20px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transition:border-color .25s,color .25s;cursor:default}
+.pill:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── FINAL CTA ── */
+#final-cta{padding:160px 64px;text-align:center;position:relative;overflow:hidden}
+#final-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(224,184,79,.06) 0%,transparent 60%);pointer-events:none}
+#final-cta h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,6.5vw,88px);color:#fff;letter-spacing:.03em;margin-bottom:20px;position:relative}
+#final-cta p{font-size:17px;color:var(--muted);margin-bottom:52px;position:relative}
+.cta-row{display:flex;justify-content:center;position:relative}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:64px 64px 36px;position:relative;z-index:2;background:var(--bg)}
+.footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:52px}
+.footer-brand img{height:30px;display:block;margin-bottom:18px}
+.footer-brand-fb{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.1em;color:var(--gold);display:none;margin-bottom:18px}
+.footer-brand p{font-size:13px;color:var(--muted);line-height:1.8;max-width:240px}
+.footer-col h5{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer-col ul a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .25s}
+.footer-col ul a:hover{color:var(--text)}
+.footer-socials{display:flex;gap:12px;margin-bottom:20px}
+.social-icon{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:border-color .25s,background .25s}
+.social-icon:hover{border-color:var(--gold);background:var(--gold-dim)}
+.social-icon svg{width:15px;height:15px;stroke:var(--muted);fill:none;transition:stroke .25s}
+.social-icon:hover svg{stroke:var(--gold)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-copy{font-size:11px;color:var(--muted);letter-spacing:.05em}
+
+/* ── CHAT WIDGET ── */
+#chat-bubble{position:fixed;bottom:28px;right:28px;z-index:200;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;padding:0;background:transparent;transition:transform .2s}
+#chat-bubble:hover{transform:scale(1.08)}
+#orb-canvas{border-radius:50%;display:block;box-shadow:0 0 0 1.5px rgba(224,184,79,.35),0 0 22px rgba(200,160,60,.45),0 0 44px rgba(160,120,40,.25);animation:orb-pulse 3.5s ease-in-out infinite}
+@keyframes orb-pulse{0%,100%{box-shadow:0 0 0 1.5px rgba(224,184,79,.35),0 0 22px rgba(200,160,60,.45),0 0 44px rgba(160,120,40,.25)}50%{box-shadow:0 0 0 2px rgba(224,184,79,.55),0 0 34px rgba(224,184,79,.65),0 0 60px rgba(180,140,50,.35)}}
+#chat-panel{position:fixed;bottom:94px;right:28px;z-index:200;width:360px;max-height:560px;background:#050505;border:1px solid var(--border);display:flex;flex-direction:column;box-shadow:0 20px 64px rgba(0,0,0,.9);transform:translateY(16px) scale(.96);opacity:0;pointer-events:none;transition:transform .3s,opacity .3s;overflow:hidden}
+#chat-panel.open{transform:none;opacity:1;pointer-events:all}
+.chat-header{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border)}
+.chat-header img{width:26px;height:26px;object-fit:contain}
+.chat-header-info h4{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.06em;color:var(--gold);line-height:1}
+.chat-header-info span{font-size:11px;color:var(--muted)}
+.chat-close{margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:4px;transition:color .2s}
+.chat-close:hover{color:var(--text)}
+.chat-msgs{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px;position:relative;z-index:1}
+.chat-msgs::-webkit-scrollbar{width:3px}
+.chat-msgs::-webkit-scrollbar-thumb{background:var(--surface2)}
+.msg{max-width:90%;font-size:13.5px;line-height:1.65}
+.msg.bot{align-self:flex-start;background:#1c1c1c;color:#E0E0DA;padding:12px 15px;border-left:2px solid var(--gold)}
+/* FAQ chips */
+.faq-chips{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.faq-chip{background:none;border:1px solid var(--border);color:#9a9a94;font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:.04em;padding:10px 14px;text-align:left;cursor:pointer;transition:border-color .2s,color .2s,background .2s;line-height:1.4}
+.faq-chip:hover{border-color:var(--gold);color:var(--text);background:var(--gold-dim)}
+.faq-link{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#000;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:10px 20px;text-decoration:none;margin-top:8px;transition:background .2s}
+.faq-link:hover{background:#f0c955}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  nav{padding:18px 28px}
+  .nav-links{display:none}
+  nav>.btn-quiz{display:none!important} /* hide nav quiz btn — mobile menu has it */
+  .nav-hamburger{display:flex}
+  #hero{padding:100px 28px 48px}
+  #pitch{padding:56px 28px 64px}
+  .hero-sub{margin-top:20px;margin-bottom:36px}
+  #two-paths,#ai-agents,#human-agents,#how-it-works,#social-proof,#final-cta{padding:80px 28px}
+  .paths-grid,.testimonials{grid-template-columns:1fr}
+  .hero-title{font-size:clamp(52px,14vw,80px)}
+  .hero-sub{margin-top:56px}
+  .agents-grid{grid-template-columns:1fr 1fr}
+  .roles-grid{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+  footer{padding:48px 28px 28px}
+  .steps-wrap{grid-template-columns:1fr;align-items:center}
+  .step-arrow{transform:none;font-size:24px;color:transparent}
+  .step-arrow::before{content:'↓';color:var(--gold)}
+  #scroll-canvas{display:none}
+}
+@media(max-width:600px){
+  .agents-grid,.roles-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}
+  #chat-panel{width:calc(100vw - 32px);right:16px;bottom:calc(16px + env(safe-area-inset-bottom));max-height:75vh;top:auto}
+  #chat-bubble{bottom:calc(16px + env(safe-area-inset-bottom));right:calc(16px + env(safe-area-inset-right))}
+}
+
+@media(max-width:380px){
+  #hero,#pitch,#two-paths,#ai-agents,#human-agents,#how-it-works,#social-proof,#final-cta{padding-left:16px;padding-right:16px}
+  footer{padding-left:16px;padding-right:16px}
+  .hero-title{font-size:clamp(40px,12vw,60px)}
+  #chat-panel{width:calc(100vw - 24px);right:12px}
+}
+
+/* ── TICKER ── */
+.ticker-wrap{white-space:nowrap}
+.ticker-inner{display:inline-block;animation:ticker 65s linear infinite}
+.ticker-inner:hover{animation-play-state:paused}
+.t-item{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--text);padding:0 48px}
+.t-item em{font-size:12px;color:var(--muted);font-style:normal;letter-spacing:.08em;margin-left:12px}
+.t-sep{color:var(--gold);font-size:12px;opacity:.5;padding:0 8px}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="licon" id="licon">
+    <img src="backo-icon.png" alt="BACKO" id="limg"
+      style="width:100%;height:100%;object-fit:contain;opacity:0;animation:logoIn 0.6s ease 0.2s forwards, logoPulse 2s ease-in-out 0.8s infinite"
+      onerror="this.style.display='none';document.getElementById('licon-fallback').style.display='block'">
+    <svg id="licon-fallback" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" style="display:none;width:100%;height:100%">
+      <circle cx="60" cy="16" r="10" fill="none" stroke="#E0B84F" stroke-width="2.5" opacity="0">
+        <animate attributeName="opacity" values="0;1" dur=".4s" begin=".1s" fill="freeze"/>
+      </circle>
+      <circle cx="16" cy="98" r="10" fill="none" stroke="#E0B84F" stroke-width="2.5" opacity="0">
+        <animate attributeName="opacity" values="0;1" dur=".4s" begin=".5s" fill="freeze"/>
+      </circle>
+      <circle cx="104" cy="98" r="10" fill="none" stroke="#E0B84F" stroke-width="2.5" opacity="0">
+        <animate attributeName="opacity" values="0;1" dur=".4s" begin=".9s" fill="freeze"/>
+      </circle>
+    </svg>
+  </div>
+</div>
+
+<canvas id="particle-canvas"></canvas>
+<canvas id="scroll-canvas"></canvas>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo">
+    <img src="backo-logo-horizontal.png" alt="BACKO" onerror="this.style.display='none';document.getElementById('nav-fb').style.display='block'">
+    <span class="nav-logo-fb" id="nav-fb">BACKO</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#how-it-works">How It Works</a></li>
+    <li><a href="ai-agents.html">AI Agents</a></li>
+    <li><a href="human-agents.html">Human Agents</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="blog.html">Blog</a></li>
+  </ul>
+  <a href="backo-match.html" class="btn-quiz">Take the BACKO Assessment →</a>
+  <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu">
+  <button onclick="closeMobileMenu()" style="position:absolute;top:28px;right:28px;background:none;border:none;color:var(--muted);font-size:28px;cursor:pointer;line-height:1;padding:8px;transition:color .2s" aria-label="Close">✕</button>
+  <a href="#how-it-works" onclick="closeMobileMenu()">How It Works</a>
+  <a href="ai-agents.html" onclick="closeMobileMenu()">AI Agents</a>
+  <a href="human-agents.html" onclick="closeMobileMenu()">Human Agents</a>
+  <a href="about.html" onclick="closeMobileMenu()">About Us</a>
+  <a href="blog.html" onclick="closeMobileMenu()">Blog</a>
+  <a href="backo-match.html" class="btn-quiz">Assessment →</a>
+</div>
+
+<!-- HERO -->
+<section id="hero"><div id="anc0" style="position:absolute;left:0;top:50%;width:1px;height:1px;pointer-events:none"></div>
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Back Office Solutions · For Businesses Worldwide</p>
+    <h1 class="hero-title">
+      <span class="hero-line">AI Agents.</span>
+      <span class="hero-line gold">Real People.</span>
+      <span class="hero-line">One Partner.</span>
+    </h1>
+    <p class="hero-sub">Operate Smarter. Scale Faster.</p>
+    <div class="hero-cta">
+      <a href="backo-match.html" class="btn-primary">Take the BACKO Assessment →</a>
+    </div>
+  </div>
+  </section>
+
+<!-- PITCH / VIDEO -->
+<section id="pitch">
+  <div class="line-anchor" id="anc1"></div>
+  <div class="reveal" style="max-width:860px;margin:0 auto;padding:0 4px">
+    <div style="padding:56.69% 0 0 0;position:relative;border:1px solid var(--border);box-shadow:0 0 60px rgba(224,184,79,.08)">
+      <iframe src="https://player.vimeo.com/video/1188828442?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="BACKO — Operate Smarter. Scale Faster."></iframe>
+    </div>
+  </div>
+  <script src="https://player.vimeo.com/api/player.js"></script>
+</section>
+
+<!-- TWO PATHS -->
+<section id="two-paths">
+  <div class="line-anchor" id="anc2"></div>
+  <div class="section-head">
+    <span class="section-label reveal">Choose Your Path</span>
+    <h2 class="section-title reveal">Two Ways to Operate Smarter</h2>
+  </div>
+  <div class="paths-grid">
+    <a href="ai-agents.html" class="path-card reveal reveal-d1" style="text-decoration:none;display:block;color:inherit;">
+      <svg class="path-icon-svg" viewBox="0 0 40 40"><rect x="4" y="10" width="32" height="24" rx="2"/><path d="M12 10V8a2 2 0 012-2h12a2 2 0 012 2v2"/><circle cx="20" cy="22" r="4"/><path d="M8 30s2-4 12-4 12 4 12 4"/></svg>
+      <h3>AI Agents</h3>
+      <p>Automated systems that work 24/7 — handling your chatbot, lead generation, booking, and client matching. Set it up once. Let it run forever.</p>
+      <span style="display:inline-block;margin-top:20px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);opacity:.7">Explore →</span>
+    </a>
+    <a href="human-agents.html" class="path-card reveal reveal-d2" style="text-decoration:none;display:block;color:inherit;">
+      <svg class="path-icon-svg" viewBox="0 0 40 40"><circle cx="20" cy="13" r="5"/><path d="M8 34s1-10 12-10 12 10 12 10"/><path d="M28 10a5 5 0 010 6M32 8a9 9 0 010 10"/></svg>
+      <h3>Human Agents</h3>
+      <p>Bilingual professionals from Colombia, recruited on demand. VAs, sales reps, customer service, web builders — the real humans your business needs.</p>
+      <span style="display:inline-block;margin-top:20px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);opacity:.7">Explore →</span>
+    </a>
+  </div>
+</section>
+
+<!-- AI AGENTS -->
+<section id="ai-agents">
+  <div class="line-anchor" id="anc3"></div>
+  <div class="section-head">
+    <span class="section-label reveal">Automation Products</span>
+    <h2 class="section-title reveal">AI Agents</h2>
+  </div>
+  <div class="agents-grid">
+    <div class="agent-card reveal reveal-d1">
+      <span class="agent-tag">Chat + Booking</span>
+      <h3>BACKO Chat</h3>
+      <p>A 24/7 AI agent on your website — answers questions, qualifies visitors, captures leads, and books appointments automatically. No staff required.</p>
+    </div>
+    <div class="agent-card reveal reveal-d2">
+      <span class="agent-tag">WhatsApp AI</span>
+      <h3>BACKO Assistant</h3>
+      <p>Your personal AI on WhatsApp. Sends reminders, notifies you of appointments and tasks, and accepts voice notes — just speak and it handles the rest.</p>
+    </div>
+    <div class="agent-card reveal reveal-d3">
+      <span class="agent-tag">SEO</span>
+      <h3>BACKO Leads</h3>
+      <p>Daily SEO content published to your site automatically, driving organic traffic and delivering branded monthly performance reports.</p>
+    </div>
+    <div class="agent-card reveal reveal-d4">
+      <span class="agent-tag">Qualify</span>
+      <h3>BACKO Match</h3>
+      <p>A custom assessment that qualifies your leads and books calls automatically — the same system BACKO uses for itself.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HUMAN AGENTS -->
+<section id="human-agents">
+  <div class="line-anchor" id="anc4"></div>
+  <div class="section-head">
+    <span class="section-label reveal">Real People, Remote</span>
+    <h2 class="section-title reveal">Human Agents</h2>
+  </div>
+  <div class="roles-grid">
+    <div class="role-card reveal reveal-d1">
+      <div class="role-name">Virtual Assistant</div>
+      <div class="role-desc">Admin, scheduling, email management, and coordination.</div>
+    </div>
+    <div class="role-card reveal reveal-d2">
+      <div class="role-name">Sales Rep</div>
+      <div class="role-desc">Outbound calls, CRM updates, and pipeline follow-up.</div>
+    </div>
+    <div class="role-card reveal reveal-d3">
+      <div class="role-name">Customer Service</div>
+      <div class="role-desc">Live support, ticketing, and satisfaction management.</div>
+    </div>
+    <div class="role-card reveal reveal-d4">
+      <div class="role-name">Telemarketing</div>
+      <div class="role-desc">Cold outreach, appointment setting, lead qualification.</div>
+    </div>
+    <div class="role-card reveal reveal-d5">
+      <div class="role-name">Web & App Builder</div>
+      <div class="role-desc">Frontend development, no-code builds, and maintenance.</div>
+    </div>
+    <div class="role-card reveal reveal-d6">
+      <div class="role-name">Web Admin</div>
+      <div class="role-desc">Content updates, plugins, hosting, and site upkeep.</div>
+    </div>
+    <div class="role-card reveal reveal-d7">
+      <div class="role-name">CRM Admin</div>
+      <div class="role-desc">Data entry, pipeline hygiene, reporting, and automation.</div>
+    </div>
+    <div class="role-card reveal reveal-d8">
+      <div class="role-name">Brand Studio</div>
+      <div class="role-desc">Full Canva brand kit and 15 custom templates — social, sales, and ops materials in your look and voice.</div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:40px;padding:24px;background:var(--surface);border:1px solid var(--border);max-width:860px;margin:40px auto 0;" class="reveal">
+    <p style="font-size:13px;color:var(--muted);line-height:1.8;">BACKO handles <strong style="color:var(--text)">recruiting, training, payroll, HR, and supervision</strong> — so you get a dedicated professional without the overhead of traditional hiring.</p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="line-anchor" id="anc5"></div>
+  <div class="section-head">
+    <span class="section-label reveal">The Process</span>
+    <h2 class="section-title reveal">How It Works</h2>
+  </div>
+  <div class="steps-wrap">
+    <div class="step reveal reveal-d1">
+      <span class="step-num">01</span>
+      <h4>Take the BACKO Assessment</h4>
+      <p>Answer 4 quick questions about your business. Takes under 2 minutes.</p>
+    </div>
+    <div class="step-arrow reveal reveal-d2">→</div>
+    <div class="step reveal reveal-d2">
+      <span class="step-num">02</span>
+      <h4>We Review Together</h4>
+      <p>We look at your results and map out exactly what your business needs on a discovery call.</p>
+    </div>
+    <div class="step-arrow reveal reveal-d3">→</div>
+    <div class="step reveal reveal-d3">
+      <span class="step-num">03</span>
+      <h4>We Build & Run It</h4>
+      <p>BACKO sets up your agents, places your talent, and keeps everything running smoothly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section id="social-proof">
+  <div class="line-anchor" id="anc6"></div>
+  <div class="section-head">
+    <span class="section-label reveal">Built Different</span>
+    <h2 class="section-title reveal">Small Team. Real Results.</h2>
+    <p class="reveal" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(17px,2vw,22px);color:var(--muted);max-width:620px;margin:20px auto 0;line-height:1.65;">Every client gets a dedicated setup, real support, and systems that actually run. No templates. No shortcuts.</p>
+  </div>
+  <div class="stats-row">
+    <div class="reveal reveal-d1"><span class="stat-num" data-count="5" data-suffix="+">5+</span><span class="stat-label">Businesses Supported</span></div>
+    <div class="reveal reveal-d2"><span class="stat-num" data-count="4" data-suffix="">4</span><span class="stat-label">Industries Served</span></div>
+    <div class="reveal reveal-d3"><span class="stat-num">24/7</span><span class="stat-label">AI Coverage</span></div>
+    <div class="reveal reveal-d4"><span class="stat-num" data-count="100" data-suffix="%">100%</span><span class="stat-label">Bilingual Talent</span></div>
+  </div>
+  <!-- TESTIMONIAL TICKER -->
+  <div class="ticker-wrap reveal" style="overflow:hidden;position:relative;margin-top:20px;padding:32px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+    <div class="ticker-inner" id="ticker" style="white-space:nowrap">
+      <span class="t-item">"We went from missing leads to having a system that responds to everyone. Real difference for our business."<em> — James R., Consulting · Chicago IL</em></span>
+      <span class="t-sep">✦</span>
+      <span class="t-item">"Having a bilingual VA who actually understands our clients has been a game changer. Highly recommend."<em> — Sandra M., E-commerce · Miami FL</em></span>
+      <span class="t-sep">✦</span>
+      <span class="t-item">"The chatbot handles most of our basic inquiries now. We only get on calls with people who are already qualified."<em> — Carlos P., Agency · New York</em></span>
+      <span class="t-sep">✦</span>
+      <span class="t-item">"Setup was fast and BACKO was involved throughout. Didn't feel like we were figuring it out alone."<em> — Rachel T., Wellness Studio · Austin TX</em></span>
+      <span class="t-sep">✦</span>
+      <span class="t-item">"The monthly SEO reports show real movement. Slow but consistent — exactly what we needed."<em> — David K., Real Estate · Dallas TX</em></span>
+      <span class="t-sep">✦</span>
+      <span class="t-item">"We went from missing leads to having a system that responds to everyone. Real difference for our business."<em> — James R., Consulting · Chicago IL</em></span>
+      <span class="t-sep">✦</span>
+      <span class="t-item">"Having a bilingual VA who actually understands our clients has been a game changer. Highly recommend."<em> — Sandra M., E-commerce · Miami FL</em></span>
+      <span class="t-sep">✦</span>
+      <span class="t-item">"The chatbot handles most of our basic inquiries now. We only get on calls with people who are already qualified."<em> — Carlos P., Agency · New York</em></span>
+      <span class="t-sep">✦</span>
+      <span class="t-item">"Setup was fast and BACKO was involved throughout. Didn't feel like we were figuring it out alone."<em> — Rachel T., Wellness Studio · Austin TX</em></span>
+      <span class="t-sep">✦</span>
+      <span class="t-item">"The monthly SEO reports show real movement. Slow but consistent — exactly what we needed."<em> — David K., Real Estate · Dallas TX</em></span>
+      <span class="t-sep">✦</span>
+    </div>
+  </div>
+</section>
+
+<!-- CUSTOM IDEA -->
+<section id="custom-idea" style="padding:80px 64px;background:var(--surface);position:relative;z-index:2;text-align:center;">
+  <div style="max-width:680px;margin:0 auto;">
+    <span style="font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:16px;">Custom Solutions</span>
+    <h2 class="reveal" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,5vw,60px);color:#fff;letter-spacing:.04em;line-height:1;margin-bottom:16px;">Have an idea?<br>Tell us.</h2>
+    <p class="reveal" style="font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:32px;">Not everything fits a template — and that is fine. Whether it is a custom AI agent, a specific role, or something entirely different — tell us what you need. If we can build it or find it, we will.</p>
+    <a href="contact.html" class="btn-primary reveal reveal-d2" style="font-size:12px;padding:14px 36px;">Tell Us Your Idea →</a>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="final-cta">
+  <div class="line-anchor" id="anc7"></div>
+  <h2 class="reveal">Find Your BACKO Solution</h2>
+  <p class="reveal">Take the 2-minute assessment and get a personalized plan — no fluff, no obligation.</p>
+  <div class="cta-row reveal reveal-d2">
+    <a href="backo-match.html" class="btn-primary" style="font-size:13px;padding:16px 48px">Take the BACKO Assessment →</a>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="backo-logo-horizontal.png" alt="BACKO" onerror="this.style.display='none';document.getElementById('ft-fb').style.display='block'">
+      <div class="footer-brand-fb" id="ft-fb">BACKO</div>
+      <p>Back office solutions for businesses worldwide. AI Agents and bilingual Human Agents, from Colombia.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <ul>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="ai-agents.html">AI Agents</a></li>
+        <li><a href="human-agents.html">Human Agents</a></li>
+        <li><a href="backo-match.html">Take the BACKO Assessment</a></li>
+        <li><a href="invest.html" style="color:var(--gold)">Invest in BACKO School</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Connect</h5>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/mybacko/" target="_blank" class="social-icon" title="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2"/></svg>
+        </a>
+        <a href="https://www.facebook.com/GETBACKO" target="_blank" class="social-icon" title="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://linkedin.com/company/getbacko" target="_blank" class="social-icon" title="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </div>
+      <a href="contact.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#000;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:10px 20px;text-decoration:none;margin-top:4px;transition:background .2s" onmouseover="this.style.background='#f0c955'" onmouseout="this.style.background='var(--gold)'">Contact Us →</a>
+    </div>
+    <div class="footer-col">
+      <h5>Join the Team</h5>
+      <ul>
+        <li><a href="careers.html">Send Your CV</a></li>
+        <li><a href="careers.html">Open Roles</a></li>
+      </ul>
+      <p style="font-size:12px;color:var(--muted);line-height:1.7;margin-top:16px">We're always looking for talented bilingual professionals to join our team.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 BACKO — Back Office Solutions. Colombia. NIT 1115070852-6</p>
+    <div style="display:flex;gap:20px;flex-wrap:wrap">
+      <a href="privacy.html" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.05em;transition:color .25s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">Privacy Policy</a>
+      <a href="terms.html" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.05em;transition:color .25s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">Términos y Condiciones</a>
+      <a href="contact.html" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.05em;transition:color .25s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">Contact Us</a>
+    </div>
+  </div>
+</footer>
+
+<!-- CHAT WIDGET -->
+<div id="chat-bubble" onclick="toggleChat()" title="Ask BACKO">
+  <canvas id="orb-canvas" width="54" height="54"></canvas>
+</div>
+<div id="chat-panel">
+  <canvas id="fluid-canvas" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;border-radius:0"></canvas>
+  <div class="chat-header" style="position:relative;z-index:1">
+    <canvas id="hdr-orb-canvas" width="26" height="26" style="border-radius:50%;flex-shrink:0"></canvas>
+    <div class="chat-header-info">
+      <h4>BACKO Assistant</h4>
+      <span>Ask me anything</span>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-msgs" id="chat-msgs">
+    <div class="msg bot">Hey! 👋 I'm your BACKO assistant. What would you like to know?</div>
+    <div id="faq-container"></div>
+  </div>
+</div>
+
+<script>
+// ── LOADER ──
+(function(){
+  const loader=document.getElementById('loader');
+  let gone=false;
+  function dismiss(){if(gone)return;gone=true;loader.classList.add('out');}
+  if(sessionStorage.getItem('backo_visited')){
+    loader.style.display='none';
+  } else {
+    sessionStorage.setItem('backo_visited','1');
+    setTimeout(dismiss,2000);
+    window.addEventListener('load',()=>setTimeout(dismiss,400));
+  }
+})();
+
+// ── GOLD PARTICLES ──
+(function(){
+  const c=document.getElementById('particle-canvas');
+  const ctx=c.getContext('2d');
+  let W,H;
+  const P=[];const N=65;
+  function resize(){W=c.width=innerWidth;H=c.height=innerHeight;}
+  resize();window.addEventListener('resize',resize);
+  for(let i=0;i<N;i++)P.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.6+.25,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22,a:Math.random()*.55+.08,f:Math.random()*Math.PI*2,fs:Math.random()*.018+.004});
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    for(const p of P){
+      p.x+=p.vx;p.y+=p.vy;p.f+=p.fs;
+      if(p.x<-8)p.x=W+8;if(p.x>W+8)p.x=-8;
+      if(p.y<-8)p.y=H+8;if(p.y>H+8)p.y=-8;
+      const a=p.a*(.55+.45*Math.sin(p.f));
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(224,184,79,${a})`;ctx.fill();
+    }
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+// ── HERO CANVAS — BACKO logo geometry: center hub + 3 nodes + arcs ──
+(function(){
+  const c=document.getElementById('hero-canvas');
+  const ctx=c.getContext('2d');
+  const G='#E0B84F';
+  let W,H,t=0,vis=true,born=Date.now();
+  // Logo node positions (updated on resize)
+  let CX,CY,OR; // center x, center y, outer radius
+  // The 3 outer node angles matching the logo: top=270°, bottom-left=150°, bottom-right=30°
+  const ANGLES=[-Math.PI/2, Math.PI/2+Math.PI/6*2, Math.PI/6*2]; // top, BL, BR
+
+  function resize(){
+    const hero=document.getElementById('hero');
+    W=c.width=hero.offsetWidth;
+    H=c.height=hero.offsetHeight;
+    CX=W/2;
+    CY=H*0.47;
+    OR=Math.min(W,H)*0.22; // original size — doesn't cover text
+  }
+
+  // Get current outer node positions (slowly rotate)
+  function outerNodes(){
+    return ANGLES.map(a=>({
+      x: CX+Math.cos(a+t*0.0012)*OR,
+      y: CY+Math.sin(a+t*0.0012)*OR
+    }));
+  }
+
+  function drawArcBetween(a,b,alpha){
+    const angA=Math.atan2(a.y-CY,a.x-CX);
+    const angB=Math.atan2(b.y-CY,b.x-CX);
+    // Always draw the SHORT arc (counterclockwise = shorter path between 120° nodes)
+    ctx.beginPath();
+    ctx.arc(CX,CY,OR,angA,angB,true);
+    ctx.strokeStyle='rgba(224,184,79,'+alpha+')';
+    ctx.lineWidth=2;
+    ctx.shadowBlur=8;ctx.shadowColor=G;
+    ctx.stroke();ctx.shadowBlur=0;
+  }
+
+  function drawNode(x,y,r,alpha,glowSize){
+    const gs=glowSize||r*14;
+    const g=ctx.createRadialGradient(x,y,0,x,y,gs);
+    g.addColorStop(0,'rgba(224,184,79,'+(alpha*0.22)+')');
+    g.addColorStop(1,'rgba(224,184,79,0)');
+    ctx.beginPath();ctx.arc(x,y,gs,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+    ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.fillStyle='rgba(224,184,79,'+alpha+')';
+    ctx.shadowBlur=r>5?20:12;ctx.shadowColor=G;ctx.fill();ctx.shadowBlur=0;
+  }
+
+  function frame(){
+    if(!vis){requestAnimationFrame(frame);return;}
+    ctx.clearRect(0,0,W,H);
+    t+=1;
+    const age=(Date.now()-born)/1400;
+    const intro=Math.min(1,age);
+    // text appears after SVG is visible — handled by delaying hero-line animations
+
+    const nodes=outerNodes();
+    const pulse=(Math.sin(t*0.04)+1)/2;
+
+    // ── Central atmosphere glow ──
+    const atmo=ctx.createRadialGradient(CX,CY,0,CX,CY,OR*1.9);
+    atmo.addColorStop(0,'rgba(224,184,79,'+(0.13*intro)+')');
+    atmo.addColorStop(0.5,'rgba(224,184,79,'+(0.04*intro)+')');
+    atmo.addColorStop(1,'rgba(224,184,79,0)');
+    ctx.beginPath();ctx.arc(CX,CY,OR*1.9,0,Math.PI*2);ctx.fillStyle=atmo;ctx.fill();
+
+    // ── Slow pulse ring from center ──
+    for(let p=0;p<2;p++){
+      const ph=(t*0.006+p*0.5)%1;
+      const pa=(1-ph)*0.14*intro;
+      if(pa>0.005){
+        ctx.beginPath();ctx.arc(CX,CY,ph*OR*1.8,0,Math.PI*2);
+        ctx.strokeStyle='rgba(224,184,79,'+pa+')';ctx.lineWidth=1;ctx.stroke();
+      }
+    }
+
+    // ── Lines: center → each outer node ──
+    nodes.forEach(n=>{
+      ctx.beginPath();ctx.moveTo(CX,CY);ctx.lineTo(n.x,n.y);
+      ctx.strokeStyle='rgba(224,184,79,'+(0.55*intro)+')';
+      ctx.lineWidth=2;ctx.shadowBlur=8;ctx.shadowColor=G;ctx.stroke();ctx.shadowBlur=0;
+    });
+
+    // ── Arcs between outer nodes (logo arcs) ──
+    for(let i=0;i<3;i++){
+      drawArcBetween(nodes[i],nodes[(i+1)%3],0.45*intro);
+    }
+
+    // ── Draw outer nodes ──
+    nodes.forEach(n=>drawNode(n.x,n.y,7,0.85*intro,OR*0.55));
+
+    // ── Center hub (larger, brighter, pulses) ──
+    const hubR=9+3*pulse;
+    drawNode(CX,CY,hubR,intro,OR*0.8);
+    // hub pulse ring
+    if(intro>0.3){
+      ctx.beginPath();ctx.arc(CX,CY,hubR+16*pulse,0,Math.PI*2);
+      ctx.strokeStyle='rgba(224,184,79,'+((1-pulse)*0.5*intro)+')';
+      ctx.lineWidth=1.2;ctx.stroke();
+    }
+
+
+
+    requestAnimationFrame(frame);
+  }
+
+  new IntersectionObserver(e=>{vis=e[0].isIntersecting;}).observe(document.getElementById('hero'));
+  window.addEventListener('resize',resize);
+  resize();frame();
+})();
+
+// ── DUAL SCROLL LINES — straight lines, V-pendant convergence at final CTA ──
+(function(){
+  const c=document.getElementById('scroll-canvas');
+  const ctx=c.getContext('2d');
+  const G='#E0B84F';
+  let W,H;
+  function resize(){W=c.width=innerWidth;H=c.height=innerHeight;}
+  resize();window.addEventListener('resize',resize);
+
+  const ids=['anc0','anc1','anc2','anc3','anc4','anc5','anc6','anc7'];
+  const LX=52;
+  function RX(){return W-52;}
+
+  function getY(id){
+    const el=document.getElementById(id);
+    return el?el.getBoundingClientRect().top:-9999;
+  }
+  function activ(id){
+    const el=document.getElementById(id);if(!el)return 0;
+    const top=el.getBoundingClientRect().top,th=H*0.62;
+    if(top<th)return 1;
+    return Math.max(0,1-(top-th)/(H*0.38));
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const rx=RX(),pulse=(Date.now()%2400)/2400;
+
+    // ── HERO CONNECTION: lines grow from side dots toward SVG center on scroll ──
+    // Triggered as soon as user starts scrolling (anc1 activates)
+    const heroAct=activ('anc1'); // use anc1 activation to drive the grow
+    if(heroAct>0){
+      const heroY=getY('anc0'); // y position of the side dots
+      const cx2=W/2;
+      const svgEdgeL=cx2-W*0.11; // approximate left edge of SVG (OR ≈ 0.22*min(W,H)/2)
+      const svgEdgeR=cx2+W*0.11;
+      const prog=Math.min(1,heroAct*3); // grows fast
+      const la=0.15+heroAct*0.35;
+      // Left: from LX growing right toward SVG edge
+      const ex_l=LX+(svgEdgeL-LX)*prog;
+      ctx.beginPath();ctx.moveTo(LX,heroY);ctx.lineTo(ex_l,heroY);
+      ctx.strokeStyle='rgba(224,184,79,'+la+')';ctx.lineWidth=1.5;
+      ctx.shadowBlur=5;ctx.shadowColor=G;ctx.stroke();ctx.shadowBlur=0;
+      // Right: from RX growing left toward SVG edge
+      const ex_r=rx-(rx-svgEdgeR)*prog;
+      ctx.beginPath();ctx.moveTo(rx,heroY);ctx.lineTo(ex_r,heroY);
+      ctx.strokeStyle='rgba(224,184,79,'+la+')';ctx.lineWidth=1.5;
+      ctx.shadowBlur=5;ctx.shadowColor=G;ctx.stroke();ctx.shadowBlur=0;
+    }
+
+    for(let i=0;i<ids.length;i++){
+      const act=activ(ids[i]),y=getY(ids[i]),isFinal=(i===ids.length-1);
+
+      // draw line segment from prev anchor to this one
+      if(i>0){
+        const pa=activ(ids[i-1]);
+        if(pa>0.04){
+          const py=getY(ids[i-1]);
+          const prog=Math.min(1,act*2.0);
+          const ey=py+(y-py)*prog;
+          const la=0.12+pa*0.38;
+
+          // lines start/end exactly at dot center
+          if(isFinal){
+            // V-pendant: straight lines angle inward meeting at center dot
+            const cx2=W/2;
+            const cp=act; // 0→1 as final CTA scrolls in
+            // left line goes from (LX,py) diagonally to (cx2, ey)
+            const ex_l=LX+(cx2-LX)*cp;
+            const ey_l=py+(ey-py)*cp;
+            // right line goes from (rx,py) diagonally to (cx2, ey)
+            const ex_r=rx-(rx-cx2)*cp;
+
+            ctx.beginPath();ctx.moveTo(LX,py);ctx.lineTo(ex_l,ey_l);
+            ctx.strokeStyle='rgba(224,184,79,'+la+')';ctx.lineWidth=1.5;
+            ctx.shadowBlur=6;ctx.shadowColor=G;ctx.stroke();ctx.shadowBlur=0;
+
+            ctx.beginPath();ctx.moveTo(rx,py);ctx.lineTo(ex_r,ey_l);
+            ctx.strokeStyle='rgba(224,184,79,'+la+')';ctx.lineWidth=1.5;
+            ctx.shadowBlur=6;ctx.shadowColor=G;ctx.stroke();ctx.shadowBlur=0;
+
+            // pendant dot appears when lines meet
+            if(cp>0.92){
+              const sp=(cp-0.92)/0.08;
+              const dotR=3+3*sp;
+              const g2=ctx.createRadialGradient(cx2,ey_l,0,cx2,ey_l,dotR*6);
+              g2.addColorStop(0,'rgba(224,184,79,'+(sp*0.35)+')');
+              g2.addColorStop(1,'rgba(224,184,79,0)');
+              ctx.beginPath();ctx.arc(cx2,ey_l,dotR*6,0,Math.PI*2);ctx.fillStyle=g2;ctx.fill();
+              ctx.beginPath();ctx.arc(cx2,ey_l,dotR,0,Math.PI*2);
+              ctx.fillStyle='rgba(224,184,79,'+(sp*0.95)+')';
+              ctx.shadowBlur=18;ctx.shadowColor=G;ctx.fill();ctx.shadowBlur=0;
+            }
+          } else {
+            // straight vertical lines
+            ctx.beginPath();ctx.moveTo(LX,py);ctx.lineTo(LX,ey);
+            ctx.strokeStyle='rgba(224,184,79,'+la+')';ctx.lineWidth=1.5;
+            ctx.shadowBlur=4;ctx.shadowColor=G;ctx.stroke();ctx.shadowBlur=0;
+            ctx.beginPath();ctx.moveTo(rx,py);ctx.lineTo(rx,ey);
+            ctx.strokeStyle='rgba(224,184,79,'+la+')';ctx.lineWidth=1.5;
+            ctx.shadowBlur=4;ctx.shadowColor=G;ctx.stroke();ctx.shadowBlur=0;
+          }
+        }
+      }
+
+      // anchor dot (not on final)
+      if(!isFinal&&act>0.02){
+        const nr=3+act*3.5,na=0.22+act*0.72;
+        if(act>0.88){
+          [LX,rx].forEach(nx=>{
+            ctx.beginPath();ctx.arc(nx,y,nr+14*pulse,0,Math.PI*2);
+            ctx.strokeStyle='rgba(224,184,79,'+((1-pulse)*0.25)+')';ctx.lineWidth=1;ctx.stroke();
+          });
+        }
+        [LX,rx].forEach(nx=>{
+          ctx.beginPath();ctx.arc(nx,y,nr,0,Math.PI*2);
+          ctx.fillStyle='rgba(224,184,79,'+na+')';
+          ctx.shadowBlur=act>0.5?12:0;ctx.shadowColor=G;ctx.fill();ctx.shadowBlur=0;
+        });
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── NAV ──
+window.addEventListener('scroll',()=>{
+  document.getElementById('main-nav').classList.toggle('scrolled',scrollY>60);
+},{passive:true});
+
+// ── SCROLL REVEAL ──
+(function(){
+  const els=document.querySelectorAll('.reveal');
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+  },{threshold:.1});
+  els.forEach(el=>obs.observe(el));
+})();
+
+// ── STAT COUNTERS ──
+(function(){
+  const nums=document.querySelectorAll('.stat-num[data-count]');
+  function animateCount(el){
+    const target=+el.dataset.count;
+    const suffix=el.dataset.suffix||'';
+    const duration=1400;
+    const start=performance.now();
+    function step(now){
+      const p=Math.min((now-start)/duration,1);
+      const ease=1-Math.pow(1-p,3);
+      el.textContent=Math.round(ease*target)+suffix;
+      if(p<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){animateCount(e.target);obs.unobserve(e.target);}
+    });
+  },{threshold:0.5});
+  nums.forEach(n=>obs.observe(n));
+})();
+
+// ── MOBILE MENU ──
+function toggleMobileMenu(){
+  const menu=document.getElementById('mobile-menu');
+  const btn=document.getElementById('nav-hamburger');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
+}
+function closeMobileMenu(){
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('nav-hamburger').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ── FLUID LIQUID ENGINE (gold palette) ──
+const BACKO_PALETTE=[
+  {r:224,g:184,b:79},  // gold
+  {r:180,g:140,b:50},  // mid gold
+  {r:140,g:105,b:30},  // deep gold
+  {r:255,g:215,b:120}, // bright gold
+  {r:100,g:75,b:20},   // dark amber
+];
+function createFluidBlobs(count,w,h){
+  return Array.from({length:count},(_,i)=>({
+    speedX:0.00018+i*0.000055, speedY:0.00022+i*0.000048,
+    phaseX:(i/count)*Math.PI*2, phaseY:(i/count)*Math.PI*2+1.2,
+    ampX:w*(0.28+(i%3)*0.08), ampY:h*(0.28+(i%3)*0.07),
+    radius:Math.min(w,h)*(0.38+(i%3)*0.12),
+    color:BACKO_PALETTE[i%BACKO_PALETTE.length],
+    wobbleA:0.00035+i*0.00012, wobbleP:i*0.7
+  }));
+}
+function drawFluid(canvas,blobs,t,alpha){
+  const ctx=canvas.getContext('2d');
+  const w=canvas.width,h=canvas.height;
+  ctx.fillStyle='rgba(4,3,1,1)';
+  ctx.fillRect(0,0,w,h);
+  ctx.save();
+  ctx.globalCompositeOperation='lighter';
+  blobs.forEach(b=>{
+    const wobble=Math.sin(t*b.wobbleA+b.wobbleP)*0.15;
+    const px=w*0.5+Math.sin(t*b.speedX+b.phaseX+wobble)*b.ampX;
+    const py=h*0.5+Math.cos(t*b.speedY+b.phaseY+wobble)*b.ampY;
+    const r=b.radius*(0.9+0.1*Math.sin(t*0.00028+b.phaseX));
+    const gr=ctx.createRadialGradient(px,py,0,px,py,r);
+    const {r:cr,g:cg,b:cb}=b.color;
+    gr.addColorStop(0,`rgba(${cr},${cg},${cb},${alpha*0.72})`);
+    gr.addColorStop(0.3,`rgba(${cr},${cg},${cb},${alpha*0.42})`);
+    gr.addColorStop(0.65,`rgba(${cr},${cg},${cb},${alpha*0.15})`);
+    gr.addColorStop(1,`rgba(${cr},${cg},${cb},0)`);
+    ctx.beginPath();ctx.arc(px,py,r,0,Math.PI*2);
+    ctx.fillStyle=gr;ctx.fill();
+  });
+  ctx.restore();
+}
+
+// ── TRIGGER ORB ──
+(function(){
+  const canvas=document.getElementById('orb-canvas');
+  canvas.width=54;canvas.height=54;
+  const blobs=createFluidBlobs(5,54,54);
+  const ctx=canvas.getContext('2d');
+  function tick(now){
+    ctx.save();
+    ctx.beginPath();ctx.arc(27,27,27,0,Math.PI*2);ctx.clip();
+    drawFluid(canvas,blobs,now,1.0);
+    // glass shine
+    const shine=ctx.createRadialGradient(17,14,0,17,14,18);
+    shine.addColorStop(0,'rgba(255,240,180,0.3)');
+    shine.addColorStop(1,'rgba(255,240,180,0)');
+    ctx.globalCompositeOperation='source-over';
+    ctx.fillStyle=shine;ctx.beginPath();ctx.arc(27,27,27,0,Math.PI*2);ctx.fill();
+    ctx.restore();
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+
+// ── HEADER ORB ──
+(function(){
+  const canvas=document.getElementById('hdr-orb-canvas');
+  canvas.width=26;canvas.height=26;
+  const blobs=createFluidBlobs(4,26,26);
+  const ctx=canvas.getContext('2d');
+  function tick(now){
+    ctx.save();
+    ctx.beginPath();ctx.arc(13,13,13,0,Math.PI*2);ctx.clip();
+    drawFluid(canvas,blobs,now,1.0);
+    ctx.restore();
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+
+// ── WIDGET FLUID BACKGROUND ──
+let widgetBlobs=null,fluidAnimId=null;
+function startFluid(){
+  const canvas=document.getElementById('fluid-canvas');
+  const panel=document.getElementById('chat-panel');
+  const rect=panel.getBoundingClientRect();
+  canvas.width=rect.width||360;canvas.height=rect.height||560;
+  if(!widgetBlobs) widgetBlobs=createFluidBlobs(6,canvas.width,canvas.height);
+  if(fluidAnimId) cancelAnimationFrame(fluidAnimId);
+  function tick(now){
+    drawFluid(canvas,widgetBlobs,now,0.45);
+    fluidAnimId=requestAnimationFrame(tick);
+  }
+  fluidAnimId=requestAnimationFrame(tick);
+}
+function stopFluid(){
+  if(fluidAnimId){cancelAnimationFrame(fluidAnimId);fluidAnimId=null;}
+}
+
+// ── FAQ CHAT WIDGET ──
+const FAQ=[
+  {
+    q:"How does BACKO work?",
+    a:"Two things: AI agents that run 24/7 and bilingual human professionals from Colombia. Take the BACKO Assessment — we'll recommend exactly what fits.",
+    cta:null
+  },
+  {
+    q:"What's the difference between AI Agents and Human Agents?",
+    a:"AI Agents automate your business 24/7 — chat, bookings, SEO. Human Agents are real bilingual pros from Colombia — VAs, sales, support. Many clients use both.",
+    cta:null
+  },
+  {
+    q:"How much does it cost?",
+    a:"AI Agents: one-time setup plus low monthly. Human Agents: flat monthly, no contracts, no payroll. Exact pricing on your discovery call.",
+    cta:null
+  },
+  {
+    q:"How fast can we get started?",
+    a:"Most setups go live within a week of your discovery call. We don't rush — we get it right the first time.",
+    cta:null
+  },
+  {
+    q:"Do I need to sign a long-term contract?",
+    a:"No contracts. Month-to-month only. Adjust or cancel anytime.",
+    cta:null
+  },
+  {
+    q:"I'm ready — what's next?",
+    a:"Take the BACKO Assessment — under 2 minutes and you'll be on the calendar with the right person.",
+    cta:{label:"Take the BACKO Assessment →",href:"backo-match.html"}
+  }
+];
+
+let chatOpen=false;
+
+function renderChips(){
+  const container=document.getElementById('faq-container');
+  container.innerHTML='';
+  const wrap=document.createElement('div');
+  wrap.className='faq-chips';
+  FAQ.forEach((item,i)=>{
+    const btn=document.createElement('button');
+    btn.className='faq-chip';
+    btn.textContent=item.q;
+    btn.onclick=()=>showAnswer(i);
+    wrap.appendChild(btn);
+  });
+  container.appendChild(wrap);
+}
+
+function showAnswer(i){
+  const msgs=document.getElementById('chat-msgs');
+  const container=document.getElementById('faq-container');
+  const item=FAQ[i];
+
+  // user bubble
+  const uMsg=document.createElement('div');
+  uMsg.className='msg';
+  uMsg.style.cssText='align-self:flex-end;background:var(--gold-dim);color:var(--text);padding:10px 14px;border-right:2px solid var(--gold);max-width:90%;font-size:13px;line-height:1.6';
+  uMsg.textContent=item.q;
+  msgs.insertBefore(uMsg,container);
+
+  // bot answer
+  const bMsg=document.createElement('div');
+  bMsg.className='msg bot';
+  bMsg.textContent=item.a;
+  msgs.insertBefore(bMsg,container);
+
+  if(item.cta){
+    const link=document.createElement('a');
+    link.className='faq-link';
+    link.href=item.cta.href;
+    link.textContent=item.cta.label;
+    msgs.insertBefore(link,container);
+  }
+
+  setTimeout(function(){uMsg.scrollIntoView({behavior:"smooth",block:"start"});},50);
+  // r
+  renderChips();
+}
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chat-panel').classList.toggle('open',chatOpen);
+  if(chatOpen){setTimeout(startFluid,50);}else{stopFluid();}
+}
+renderChips();
+</script>
+
+<!-- THREE.JS PARTICLE MORPH SYSTEM -->
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
