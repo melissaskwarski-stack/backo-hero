@@ -25,9 +25,9 @@ import { buildShapes } from './Shapes.js'
 const IS_MOBILE = /Mobi|Android/i.test(navigator.userAgent)
 
 // ── Particle counts ─────────────────────────────────────────────────────────
-const COUNT      = IS_MOBILE ?  420 :  920    // tetrahedra
-const DUST_COUNT = IS_MOBILE ?  110 :  280    // background dust points
-const BALL_COUNT = IS_MOBILE ?   50 :  130    // small floating balls
+const COUNT      = IS_MOBILE ?  800 : 1800    // tetrahedra (high density for crisp shapes)
+const DUST_COUNT = IS_MOBILE ?  100 :  240    // background dust points
+const BALL_COUNT = IS_MOBILE ?   40 :  100    // small floating balls
 
 const NUM_SHAPES = 6
 
@@ -44,11 +44,13 @@ const PALETTE = [
 ]
 
 // ── Tetrahedra physics ──────────────────────────────────────────────────────
-const SPRING   = 0.019
-const DECAY    = 0.87
+// SPRING up 3× → particles snap to shape decisively
+// DECAY lowered → more damping, fewer wobbles after settling
+const SPRING   = 0.058
+const DECAY    = 0.82
 const REPEL_R  = 62
 const REPEL_R2 = REPEL_R * REPEL_R
-const REPEL_F  = 1.5
+const REPEL_F  = 1.8
 
 export class ParticleField {
   constructor (canvas) {
@@ -111,10 +113,11 @@ export class ParticleField {
     }
     this._mesh.instanceColor.needsUpdate = true
 
-    // Per-instance scale: cube-root distribution → mostly small, a few large
+    // Per-instance scale: smaller range — at high density, large tetrahedra
+    // would smudge the crisp shape silhouettes.
     this._scales = new Float32Array(COUNT)
     for (let i = 0; i < COUNT; i++) {
-      this._scales[i] = 1.2 + Math.pow(Math.random(), 1.4) * 4.0
+      this._scales[i] = 0.9 + Math.pow(Math.random(), 1.6) * 2.4
     }
   }
 
@@ -290,7 +293,12 @@ export class ParticleField {
     const raw    = Math.min(scroll * (NUM_SHAPES - 1), NUM_SHAPES - 1.001)
     const iA     = Math.floor(raw)
     const iB     = iA + 1
-    const tl     = raw - iA
+
+    // SMOOTHSTEP easing: slow at section boundaries, fast in middle of morph.
+    // This means particles HOLD their crisp shape near each scroll waypoint
+    // instead of constantly drifting between forms.
+    const tLin = raw - iA
+    const tl   = tLin * tLin * (3 - 2 * tLin)
 
     const sA = this._shapes[iA]
     const sB = this._shapes[iB]
