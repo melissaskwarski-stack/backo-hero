@@ -1,35 +1,37 @@
-import { ParticleSystem } from './ParticleSystem.js'
-import { initScrollMorph } from './ScrollMorph.js'
+import { ParticleField } from './ParticleField.js'
 
-let particleSystem = null
+function init () {
+  // ── Hide the old canvas-based animations ──────────────────────────────────
+  // (they still run their rAF loops; we just make them invisible)
+  const hideOld = document.createElement('style')
+  hideOld.textContent =
+    '#hero-canvas{display:none!important}' +
+    '#particle-canvas{display:none!important}'
+  document.head.appendChild(hideOld)
 
-function init() {
-  // Create Three.js canvas — sits behind all existing page content
+  // ── Three.js canvas — fixed behind all page content ───────────────────────
   const canvas = document.createElement('canvas')
   canvas.id = 'three-particle-canvas'
   canvas.style.cssText = [
     'position:fixed',
     'inset:0',
-    'z-index:0',
+    'z-index:1',            // same layer where old particle-canvas was
     'pointer-events:none',
     'width:100%',
     'height:100%',
   ].join(';')
   document.body.prepend(canvas)
 
-  particleSystem = new ParticleSystem(canvas)
+  // ── Boot particle field ───────────────────────────────────────────────────
+  const field = new ParticleField(canvas)
 
-  initScrollMorph(particleSystem)
-
-  // Animation loop
-  function loop() {
-    particleSystem.tick()
+  // ── Animation loop ────────────────────────────────────────────────────────
+  ;(function loop () {
+    field.tick()
     requestAnimationFrame(loop)
-  }
-  requestAnimationFrame(loop)
+  })()
 }
 
-// Wait for DOM — page may still be loading when module executes
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init)
 } else {
